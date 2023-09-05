@@ -1,0 +1,6 @@
+[2023-09-05 20:07:11,544] INFO _log() L224   * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.109:5000 (Press CTRL+C to quit) - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-05 20:07:11,551] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-05 20:07:13,578] INFO _log() L224  127.0.0.1 - - [05/Sep/2023 20:07:13] "GET /produtos HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
