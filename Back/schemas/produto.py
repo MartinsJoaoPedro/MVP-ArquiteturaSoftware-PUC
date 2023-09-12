@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional, List
-from model.produto import Cliente
+from model.produto import Produto
 
 
 class ProdutoSchema(BaseModel):
@@ -52,7 +52,7 @@ class ListagemProdutosSchema(BaseModel):
     produtos: List[ProdutoSchema]
 
 
-def apresenta_produtos(produtos: List[Cliente]):
+def apresenta_produtos(produtos: List[Produto]):
     """ Retorna uma representação do produto seguindo o schema definido em
         ProdutoViewSchema.
     """
@@ -91,7 +91,7 @@ class ProdutoUpdateSchema(BaseModel):
     quantidade: int
 
 
-def apresenta_produto(produto: Cliente):
+def apresenta_produto(produto: Produto):
     """ Retorna uma representação do produto seguindo o schema definido em
         ProdutoViewSchema.
     """

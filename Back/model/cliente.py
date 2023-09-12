@@ -9,10 +9,9 @@ from  model import Base
 class Cliente(Base):
     __tablename__ = 'cliente'
 
-    id = Column("pk_cliente", Integer, primary_key=True)
+    cpf = Column("pk_cliente", String, primary_key=True)
     nome = Column(String(140), unique=True)
-    quantidade = Column(Integer)
-    valor = Column(Float)
+    cep = Column(String)
     data_insercao = Column(DateTime, default=datetime.now())
 
     # Definição do relacionamento entre o cliente e o comentário.
@@ -21,7 +20,7 @@ class Cliente(Base):
     # de reconstruir esse relacionamento.
     # comentarios = relationship("Comentario")
 
-    def __init__(self, nome:str, quantidade:int, valor:float,
+    def __init__(self, cpf:str, nome:str, cep:str,
                  data_insercao:Union[DateTime, None] = None):
         """
         Cria um cliente
@@ -32,9 +31,9 @@ class Cliente(Base):
             valor: valor esperado para o cliente
             data_insercao: data de quando o cliente foi inserido à base
         """
+        self.cpf = cpf
         self.nome = nome
-        self.quantidade = quantidade
-        self.valor = valor
+        self.cep = cep
 
         # se não for informada, será o data exata da inserção no banco
         if data_insercao:
