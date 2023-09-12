@@ -17,7 +17,10 @@ if (window.location.href.indexOf("endereco.html") !== -1) {
 }
 
 function getEndereco() {
-  fetch('https://viacep.com.br/ws/21941300/json/')
+  document.querySelector('#cep-data').innerHTML = '';
+  let inputCep = document.querySelector("#getCep").value;
+
+  fetch('https://viacep.com.br/ws/' + inputCep + '/json/')
     .then(response => response.json())
     .then(data => {
       const cepDataList = document.querySelector('#cep-data');

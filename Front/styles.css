@@ -6,6 +6,8 @@ li {
     margin: 0;
     padding: 0;
     background-color: rgb(225, 222, 199);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 header {
