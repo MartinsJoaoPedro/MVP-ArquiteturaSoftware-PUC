@@ -302,6 +302,9 @@ def add_cliente(form: ClienteSchema):
 
     Retorna uma representação dos clientes associados.
     """
+    print(form.cpf);
+    print(form.nome);
+    print(form.cep);
     cliente = Cliente(cpf=form.cpf, nome=form.nome, cep=form.cep)
     logger.debug(f"Adicionando cliente de nome: '{cliente.nome}'")
     try:
