@@ -1,6 +1,13 @@
+//Váriaveis globais
 let ids = [];
 let id;
 
+//Chamada da função para carregamento inicial dos dados
+if (window.location.href.indexOf("estoque.html") !== -1) {
+    getList();
+}
+
+//Função para carregamento da estrutura inicial
 function inicar() {
     let atulizar = document.createElement("span");
     atulizar.innerHTML = "atulizar";
@@ -15,17 +22,6 @@ function pegaListaId(idn) {
 function att() {
     let buscar = document.getElementById("buscar");
     buscar.remove();
-}
-
-/*
-  --------------------------------------------------------------------------------------
-  Chamada da função para carregamento inicial dos dados
-  --------------------------------------------------------------------------------------
-*/
-
-
-if (window.location.href.indexOf("estoque.html") !== -1) {
-    getList();
 }
 
 function limparDados() {

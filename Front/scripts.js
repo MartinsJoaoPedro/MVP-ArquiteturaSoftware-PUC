@@ -1,6 +1,12 @@
 let ids = [];
 let id;
 
+//Chamada da função para carregamento inicial dos dados
+if (window.location.href.indexOf("produto.html") !== -1) {
+  getList();
+}
+
+//Função para carregamento da estrutura inicial
 function inicar() {
   let atulizar = document.createElement("span");
   atulizar.innerHTML = "atulizar";
@@ -8,32 +14,64 @@ function inicar() {
   atulizar.onclick = busca();
 }
 
-function att() {
-    let buscar = document.getElementById("buscar");
-    buscar.remove();
-}
-
+// Adiciona 'idn' à lista 'ids'
 function pegaListaId(idn) {
   ids.push(idn);
 }
 
-/*
-  --------------------------------------------------------------------------------------
-  Chamada da função para carregamento inicial dos dados
-  --------------------------------------------------------------------------------------
-*/
-
-
-if (window.location.href.indexOf("produto.html") !== -1) {
-  getList();
+//Função para colocar o botão de remover
+function inserirBtnRemover(item) {
+  let span = document.createElement("span");
+  //u00D7 == x
+  let txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  //x está no span
+  span.appendChild(txt);
+  //span está no paramentro parent
+  item.appendChild(span);
 }
 
-/*
-  --------------------------------------------------------------------------------------
-  Função para obter a lista existente do servidor via requisição GET
-  --------------------------------------------------------------------------------------
-*/
+//Função para colocar o botão de editar
+function inserirBtnEditar(item) {
+  let span = document.createElement("span");
+  let txt = document.createTextNode("\u270F");
+  span.className = 'edit';
+  span.appendChild(txt);
+  item.appendChild(span);
+}
 
+//Função para limpar os valores da tabela
+function limparDados() {
+  document.getElementById("getNome").value = "";
+  document.getElementById("getQuantidade").value = "";
+  document.getElementById("getValor").value = "";
+}
+
+//Altera de pagina cliente
+function cliente() {
+  console.log("click cliente");
+  window.location.href = 'cliente.html';
+}
+
+//Altera de pagina produto
+function produto() {
+  console.log("click validade");
+  window.location.href = 'produto.html';
+}
+
+//Altera de pagina busca
+function busca() {
+  console.log("click sacola");
+  window.location.href = 'busca.html';
+}
+
+//Altera de pagina endereço
+function endereco() {
+  console.log("click endereco");
+  window.location.href = 'endereco.html';
+}
+
+//Função para obter a lista existente do servidor via requisição GET
 function getList() {
   let url = 'http://127.0.0.1:5000/produtos';
   console.log("get")
@@ -51,12 +89,7 @@ function getList() {
     });
 }
 
-/*
-  --------------------------------------------------------------------------------------
-  Função para colocar um item do produto na lista do servidor via requisição POST
-  --------------------------------------------------------------------------------------
-*/
-
+//Função para colocar um item do produto na lista do servidor via requisição POST
 async function postItem(inputProduct, inputQuantity, inputPrice) {
 
   //Criação do objeto
@@ -80,44 +113,7 @@ async function postItem(inputProduct, inputQuantity, inputPrice) {
     });
 }
 
-/*
-  --------------------------------------------------------------------------------------
-  Função para criar um botão close para cada item do produto da lista
-  --------------------------------------------------------------------------------------
-*/
-
-//Função pra colocar o botão
-function inserirBtnRemover(item) {
-  let span = document.createElement("span");
-  //u00D7 == x
-  let txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  //x está no span
-  span.appendChild(txt);
-  //span está no paramentro parent
-  item.appendChild(span);
-}
-
-/*
-  --------------------------------------------------------------------------------------
-  Função para criar um botão editar para cada item do produto da lista
-  --------------------------------------------------------------------------------------
-*/
-
-//Função pra colocar o botão
-function inserirBtnEditar(item) {
-  let span = document.createElement("span");
-  let txt = document.createTextNode("\u270F");
-  span.className = 'edit';
-  span.appendChild(txt);
-  item.appendChild(span);
-}
-
-/*
-  --------------------------------------------------------------------------------------
-  Função para remover um item do produto da lista de acordo com o click no botão close
-  --------------------------------------------------------------------------------------
-*/
+//Função para remover um item do produto da lista de acordo com o click no botão close
 function Remover() {
   let close = document.getElementsByClassName("close"); // Seleciona todas as células da tabela com a classe close
   // var table = document.getElementById('myTable');
@@ -241,11 +237,7 @@ function Editar() {
   }
 }
 
-/*
-  --------------------------------------------------------------------------------------
-  Função para deletar um item do produto da lista do servidor via requisição DELETE
-  --------------------------------------------------------------------------------------
-*/
+//Função para deletar um item do produto da lista do servidor via requisição DELETE
 function deletarProduto(nomeItem) {
   console.log("Nome do item");
   console.log(nomeItem);
@@ -276,11 +268,7 @@ function deletarProdutoId(IdItem) {
     });
 }
 
-/*
-  --------------------------------------------------------------------------------------
-  Função para adicionar um novo item do produto com nome, quantidade e valor 
-  --------------------------------------------------------------------------------------
-*/
+//Função para adicionar um novo item do produto com nome, quantidade e valor
 function newItem() {
   let nome = document.getElementById("getNome").value;
   let quantidade = document.getElementById("getQuantidade").value;
@@ -293,18 +281,14 @@ function newItem() {
   } else {
     //Acrescenta o item do produto na lista do site
     insertList(nome, quantidade, preco);
-    //Envia um comando post pra api
+    //Envia um comando post para api
     postItem(nome, quantidade, preco);
     produto();//evita bug apos adicionar uma linha
     alert("Item adicionado!");
   }
 }
 
-/*
-  --------------------------------------------------------------------------------------
-  Função para inserir items ao produto na lista apresentada
-  --------------------------------------------------------------------------------------
-*/
+//Função para inserir items ao produto na lista apresentada
 let rowId = 1;
 function insertList(nameProduct, quantity, price) {
   //alert("insertList");
@@ -328,11 +312,8 @@ function insertList(nameProduct, quantity, price) {
   Editar();
 }
 
+//primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
 function insertUm(nameProduct, quantity, price) {
-  //alert("insertList");
-  // if () {
-  //   limparDados();
-  // }
   var item = [nameProduct, quantity, price];
   var table = document.getElementById('myTable');
   while (table.rows.length > 1) {
@@ -350,6 +331,7 @@ function insertUm(nameProduct, quantity, price) {
 }
 
 
+//Insere uma nova linha
 function insertMais(nameProduct, quantity, price) {
   var item = [nameProduct, quantity, price];
   var table = document.getElementById('myTable');
@@ -362,36 +344,6 @@ function insertMais(nameProduct, quantity, price) {
     var cel = row.insertCell(i);
     cel.textContent = item[i];
   }
-}
-
-function limparDados() {
-  document.getElementById("getNome").value = "";
-  document.getElementById("getQuantidade").value = "";
-  document.getElementById("getValor").value = "";
-}
-
-//Altera de pagina cliente
-function cliente() {
-  console.log("click cliente");
-  window.location.href = 'cliente.html';
-}
-
-//Altera de pagina produto
-function produto() {
-  console.log("click validade");
-  window.location.href = 'produto.html';
-}
-
-//Altera de pagina busca
-function busca() {
-  console.log("click sacola");
-  window.location.href = 'busca.html';
-}
-
-//Altera de pagina endereço
-function endereco() {
-  console.log("click endereco");
-  window.location.href = 'endereco.html';
 }
 
 function updateProduto(idProduto, nomeProduto, quantidadeProduto, precoProduto) {
@@ -425,7 +377,9 @@ function buscarProduto() {
   let inputValor = document.querySelectorAll("#getValor");
   let Produto
 
-  att();
+  let buscar = document.getElementById("buscar");
+  buscar.remove();
+
   for (let k = 0; k < inputID.length; k++) {
     Produto = inputID[k].value;           // Salva o valor do campo aqui         }
     if (Produto != "") {
