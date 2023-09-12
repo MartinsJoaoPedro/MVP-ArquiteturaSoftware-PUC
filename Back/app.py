@@ -265,12 +265,9 @@ def update_produto(query: ProdutoBuscaSchema, form: ProdutoUpdateSchema):
     session = Session()
     # fazendo a remoção
     count = (
+        # Produto.nome == produto_nome).first()
         session.query(Produto)
-        .filter(
-            # Produto.nome == produto_nome).first()
-            Produto.id
-            == produto_id
-        )
+        .filter(Produto.id == produto_id)
         .first()
     )
 
@@ -302,9 +299,9 @@ def add_cliente(form: ClienteSchema):
 
     Retorna uma representação dos clientes associados.
     """
-    print(form.cpf);
-    print(form.nome);
-    print(form.cep);
+    print(form.cpf)
+    print(form.nome)
+    print(form.cep)
     cliente = Cliente(cpf=form.cpf, nome=form.nome, cep=form.cep)
     logger.debug(f"Adicionando cliente de nome: '{cliente.nome}'")
     try:
@@ -489,21 +486,16 @@ def update_cliente(query: ClienteBuscaSchemaCpf, form: ClienteUpdateSchema):
     session = Session()
     # fazendo a remoção
     count = (
+        # cliente.nome == cliente_nome).first()
         session.query(Cliente)
-        .filter(
-            # cliente.nome == cliente_nome).first()
-            Cliente.cpf
-            == cliente_cpf
-        )
+        .filter(Cliente.cpf == cliente_cpf)
         .first()
     )
 
-    count.cpf = form.cpf
     count.nome = form.nome
     count.cep = form.cep
 
     print("nome")
-    print(count.cpf)
     print(count.nome)
     print(count.cep)
 

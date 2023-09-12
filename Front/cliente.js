@@ -107,9 +107,9 @@ function getList() {
 async function postItem(inputCpf, inputNome, inputCep) {
   //Criação do objeto
   const formData = new FormData();
-  formData.append("CPF", inputCpf);
+  formData.append("cpf", inputCpf);
   formData.append("nome", inputNome);
-  formData.append("Cep", inputCep);
+  formData.append("cep", inputCep);
   console.log("Formulário");
   for (var pair of formData.entries()) {
     console.log(pair[0] + ", " + pair[1]);
@@ -229,7 +229,7 @@ function Editar() {
         console.log(cep);
         console.log("============");
 
-        updateCliente(id, cpf, nome, cep);
+        updateCliente(cpf, nome, cep);
       };
     };
   }
@@ -340,15 +340,14 @@ function insertMais(cpfCliente, nome, cep) {
 }
 
 //Função para alterar um cliente
-function updateCliente(idCliente, cpfCliente, nomeCliente, cepCliente) {
+function updateCliente(cpfCliente, nomeCliente, cepCliente) {
   //Criação do objeto
   const formData = new FormData();
-  formData.append("cpf", cpfCliente);
   formData.append("nome", nomeCliente);
   formData.append("cep", cepCliente);
 
   //put do objeto
-  let url = "http://127.0.0.1:5000/cliente?id=" + idCliente;
+  let url = "http://127.0.0.1:5000/cliente?cpf=" + cpfCliente;
   console.log("put");
   console.log(url);
   fetch(url, {
