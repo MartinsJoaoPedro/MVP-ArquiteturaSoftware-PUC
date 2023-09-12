@@ -1,49 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css" />
 
-    <link rel="stylesheet" href="../styles.css">
+    <!-- Inclua as bibliotecas jQuery e jQuery Mask Plugin -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
     <title>IFrutas</title>
 
     <title>Exemplo de consumo da API do ViaCEP</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- Cabeçalho de informações do sistema -->
     <header>
+      <div class="title">
+        <h2 onclick="endereco()">Endereço</h2>
 
-        <div class="title">
-            <h2 onclick="endereco()">Endereço</h2>
-
-            <section class="ajusteAtt">
-                <span onclick="busca()" class="addBtn">Busca</span>
-                <span onclick="cliente()" id="cliente" class="addBtn">Cliente</span>
-                <span onclick="produto()" id="produto" class="addBtn">Produto</span>
-                <!-- <a href="validade.html" class="botaoPagina btnSacola">validade</a> -->
-            </section>
-        </div>
-
-        <!-- Opções para adicionar um novo item -->
-        <section class="image-background">
-            <div class="ajusteTable">
-                <!-- id= referenciar o css placeholder= texto de predefinição -->
-                <input type="text" id="getCep" placeholder="Cep:">
-                <span onclick="getEndereco()" class="addBtn">Buscar</span>
-            </div>
+        <section class="ajusteAtt">
+          <span onclick="busca()" class="addBtn">Busca</span>
+          <span onclick="cliente()" id="cliente" class="addBtn">Cliente</span>
+          <span onclick="produto()" id="produto" class="addBtn">Produto</span>
+          <!-- <a href="validade.html" class="botaoPagina btnSacola">validade</a> -->
         </section>
+      </div>
+
+      <!-- Opções para adicionar um novo item -->
+      <section class="image-background">
+        <div class="ajusteTable">
+          <!-- id= referenciar o css placeholder= texto de predefinição -->
+          <input type="text" id="getCep" placeholder="Cep:" />
+          <span onclick="getEndereco()" class="addBtn">Buscar</span>
+        </div>
+      </section>
     </header>
 
     <!-- Tabela com items existentes -->
     <section class="items">
-        <h3>Dados do CEP</h3>
-        <ul id="cep-data"></ul>
+      <h3>Dados do CEP</h3>
+      <ul id="cep-data"></ul>
 
-        <!--
+      <!--
         <table id="myTable">
             <tr id="idDaLinha">
                 <td>Nome</td>
@@ -55,9 +57,14 @@
         </table>-->
     </section>
 
+    <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF -->
+    <script>
+      $(document).ready(function () {
+        $("#getCep").mask("00000-000");
+      });
+    </script>
+
     <script src="../scripts.js"></script>
     <script src="../endereco.js"></script>
-
-</body>
-
+  </body>
 </html>
