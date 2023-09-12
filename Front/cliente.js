@@ -3,27 +3,45 @@ let ids = [];
 let id;
 
 //Chamada da função para carregamento inicial dos dados
-if (window.location.href.indexOf("estoque.html") !== -1) {
-    getList();
+if (window.location.href.indexOf("produto.html") !== -1) {
+  getList();
 }
 
 //Função para carregamento da estrutura inicial
 function inicar() {
-    let atulizar = document.createElement("span");
-    atulizar.innerHTML = "atulizar";
-    atulizar.classList.add("addBtn");
-    atulizar.onclick = busca();
+  let atulizar = document.createElement("span");
+  atulizar.innerHTML = "atulizar";
+  atulizar.classList.add("addBtn");
+  atulizar.onclick = busca();
 }
 
+// Adiciona 'idn' à lista 'ids'
 function pegaListaId(idn) {
-    ids.push(idn);
+  ids.push(idn);
 }
 
-function att() {
-    let buscar = document.getElementById("buscar");
-    buscar.remove();
+//Função para colocar o botão de remover
+function inserirBtnRemover(item) {
+  let span = document.createElement("span");
+  //u00D7 == x
+  let txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  //x está no span
+  span.appendChild(txt);
+  //span está no paramentro parent
+  item.appendChild(span);
 }
 
+//Função para colocar o botão de editar
+function inserirBtnEditar(item) {
+  let span = document.createElement("span");
+  let txt = document.createTextNode("\u270F");
+  span.className = 'edit';
+  span.appendChild(txt);
+  item.appendChild(span);
+}
+
+//Função para limpar os valores da tabela
 function limparDados() {
   document.getElementById("getNome").value = "";
   document.getElementById("getQuantidade").value = "";

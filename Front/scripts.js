@@ -1,3 +1,4 @@
+//Váriaveis globais
 let ids = [];
 let id;
 
