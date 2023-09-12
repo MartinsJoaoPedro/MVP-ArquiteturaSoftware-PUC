@@ -12,7 +12,7 @@ function att() {
 
 if (window.location.href.indexOf("endereco.html") !== -1) {
   /*getList();*/
-  getEndereco();
+  //getEndereco();
 
 }
 
