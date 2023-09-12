@@ -24,7 +24,7 @@ function pegaListaId(idn) {
 */
 
 
-if (window.location.href.indexOf("estoque.html") !== -1) {
+if (window.location.href.indexOf("produto.html") !== -1) {
   getList();
 }
 
@@ -53,7 +53,7 @@ function getList() {
 
 /*
   --------------------------------------------------------------------------------------
-  Função para colocar um item do estoque na lista do servidor via requisição POST
+  Função para colocar um item do produto na lista do servidor via requisição POST
   --------------------------------------------------------------------------------------
 */
 
@@ -82,7 +82,7 @@ async function postItem(inputProduct, inputQuantity, inputPrice) {
 
 /*
   --------------------------------------------------------------------------------------
-  Função para criar um botão close para cada item do estoque da lista
+  Função para criar um botão close para cada item do produto da lista
   --------------------------------------------------------------------------------------
 */
 
@@ -100,7 +100,7 @@ function inserirBtnRemover(item) {
 
 /*
   --------------------------------------------------------------------------------------
-  Função para criar um botão editar para cada item do estoque da lista
+  Função para criar um botão editar para cada item do produto da lista
   --------------------------------------------------------------------------------------
 */
 
@@ -115,7 +115,7 @@ function inserirBtnEditar(item) {
 
 /*
   --------------------------------------------------------------------------------------
-  Função para remover um item do estoque da lista de acordo com o click no botão close
+  Função para remover um item do produto da lista de acordo com o click no botão close
   --------------------------------------------------------------------------------------
 */
 function Remover() {
@@ -142,7 +142,7 @@ function Remover() {
 
 /*
   --------------------------------------------------------------------------------------
-  Função para editar um item do estoque da lista de acordo com o click no botão edit
+  Função para editar um item do produto da lista de acordo com o click no botão edit
   --------------------------------------------------------------------------------------
 */
 
@@ -243,7 +243,7 @@ function Editar() {
 
 /*
   --------------------------------------------------------------------------------------
-  Função para deletar um item do estoque da lista do servidor via requisição DELETE
+  Função para deletar um item do produto da lista do servidor via requisição DELETE
   --------------------------------------------------------------------------------------
 */
 function deletarProduto(nomeItem) {
@@ -278,7 +278,7 @@ function deletarProdutoId(IdItem) {
 
 /*
   --------------------------------------------------------------------------------------
-  Função para adicionar um novo item do estoque com nome, quantidade e valor 
+  Função para adicionar um novo item do produto com nome, quantidade e valor 
   --------------------------------------------------------------------------------------
 */
 function newItem() {
@@ -291,18 +291,18 @@ function newItem() {
   } else if (isNaN(quantidade) || isNaN(preco)) {
     alert("Quantidade e valor precisam ser números!");
   } else {
-    //Acrescenta o item do estoque na lista do site
+    //Acrescenta o item do produto na lista do site
     insertList(nome, quantidade, preco);
     //Envia um comando post pra api
     postItem(nome, quantidade, preco);
-    estoque();//evita bug apos adicionar uma linha
+    produto();//evita bug apos adicionar uma linha
     alert("Item adicionado!");
   }
 }
 
 /*
   --------------------------------------------------------------------------------------
-  Função para inserir items ao estoque na lista apresentada
+  Função para inserir items ao produto na lista apresentada
   --------------------------------------------------------------------------------------
 */
 let rowId = 1;
@@ -376,10 +376,10 @@ function cliente() {
   window.location.href = 'cliente.html';
 }
 
-//Altera de pagina estoque
-function estoque() {
+//Altera de pagina produto
+function produto() {
   console.log("click validade");
-  window.location.href = 'estoque.html';
+  window.location.href = 'produto.html';
 }
 
 //Altera de pagina busca
