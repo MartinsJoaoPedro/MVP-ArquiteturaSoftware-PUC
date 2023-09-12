@@ -4,7 +4,7 @@ from urllib.parse import unquote
 
 from sqlalchemy.exc import IntegrityError
 
-from model import Session, Produto
+from model import Session, Cliente
 from logger import logger
 from schemas import *
 from flask_cors import CORS
@@ -35,7 +35,7 @@ def add_produto(form: ProdutoSchema):
 
     Retorna uma representação dos produtos associados.
     """
-    produto = Produto(
+    produto = Cliente(
         nome=form.nome,
         quantidade=form.quantidade,
         valor=form.valor)
@@ -76,7 +76,7 @@ def get_produtos():
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    produtos = session.query(Produto).all()
+    produtos = session.query(Cliente).all()
 
     if not produtos:
         # se não há produtos cadastrados
@@ -100,7 +100,7 @@ def get_produtos_nome(query: ProdutoBuscaSchemaNome):
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    produtos = session.query(Produto).filter(Produto.nome.contains(produto_nome)).all()
+    produtos = session.query(Cliente).filter(Cliente.nome.contains(produto_nome)).all()
 
     if not produtos:
         # se não há produtos cadastrados
@@ -123,7 +123,7 @@ def get_produtos_quantidade(query: ProdutoBuscaSchemaQuantidade):
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    produtos = session.query(Produto).filter(Produto.quantidade.contains(produto_quantidade)).all()
+    produtos = session.query(Cliente).filter(Cliente.quantidade.contains(produto_quantidade)).all()
 
     if not produtos:
         # se não há produtos cadastrados
@@ -146,7 +146,7 @@ def get_produtos_valor(query: ProdutoBuscaSchemaValor):
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    produtos = session.query(Produto).filter(Produto.valor.contains(produto_valor)).all()
+    produtos = session.query(Cliente).filter(Cliente.valor.contains(produto_valor)).all()
 
     if not produtos:
         # se não há produtos cadastrados
@@ -174,7 +174,7 @@ def get_produto_id(query: ProdutoBuscaSchema):
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    produto = session.query(Produto).filter(Produto.id == produto_id).first()
+    produto = session.query(Cliente).filter(Cliente.id == produto_id).first()
 
     if not produto:
         # se o produto não foi encontrado
@@ -202,8 +202,8 @@ def del_produto(query: ProdutoBuscaSchema):
     # criando conexão com a base
     session = Session()
     # fazendo a remoção
-    count = session.query(Produto).filter(
-        Produto.id == produto_id).delete()
+    count = session.query(Cliente).filter(
+        Cliente.id == produto_id).delete()
     session.commit()
 
     if count:
@@ -231,9 +231,9 @@ def update_produto(query: ProdutoBuscaSchema, form: ProdutoUpdateSchema):
     # criando conexão com a base
     session = Session()
     # fazendo a remoção
-    count = session.query(Produto).filter(
+    count = session.query(Cliente).filter(
         # Produto.nome == produto_nome).first()
-        Produto.id == produto_id).first()
+        Cliente.id == produto_id).first()
 
     count.nome = form.nome
     count.valor = form.valor

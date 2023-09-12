@@ -6,7 +6,7 @@ from typing import Union
 from  model import Base
 
 
-class Produto(Base):
+class Cliente(Base):
     __tablename__ = 'produto'
 
     id = Column("pk_produto", Integer, primary_key=True)

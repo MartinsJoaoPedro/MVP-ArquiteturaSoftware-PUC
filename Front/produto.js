@@ -254,6 +254,7 @@ function deletarProduto(nomeItem) {
     });
 }
 
+//Função para deletar um item do produto da lista utilizando o ID do servidor via requisição DELETE
 function deletarProdutoId(IdItem) {
   console.log("ID do item");
   console.log(IdItem);
@@ -340,13 +341,14 @@ function insertMais(nameProduct, quantity, price) {
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
 
 
-  // repita onde( inteiro "i" = 0 e menor que o numero de itens, some 1)
+  //Repita onde( inteiro "i" = 0 e menor que o numero de itens, some 1)
   for (var i = 0; i < item.length; i++) {
     var cel = row.insertCell(i);
     cel.textContent = item[i];
   }
 }
 
+//Função para alterar um produto
 function updateProduto(idProduto, nomeProduto, quantidadeProduto, precoProduto) {
 
   //Criação do objeto

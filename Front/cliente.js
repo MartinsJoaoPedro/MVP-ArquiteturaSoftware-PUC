@@ -3,7 +3,7 @@ let ids = [];
 let id;
 
 //Chamada da função para carregamento inicial dos dados
-if (window.location.href.indexOf("produto.html") !== -1) {
+if (window.location.href.indexOf("cliente.html") !== -1) {
   getList();
 }
 
@@ -54,7 +54,7 @@ function cliente() {
   window.location.href = 'cliente.html';
 }
 
-//Altera de pagina produto
+//Altera de pagina cliente
 function produto() {
   console.log("click validade");
   window.location.href = 'produto.html';
@@ -101,16 +101,17 @@ function getList() {
   --------------------------------------------------------------------------------------
 */
 
+//Função para colocar um item do cliente na lista do servidor via requisição POST
 async function postItem(inputCpf, inputNome, inputPrice) {
 
     //Criação do objeto
     const formData = new FormData();
-    formData.append('nome', inputCpf);
-    formData.append('CPF', inputNome);
+    formData.append('CPF', inputCpf);
+    formData.append('nome', inputNome);
     formData.append('Cep', inputPrice);
 
     //post do objeto
-    let url = 'http://127.0.0.1:5000/produto';
+    let url = 'http://127.0.0.1:5000/cliente';
     console.log("post")
     console.log(url)
     fetch(url, {

@@ -6,17 +6,17 @@ from typing import Union
 from  model import Base
 
 
-class Produto(Base):
-    __tablename__ = 'produto'
+class Cliente(Base):
+    __tablename__ = 'cliente'
 
-    id = Column("pk_produto", Integer, primary_key=True)
+    id = Column("pk_cliente", Integer, primary_key=True)
     nome = Column(String(140), unique=True)
     quantidade = Column(Integer)
     valor = Column(Float)
     data_insercao = Column(DateTime, default=datetime.now())
 
-    # Definição do relacionamento entre o produto e o comentário.
-    # Essa relação é implicita, não está salva na tabela 'produto',
+    # Definição do relacionamento entre o cliente e o comentário.
+    # Essa relação é implicita, não está salva na tabela 'cliente',
     # mas aqui estou deixando para SQLAlchemy a responsabilidade
     # de reconstruir esse relacionamento.
     # comentarios = relationship("Comentario")
@@ -24,13 +24,13 @@ class Produto(Base):
     def __init__(self, nome:str, quantidade:int, valor:float,
                  data_insercao:Union[DateTime, None] = None):
         """
-        Cria um Produto
+        Cria um cliente
 
         Arguments:
-            nome: nome do produto.
-            quantidade: quantidade que se espera comprar daquele produto
-            valor: valor esperado para o produto
-            data_insercao: data de quando o produto foi inserido à base
+            nome: nome do cliente.
+            quantidade: quantidade que se espera comprar daquele cliente
+            valor: valor esperado para o cliente
+            data_insercao: data de quando o cliente foi inserido à base
         """
         self.nome = nome
         self.quantidade = quantidade
