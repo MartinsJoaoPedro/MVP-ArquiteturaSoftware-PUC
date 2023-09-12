@@ -28,12 +28,36 @@ if (window.location.href.indexOf("estoque.html") !== -1) {
     getList();
 }
 
-function inicar() {
-    let atulizar = document.createElement("span");
-    atulizar.innerHTML = "atulizar";
-    atulizar.classList.add("addBtn");
-    atulizar.onclick = busca();
+function limparDados() {
+  document.getElementById("getNome").value = "";
+  document.getElementById("getQuantidade").value = "";
+  document.getElementById("getValor").value = "";
 }
+
+//Altera de pagina cliente
+function cliente() {
+  console.log("click cliente");
+  window.location.href = 'cliente.html';
+}
+
+//Altera de pagina produto
+function produto() {
+  console.log("click validade");
+  window.location.href = 'produto.html';
+}
+
+//Altera de pagina busca
+function busca() {
+  console.log("click sacola");
+  window.location.href = 'busca.html';
+}
+
+//Altera de pagina endereço
+function endereco() {
+  console.log("click endereco");
+  window.location.href = 'endereco.html';
+}
+
 /*
   --------------------------------------------------------------------------------------
   Função para obter a lista existente do servidor via requisição GET
