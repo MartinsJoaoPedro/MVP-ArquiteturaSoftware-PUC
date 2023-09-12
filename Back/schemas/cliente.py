@@ -11,7 +11,7 @@ class ClienteSchema(BaseModel):
     cep: str = "00000000"
 
 
-class ClienteBuscaSchema(BaseModel):
+class ClienteBuscaSchemaCpf(BaseModel):
     """ Define como deve ser a estrutura que representa a busca. Que será
         feita apenas com base no nome do cliente.
     """

@@ -261,9 +261,9 @@ def add_cliente(form: ClienteSchema):
     Retorna uma representação dos clientes associados.
     """
     cliente = Cliente(
+        cpf=form.cpf,
         nome=form.nome,
-        quantidade=form.quantidade,
-        valor=form.valor)
+        cep=form.cep)
     logger.debug(f"Adicionando cliente de nome: '{cliente.nome}'")
     try:
         # criando conexão com a base
@@ -336,105 +336,77 @@ def get_clientes_nome(query: ClienteBuscaSchemaNome):
         return apresenta_clientes(clientes), 200
     
 # Pega todos os clientes
-@app.get('/clientesquantidade', tags=[cliente_tag],
+@app.get('/clientescpf', tags=[cliente_tag],
          responses={"200": ListagemClientesSchema, "404": ErrorSchema})
-def get_clientes_quantidade(query: ClienteBuscaSchemaQuantidade):
-    """Faz a busca por todos os cliente cadastrados a partir da quantidade informada
+def get_clientes_cpf(query: ClienteBuscaSchemaCpf):
+    """Faz a busca por todos os cliente cadastrados a partir do CPF informado
 
-    Retorna uma representação da listagem de clientes associados a quantidade.
+    Retorna uma representação da listagem de clientes associados ao CPF.
     """
-    cliente_quantidade = query.quantidade
+    cliente_cpf = query.cpf
     logger.debug(f"Coletando clientes ")
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    clientes = session.query(Cliente).filter(Cliente.quantidade.contains(cliente_quantidade)).all()
+    clientes = session.query(Cliente).filter(Cliente.cpf.contains(cliente_cpf)).all()
 
     if not clientes:
         # se não há clientes cadastrados
         return {"clientes": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(clientes))
+        logger.debug(f"%d clientes encontrados" % len(clientes))
         # retorna a representação de cliente
         return apresenta_clientes(clientes), 200
     
-# Pega todos os clientes
-@app.get('/clientesvalor', tags=[cliente_tag],
-         responses={"200": ListagemClientesSchema, "404": ErrorSchema})
-def get_clientes_valor(query: ClienteBuscaSchemaValor):
-    """Faz a busca por todos os cliente cadastrados a partir do valor informado
 
-    Retorna uma representação da listagem de clientes associados ao valor.
+# Pega todos os clientes
+@app.get('/clientescep', tags=[cliente_tag],
+         responses={"200": ListagemClientesSchema, "404": ErrorSchema})
+def get_clientes_cep(query: ClienteBuscaSchemaCep):
+    """Faz a busca por todos os cliente cadastrados a partir do CEP informado
+
+    Retorna uma representação da listagem de clientes associados ao CEP.
     """
-    cliente_valor = query.valor
+    cliente_cep = query.cep
     logger.debug(f"Coletando clientes ")
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    clientes = session.query(Cliente).filter(Cliente.valor.contains(Cliente_valor)).all()
+    clientes = session.query(Cliente).filter(Cliente.cep.contains(cliente_cep)).all()
 
     if not clientes:
         # se não há clientes cadastrados
         return {"clientes": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(clientes))
+        logger.debug(f"%d clientes encontrados" % len(clientes))
         # retorna a representação de cliente
         return apresenta_clientes(clientes), 200
 
-
-
-
-
-# Pega um cliente especifico
-@app.get('/clienteid', tags=[cliente_tag],
-
-         responses={"200": ClienteViewSchema, "404": ErrorSchema})
-def get_cliente_id(query: ClienteBuscaSchema):
-    """Faz a busca por um cliente a partir do id do cliente
-
-    Retorna uma representação dos clientes associados ao id.
-    """
-    cliente_id = query.id
-    logger.debug(f"Coletando dados sobre cliente #{cliente_id}")
-    # criando conexão com a base
-    session = Session()
-    # fazendo a busca
-    cliente = session.query(Cliente).filter(Cliente.id == cliente_id).first()
-
-    if not cliente:
-        # se o cliente não foi encontrado
-        error_msg = "Cliente não encontrado na base :/"
-        logger.warning(f"Erro ao buscar cliente '{cliente_id}', {error_msg}")
-        return {"mesage": error_msg}, 404
-    else:
-        logger.debug(f"cliente econtrado: '{cliente.id}'")
-        # retorna a representação de cliente
-        return apresenta_cliente(cliente), 200
-
+#parou
 # Deleta cliente especifico
 @app.delete('/cliente', tags=[cliente_tag],
             responses={"200": ClienteDelSchema, "404": ErrorSchema})
-def del_cliente(query: ClienteBuscaSchema):
-    """Deleta um cliente a partir do id informado
+def del_cliente(query: ClienteBuscaSchemaCpf):
+    """Deleta um cliente a partir do cpf informado
 
     Retorna uma mensagem de confirmação da remoção.
     """
-    print(query.id)
-    cliente_id = query.id
-    print(cliente_id)
-    Stringpi = str(cliente_id)
+    print(query.cpf)
+    cliente_cpf = query.cpf
+    print(cliente_cpf)
+    Stringpi = str(cliente_cpf)
     logger.debug(f"Deletando dados sobre cliente #{Stringpi}")
     # criando conexão com a base
     session = Session()
     # fazendo a remoção
     count = session.query(Cliente).filter(
-        Cliente.id == cliente_id).delete()
+        Cliente.cpf == cliente_cpf).delete()
     session.commit()
 
     if count:
         # retorna a representação da mensagem de confirmação
         logger.debug(f"Deletado cliente #{Stringpi}")
-        return {"mesage": "Cliente removido", "id": Stringpi}
+        return {"mesage": "Cliente removido", "cpf": Stringpi}
     else:
         # se o cliente não foi encontrado
         error_msg = "Cliente não encontrado na base :/"
@@ -444,13 +416,13 @@ def del_cliente(query: ClienteBuscaSchema):
 
 @app.put('/cliente', tags=[cliente_tag],
          responses={"200": ClienteDelSchema, "404": ErrorSchema})
-def update_cliente(query: ClienteBuscaSchema, form: ClienteUpdateSchema):
-    """Edita um cliente a partir do id informado
+def update_cliente(query: ClienteBuscaSchemaCpf, form: ClienteUpdateSchema):
+    """Edita um cliente a partir do cpf informado
 
     Retorna uma mensagem de confirmação da edição.
     """
-    cliente_id = query.id
-    Stringpi = str(cliente_id)
+    cliente_cpf = query.cpf
+    Stringpi = str(cliente_cpf)
     logger.debug(f"Editando dados sobre cliente #{Stringpi}")
     logger.debug(f"Editando dados sobre cliente #{Stringpi}")
     # criando conexão com a base
@@ -458,17 +430,16 @@ def update_cliente(query: ClienteBuscaSchema, form: ClienteUpdateSchema):
     # fazendo a remoção
     count = session.query(Cliente).filter(
         # cliente.nome == cliente_nome).first()
-        Cliente.id == cliente_id).first()
+        Cliente.cpf == cliente_cpf).first()
 
+    count.cpf = form.cpf
     count.nome = form.nome
-    count.valor = form.valor
-    count.quantidade = form.quantidade
+    count.cep = form.cep
 
     print("nome")
-    print(count.id)
-    print(count.valor)
+    print(count.cpf)
     print(count.nome)
-    print(count.quantidade)
+    print(count.cep)
 
     session.commit()
     return apresenta_cliente(count), 200
