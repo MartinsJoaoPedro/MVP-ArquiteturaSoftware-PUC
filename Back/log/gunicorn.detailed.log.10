@@ -1,0 +1,59 @@
+[2023-09-12 12:08:43,728] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:08:46,572] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:08:46] "GET /openapi/swagger HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:08:46,835] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:08:46] "[36mGET /openapi/static/css/swagger-ui.css HTTP/1.1[0m" 304 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:08:46,837] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:08:46] "[36mGET /openapi/static/js/swagger-ui-bundle.js HTTP/1.1[0m" 304 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:08:46,840] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:08:46] "[36mGET /openapi/static/js/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:08:47,187] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:08:47] "GET /openapi/openapi.json HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:08:47,192] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:08:47] "[36mGET /openapi/static/images/swagger.svg HTTP/1.1[0m" 304 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:08:56,160] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:08:56] "GET /clientes HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:51:44,064] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:51:44] "GET /produtos HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:51:53,579] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:51:53] "GET /clientes HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:52:14,570] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:52:14] "GET /clientescep?cep=21941300 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:52:36,829] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:52:36] "GET /clientescpf?cpf=122.366.027-31 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:52:39,597] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:52:39] "GET /clientescpf?cpf=122.366.027-31 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:53:00,647] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:53:00] "GET /clientesnome?nome=João HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:53:25,104] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:53:25] "GET /clientesnome?nome=jp HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:54:06,740] ERROR log_exception() L1449 Exception on /cliente [PUT] - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py L1449
+Traceback (most recent call last):
+  File "C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask_openapi3\scaffold.py", line 273, in wrapper
+    resp = _do_wrapper(
+           ^^^^^^^^^^^^
+  File "C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask_openapi3\do_wrapper.py", line 135, in _do_wrapper
+    response = func(**request_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jpmar\OneDrive\Documentos\Projetos\Visual Studio 2019\Puc\SitePuc2\Back\app.py", line 498, in update_cliente
+    count.cpf = form.cpf
+                ^^^^^^^^
+AttributeError: 'ClienteUpdateSchema' object has no attribute 'cpf'
+[2023-09-12 12:54:06,821] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:54:06] "[35m[1mPUT /cliente?cpf=122.366.027-31 HTTP/1.1[0m" 500 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:54:43,422] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:54:43] "DELETE /cliente?cpf=122.366.027-31 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:55:33,622] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:55:33] "GET /openapi/swagger HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:55:33,814] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:55:33] "[36mGET /openapi/static/js/swagger-ui-bundle.js HTTP/1.1[0m" 304 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:55:33,815] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:55:33] "[36mGET /openapi/static/css/swagger-ui.css HTTP/1.1[0m" 304 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:55:33,816] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:55:33] "[36mGET /openapi/static/js/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:55:34,220] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:55:34] "GET /openapi/openapi.json HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:55:34,225] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:55:34] "[36mGET /openapi/static/images/swagger.svg HTTP/1.1[0m" 304 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:55:55,338] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:55:55] "POST /cliente HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:56:15,441] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:56:15] "GET /produtos HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:59:11,507] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:59:11] "GET /produtos HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:59:12,823] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:59:12] "GET /clientes HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:59:59,146] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:59:59] "OPTIONS /cliente?id=122.366.027-31 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 12:59:59,238] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 12:59:59] "[35m[1mPUT /cliente?id=122.366.027-31 HTTP/1.1[0m" 500 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 13:00:10,998] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 13:00:10] "OPTIONS /cliente?id=122.366.027-31 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-12 13:00:11,005] WARNING del_cliente() L466  Erro ao deletar cliente #'000.000.000-31', Cliente não encontrado na base :/ - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Visual Studio 2019\Puc\SitePuc2\Back\app.py L466 
+[2023-09-12 13:00:11,008] INFO _log() L224  127.0.0.1 - - [12/Sep/2023 13:00:11] "[33mDELETE /cliente?id=122.366.027-31 HTTP/1.1[0m" 404 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 

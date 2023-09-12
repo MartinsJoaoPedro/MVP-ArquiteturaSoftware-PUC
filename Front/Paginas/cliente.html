@@ -8,6 +8,10 @@
 
     <link rel="stylesheet" href="../styles.css">
 
+    <!-- Inclua as bibliotecas jQuery e jQuery Mask Plugin -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
     <title>IFrutas</title>
 </head>
 
@@ -29,9 +33,9 @@
         <section class="image-background">
             <div class = "ajusteTable">
                 <!-- id= referenciar o css placeholder= texto de predefinição -->
-                <input type="text" id="getNome" placeholder="CPF:">
-                <input type="text" id="getQuantidade" placeholder="Nome:">
-                <input type="text" id="getValor" placeholder="Cep:">
+                <input type="text" id="getCPF" placeholder="CPF:">
+                <input type="text" id="getNome" placeholder="Nome:">
+                <input type="text" id="getCEP" placeholder="Cep:">
                 <span onclick="newItem()" class="addBtn">Adicionar</span>
             </div>
         </section>
@@ -50,6 +54,15 @@
         </table>
     </section>
 
+    <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF -->
+    <script>
+      $(document).ready(function(){
+        $('#getCPF').mask('000.000.000-00');
+        $('#getCEP').mask('00000-000');
+      });
+    </script>
+
+    <!-- Seu script existente -->
     <!-- <script src="../scripts.js"></script> -->
     <script src="../cliente.js"></script>
 </body>

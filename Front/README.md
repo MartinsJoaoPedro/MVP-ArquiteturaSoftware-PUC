@@ -21,4 +21,11 @@ Basta fazer o download do projeto e abrir o arquivo index.html no seu browser.
 
 Essa api faz uso de duas apis externas:
 https://docs.sheetjs.com/
+https://viacep.com.br/
+
+## Biblioteca
+
+Essa api faz uso de duas bibliotecas https:
+https://cdnjs.cloudflare.com/
+https://developers.google.com/speed/libraries?hl=pt-br
 viacep.com.br
