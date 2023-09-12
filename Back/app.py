@@ -15,32 +15,38 @@ app = OpenAPI(__name__, info=info)
 CORS(app)
 
 # definindo tags
-home_tag = Tag(name="Documentação",
-               description="Seleção de documentação: Swagger, Redoc ou RapiDoc")
+home_tag = Tag(
+    name="Documentação",
+    description="Seleção de documentação: Swagger, Redoc ou RapiDoc",
+)
 produto_tag = Tag(
-    name="Produto", description="Adição, visualização e remoção de produtos à base")
+    name="Produto", description="Adição, visualização e remoção de produtos à base"
+)
 cliente_tag = Tag(
-    name="Cliente", description="Adição, visualização e remoção de clientes à base")
+    name="Cliente", description="Adição, visualização e remoção de clientes à base"
+)
 
 
-@app.get('/', tags=[home_tag])
+# Documentação
+@app.get("/", tags=[home_tag])
 def home():
-    """Redireciona para /openapi, tela que permite a escolha do estilo de documentação.
-    """
-    return redirect('/openapi')
+    """Redireciona para /openapi, tela que permite a escolha do estilo de documentação."""
+    return redirect("/openapi")
 
+
+# Produto
 # Adicionar um produto
-@app.post('/produto', tags=[produto_tag],
-          responses={"200": ProdutoViewSchema, "409": ErrorSchema, "400": ErrorSchema})
+@app.post(
+    "/produto",
+    tags=[produto_tag],
+    responses={"200": ProdutoViewSchema, "409": ErrorSchema, "400": ErrorSchema},
+)
 def add_produto(form: ProdutoSchema):
     """Adiciona um novo Produto à base de dados
 
     Retorna uma representação dos produtos associados.
     """
-    produto = Produto(
-        nome=form.nome,
-        quantidade=form.quantidade,
-        valor=form.valor)
+    produto = Produto(nome=form.nome, quantidade=form.quantidade, valor=form.valor)
     logger.debug(f"Adicionando produto de nome: '{produto.nome}'")
     try:
         # criando conexão com a base
@@ -55,20 +61,22 @@ def add_produto(form: ProdutoSchema):
     except IntegrityError as e:
         # como a duplicidade do nome é a provável razão do IntegrityError
         error_msg = "Produto de mesmo nome já salvo na base :/"
-        logger.warning(
-            f"Erro ao adicionar produto '{produto.nome}', {error_msg}")
+        logger.warning(f"Erro ao adicionar produto '{produto.nome}', {error_msg}")
         return {"mesage": error_msg}, 409
 
     except Exception as e:
         # caso um erro fora do previsto
         error_msg = "Não foi possível salvar novo item :/"
-        logger.warning(
-            f"Erro ao adicionar produto '{produto.nome}', {error_msg}")
+        logger.warning(f"Erro ao adicionar produto '{produto.nome}', {error_msg}")
         return {"mesage": error_msg}, 400
 
+
 # Pega todos os produtos
-@app.get('/produtos', tags=[produto_tag],
-         responses={"200": ListagemProdutosSchema, "404": ErrorSchema})
+@app.get(
+    "/produtos",
+    tags=[produto_tag],
+    responses={"200": ListagemProdutosSchema, "404": ErrorSchema},
+)
 def get_produtos():
     """Faz a busca por todos os Produto cadastrados
 
@@ -87,11 +95,14 @@ def get_produtos():
         logger.debug(f"%d rodutos econtrados" % len(produtos))
         # retorna a representação de produto
         return apresenta_produtos(produtos), 200
-    
 
-# Pega todos os produtos
-@app.get('/produtosnome', tags=[produto_tag],
-         responses={"200": ListagemProdutosSchema, "404": ErrorSchema})
+
+# Pega todos os produtos pelo nome
+@app.get(
+    "/produtosnome",
+    tags=[produto_tag],
+    responses={"200": ListagemProdutosSchema, "404": ErrorSchema},
+)
 def get_produtos_nome(query: ProdutoBuscaSchemaNome):
     """Faz a busca por todos os Produto cadastrados a partir do nome informado
 
@@ -108,13 +119,17 @@ def get_produtos_nome(query: ProdutoBuscaSchemaNome):
         # se não há produtos cadastrados
         return {"produtos": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(produtos))  
+        logger.debug(f"%d rodutos econtrados" % len(produtos))
         # retorna a representação de produto
         return apresenta_produtos(produtos), 200
-    
-# Pega todos os produtos
-@app.get('/produtosquantidade', tags=[produto_tag],
-         responses={"200": ListagemProdutosSchema, "404": ErrorSchema})
+
+
+# Pega todos os produtos pela quantidade
+@app.get(
+    "/produtosquantidade",
+    tags=[produto_tag],
+    responses={"200": ListagemProdutosSchema, "404": ErrorSchema},
+)
 def get_produtos_quantidade(query: ProdutoBuscaSchemaQuantidade):
     """Faz a busca por todos os Produto cadastrados a partir da quantidade informada
 
@@ -125,7 +140,11 @@ def get_produtos_quantidade(query: ProdutoBuscaSchemaQuantidade):
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    produtos = session.query(Produto).filter(Produto.quantidade.contains(produto_quantidade)).all()
+    produtos = (
+        session.query(Produto)
+        .filter(Produto.quantidade.contains(produto_quantidade))
+        .all()
+    )
 
     if not produtos:
         # se não há produtos cadastrados
@@ -134,10 +153,14 @@ def get_produtos_quantidade(query: ProdutoBuscaSchemaQuantidade):
         logger.debug(f"%d rodutos econtrados" % len(produtos))
         # retorna a representação de produto
         return apresenta_produtos(produtos), 200
-    
-# Pega todos os produtos
-@app.get('/produtosvalor', tags=[produto_tag],
-         responses={"200": ListagemProdutosSchema, "404": ErrorSchema})
+
+
+# Pega todos os produtos pelo valor
+@app.get(
+    "/produtosvalor",
+    tags=[produto_tag],
+    responses={"200": ListagemProdutosSchema, "404": ErrorSchema},
+)
 def get_produtos_valor(query: ProdutoBuscaSchemaValor):
     """Faz a busca por todos os Produto cadastrados a partir do valor informado
 
@@ -148,7 +171,9 @@ def get_produtos_valor(query: ProdutoBuscaSchemaValor):
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    produtos = session.query(Produto).filter(Produto.valor.contains(produto_valor)).all()
+    produtos = (
+        session.query(Produto).filter(Produto.valor.contains(produto_valor)).all()
+    )
 
     if not produtos:
         # se não há produtos cadastrados
@@ -159,13 +184,12 @@ def get_produtos_valor(query: ProdutoBuscaSchemaValor):
         return apresenta_produtos(produtos), 200
 
 
-
-
-
-# Pega um produto especifico
-@app.get('/produtoid', tags=[produto_tag],
-
-         responses={"200": ProdutoViewSchema, "404": ErrorSchema})
+# Pega um produto especifico pelo id
+@app.get(
+    "/produtoid",
+    tags=[produto_tag],
+    responses={"200": ProdutoViewSchema, "404": ErrorSchema},
+)
 def get_produto_id(query: ProdutoBuscaSchema):
     """Faz a busca por um Produto a partir do id do produto
 
@@ -188,9 +212,13 @@ def get_produto_id(query: ProdutoBuscaSchema):
         # retorna a representação de produto
         return apresenta_produto(produto), 200
 
-# Deleta produto especifico
-@app.delete('/produto', tags=[produto_tag],
-            responses={"200": ProdutoDelSchema, "404": ErrorSchema})
+
+# Deleta produto especifico pelo id
+@app.delete(
+    "/produto",
+    tags=[produto_tag],
+    responses={"200": ProdutoDelSchema, "404": ErrorSchema},
+)
 def del_produto(query: ProdutoBuscaSchema):
     """Deleta um Produto a partir do id informado
 
@@ -204,8 +232,7 @@ def del_produto(query: ProdutoBuscaSchema):
     # criando conexão com a base
     session = Session()
     # fazendo a remoção
-    count = session.query(Produto).filter(
-        Produto.id == produto_id).delete()
+    count = session.query(Produto).filter(Produto.id == produto_id).delete()
     session.commit()
 
     if count:
@@ -215,12 +242,16 @@ def del_produto(query: ProdutoBuscaSchema):
     else:
         # se o produto não foi encontrado
         error_msg = "Produto não encontrado na base :/"
-        logger.warning(
-            f"Erro ao deletar produto #'{Stringpi}', {error_msg}")
+        logger.warning(f"Erro ao deletar produto #'{Stringpi}', {error_msg}")
         return {"mesage": error_msg}, 404
 
-@app.put('/produto', tags=[produto_tag],
-         responses={"200": ProdutoDelSchema, "404": ErrorSchema})
+
+# Altera produto especifico a partir do id
+@app.put(
+    "/produto",
+    tags=[produto_tag],
+    responses={"200": ProdutoDelSchema, "404": ErrorSchema},
+)
 def update_produto(query: ProdutoBuscaSchema, form: ProdutoUpdateSchema):
     """Edita um Produto a partir do id informado
 
@@ -233,9 +264,15 @@ def update_produto(query: ProdutoBuscaSchema, form: ProdutoUpdateSchema):
     # criando conexão com a base
     session = Session()
     # fazendo a remoção
-    count = session.query(Produto).filter(
-        # Produto.nome == produto_nome).first()
-        Produto.id == produto_id).first()
+    count = (
+        session.query(Produto)
+        .filter(
+            # Produto.nome == produto_nome).first()
+            Produto.id
+            == produto_id
+        )
+        .first()
+    )
 
     count.nome = form.nome
     count.valor = form.valor
@@ -250,20 +287,22 @@ def update_produto(query: ProdutoBuscaSchema, form: ProdutoUpdateSchema):
     session.commit()
     return apresenta_produto(count), 200
 
-##cliente
+
+# cliente
+
 
 # Adicionar um cliente
-@app.post('/cliente', tags=[cliente_tag],
-          responses={"200": ClienteViewSchema, "409": ErrorSchema, "400": ErrorSchema})
+@app.post(
+    "/cliente",
+    tags=[cliente_tag],
+    responses={"200": ClienteViewSchema, "409": ErrorSchema, "400": ErrorSchema},
+)
 def add_cliente(form: ClienteSchema):
     """Adiciona um novo cliente à base de dados
 
     Retorna uma representação dos clientes associados.
     """
-    cliente = Cliente(
-        cpf=form.cpf,
-        nome=form.nome,
-        cep=form.cep)
+    cliente = Cliente(cpf=form.cpf, nome=form.nome, cep=form.cep)
     logger.debug(f"Adicionando cliente de nome: '{cliente.nome}'")
     try:
         # criando conexão com a base
@@ -278,20 +317,22 @@ def add_cliente(form: ClienteSchema):
     except IntegrityError as e:
         # como a duplicidade do nome é a provável razão do IntegrityError
         error_msg = "Cliente de mesmo nome já salvo na base :/"
-        logger.warning(
-            f"Erro ao adicionar cliente '{cliente.nome}', {error_msg}")
+        logger.warning(f"Erro ao adicionar cliente '{cliente.nome}', {error_msg}")
         return {"mesage": error_msg}, 409
 
     except Exception as e:
         # caso um erro fora do previsto
         error_msg = "Não foi possível salvar novo item :/"
-        logger.warning(
-            f"Erro ao adicionar cliente '{cliente.nome}', {error_msg}")
+        logger.warning(f"Erro ao adicionar cliente '{cliente.nome}', {error_msg}")
         return {"mesage": error_msg}, 400
 
-# Pega todos os clientes
-@app.get('/clientes', tags=[cliente_tag],
-         responses={"200": ListagemClientesSchema, "404": ErrorSchema})
+
+# Pega todos os clientes sem filtro
+@app.get(
+    "/clientes",
+    tags=[cliente_tag],
+    responses={"200": ListagemClientesSchema, "404": ErrorSchema},
+)
 def get_clientes():
     """Faz a busca por todos os cliente cadastrados
 
@@ -310,11 +351,14 @@ def get_clientes():
         logger.debug(f"%d rodutos econtrados" % len(clientes))
         # retorna a representação de cliente
         return apresenta_clientes(clientes), 200
-    
 
-# Pega todos os clientes
-@app.get('/clientesnome', tags=[cliente_tag],
-         responses={"200": ListagemClientesSchema, "404": ErrorSchema})
+
+# Pega todos os clientes pelo nome
+@app.get(
+    "/clientesnome",
+    tags=[cliente_tag],
+    responses={"200": ListagemClientesSchema, "404": ErrorSchema},
+)
 def get_clientes_nome(query: ClienteBuscaSchemaNome):
     """Faz a busca por todos os cliente cadastrados a partir do nome informado
 
@@ -331,13 +375,17 @@ def get_clientes_nome(query: ClienteBuscaSchemaNome):
         # se não há clientes cadastrados
         return {"clientes": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(clientes))  
+        logger.debug(f"%d rodutos econtrados" % len(clientes))
         # retorna a representação de cliente
         return apresenta_clientes(clientes), 200
-    
-# Pega todos os clientes
-@app.get('/clientescpf', tags=[cliente_tag],
-         responses={"200": ListagemClientesSchema, "404": ErrorSchema})
+
+
+# Pega todos os clientes pelo cpf
+@app.get(
+    "/clientescpf",
+    tags=[cliente_tag],
+    responses={"200": ListagemClientesSchema, "404": ErrorSchema},
+)
 def get_clientes_cpf(query: ClienteBuscaSchemaCpf):
     """Faz a busca por todos os cliente cadastrados a partir do CPF informado
 
@@ -357,11 +405,14 @@ def get_clientes_cpf(query: ClienteBuscaSchemaCpf):
         logger.debug(f"%d clientes encontrados" % len(clientes))
         # retorna a representação de cliente
         return apresenta_clientes(clientes), 200
-    
 
-# Pega todos os clientes
-@app.get('/clientescep', tags=[cliente_tag],
-         responses={"200": ListagemClientesSchema, "404": ErrorSchema})
+
+# Pega todos os clientes pelo cep
+@app.get(
+    "/clientescep",
+    tags=[cliente_tag],
+    responses={"200": ListagemClientesSchema, "404": ErrorSchema},
+)
 def get_clientes_cep(query: ClienteBuscaSchemaCep):
     """Faz a busca por todos os cliente cadastrados a partir do CEP informado
 
@@ -382,10 +433,13 @@ def get_clientes_cep(query: ClienteBuscaSchemaCep):
         # retorna a representação de cliente
         return apresenta_clientes(clientes), 200
 
-#parou
-# Deleta cliente especifico
-@app.delete('/cliente', tags=[cliente_tag],
-            responses={"200": ClienteDelSchema, "404": ErrorSchema})
+
+# Deleta cliente especifico a partir do cpf
+@app.delete(
+    "/cliente",
+    tags=[cliente_tag],
+    responses={"200": ClienteDelSchema, "404": ErrorSchema},
+)
 def del_cliente(query: ClienteBuscaSchemaCpf):
     """Deleta um cliente a partir do cpf informado
 
@@ -399,8 +453,7 @@ def del_cliente(query: ClienteBuscaSchemaCpf):
     # criando conexão com a base
     session = Session()
     # fazendo a remoção
-    count = session.query(Cliente).filter(
-        Cliente.cpf == cliente_cpf).delete()
+    count = session.query(Cliente).filter(Cliente.cpf == cliente_cpf).delete()
     session.commit()
 
     if count:
@@ -410,12 +463,16 @@ def del_cliente(query: ClienteBuscaSchemaCpf):
     else:
         # se o cliente não foi encontrado
         error_msg = "Cliente não encontrado na base :/"
-        logger.warning(
-            f"Erro ao deletar cliente #'{Stringpi}', {error_msg}")
+        logger.warning(f"Erro ao deletar cliente #'{Stringpi}', {error_msg}")
         return {"mesage": error_msg}, 404
 
-@app.put('/cliente', tags=[cliente_tag],
-         responses={"200": ClienteDelSchema, "404": ErrorSchema})
+
+# Altera cliente especifico a partir do cpf
+@app.put(
+    "/cliente",
+    tags=[cliente_tag],
+    responses={"200": ClienteDelSchema, "404": ErrorSchema},
+)
 def update_cliente(query: ClienteBuscaSchemaCpf, form: ClienteUpdateSchema):
     """Edita um cliente a partir do cpf informado
 
@@ -428,9 +485,15 @@ def update_cliente(query: ClienteBuscaSchemaCpf, form: ClienteUpdateSchema):
     # criando conexão com a base
     session = Session()
     # fazendo a remoção
-    count = session.query(Cliente).filter(
-        # cliente.nome == cliente_nome).first()
-        Cliente.cpf == cliente_cpf).first()
+    count = (
+        session.query(Cliente)
+        .filter(
+            # cliente.nome == cliente_nome).first()
+            Cliente.cpf
+            == cliente_cpf
+        )
+        .first()
+    )
 
     count.cpf = form.cpf
     count.nome = form.nome
