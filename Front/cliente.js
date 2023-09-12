@@ -1,6 +1,7 @@
 //Váriaveis globais
 let ids = [];
 let id;
+let edicao = true;
 
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("cliente.html") !== -1) {
@@ -43,6 +44,7 @@ function inserirBtnEditar(item) {
 
 //Função para limpar os valores da tabela
 function limparDados() {
+  edicao=false;
   document.getElementById("getNome").value = "";
   document.getElementById("getCPF").value = "";
   document.getElementById("getCEP").value = "";
@@ -79,6 +81,7 @@ function endereco() {
 */
 
 function getList() {
+  limparDados();
   let url = "http://127.0.0.1:5000/clientes";
   console.log("get");
   console.log(url);
@@ -158,6 +161,7 @@ function Editar() {
 
   for (let i = 0; i < celulasBtnEditar.length; i++) {
     celulasBtnEditar[i].onclick = function () {
+      edicao = true;
       // Esconde o botão de edição
       for (let i = 0; i < celulasBtnEditar.length; i++) {
         celulasBtnEditar[i].style.display = "none";
@@ -179,6 +183,15 @@ function Editar() {
         input.value = celulasDaLinha[j].innerHTML;
         celulasDaLinha[j].innerHTML = "";
         celulasDaLinha[j].appendChild(input);
+
+        if (j == 2) {
+          // Aplique a máscara ao novo campo de entrada
+          $(input).mask("00000-000");
+        }
+        if (j == 0) {
+          // Aplique a máscara ao novo campo de entrada
+          $(input).mask("000.000.000-00");
+        }
       }
 
       // Adiciona um botão de salvar à linha
@@ -190,6 +203,7 @@ function Editar() {
 
       // Adiciona um evento de clique ao botão de salvar
       salvar.onclick = function () {
+        edicao = false;
         // Obtém os valores dos inputs e salva os campos
         let inputs = linha.getElementsByTagName("input");
         for (let k = 0; k < inputs.length; k++) {
@@ -301,6 +315,15 @@ function insertList(cpfCliente, nome, cep) {
     var cel = row.insertCell(i);
     cel.textContent = item[i];
     cel.classList.add("linhaEditavel"); // Adiciona a classe .linhaEditavel à célula
+
+    // Adiciona um evento de clique à célula do CEP
+    if (i == 2) {
+      // Supondo que o CEP seja o terceiro item na lista
+      cel.classList.add("cep"); // Adiciona a classe .cep à célula do CEP
+      cel.onclick = function () {
+        setCep(this);
+      };
+    }
   }
   inserirBtnRemover(row.insertCell(-1));
   inserirBtnEditar(row.insertCell(-1));
@@ -308,6 +331,15 @@ function insertList(cpfCliente, nome, cep) {
   limparDados();
   Remover();
   Editar();
+}
+
+function setCep(celula) {
+  if (edicao == false) {
+    alert("Célula clicada: " + celula.innerHTML);
+    var cep = celula.innerHTML;
+    // Redireciona para a página endereco.html com o CEP como parâmetro na URL
+    window.location.href = "endereco.html?cep=" + cep;
+  }
 }
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
