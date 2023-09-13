@@ -10,7 +10,7 @@ if (window.location.href.indexOf("cadastroProduto.html") !== -1) {
 
 //Função para carregamento da estrutura inicial
 function inicar() {
-  console.log("inicar")
+  console.log("inicar");
   let atulizar = document.createElement("span");
   atulizar.innerHTML = "atulizar";
   atulizar.classList.add("addBtn");
@@ -24,7 +24,7 @@ function pegaListaId(idn) {
 
 //Função para colocar o botão de remover
 function inserirBtnRemover(Produto) {
-  console.log("botão de remoção")
+  console.log("botão de remoção");
   let span = document.createElement("span");
   //u00D7 == x
   let txt = document.createTextNode("\u00D7");
@@ -37,7 +37,7 @@ function inserirBtnRemover(Produto) {
 
 //Função para colocar o botão de editar
 function inserirBtnEditar(produto) {
-  console.log("botão de edição")
+  console.log("botão de edição");
   let span = document.createElement("span");
   let txt = document.createTextNode("\u270F");
   span.className = "edit";
@@ -47,7 +47,7 @@ function inserirBtnEditar(produto) {
 
 //Função para limpar os valores da tabela
 function limparDados() {
-  console.log("limpar")
+  console.log("limpar");
   edicao = false;
   document.getElementById("getNome").value = "";
   document.getElementById("getQuantidade").value = "";
@@ -77,11 +77,16 @@ function getList() {
 
 //Função para colocar um produto na lista do servidor via requisição POST
 async function postItem(inputProduct, inputQuantity, inputPrice) {
+  preco = inputPrice.replace("R$ ", "").replace(/\./g, "").replace(/,/g, ".");
   //Criação do objeto
   const formData = new FormData();
   formData.append("nome", inputProduct);
   formData.append("quantidade", inputQuantity);
-  formData.append("valor", inputPrice);
+  formData.append("valor", preco);
+  // Log dos valores do FormData
+  for (var pair of formData.entries()) {
+    console.log(pair[0] + ", " + pair[1]);
+  }
 
   //post do objeto
   let url = "http://127.0.0.1:5000/produto";
@@ -124,7 +129,7 @@ function Remover() {
 
 // Adicionando evento de clique ao botão
 function Editar() {
-  console.log("Editar")
+  console.log("Editar");
   let celulasBtnEditar = document.querySelectorAll(" .edit"); // Seleciona todas as células da tabela com a classe edit
 
   for (let i = 0; i < celulasBtnEditar.length; i++) {
@@ -247,21 +252,23 @@ function deletarProdutoId(IdProduto) {
 
 //Função para adicionar um novo produto com nome, quantidade e valor
 function newItem() {
-  console.log("novo item")
+  console.log("novo item");
   let nome = document.getElementById("getNome").value;
   let quantidade = document.getElementById("getQuantidade").value;
   let preco = document.getElementById("getValor").value;
 
   if (nome === "") {
-    alert("Escreva o nome de um produto!");
-  } else if (isNaN(quantidade) || isNaN(preco)) {
-    alert("Quantidade e valor precisam ser números!");
+    alert("Escreva o nome do produto!");
+  } else if (isNaN(quantidade)) {
+    alert("Quantidade precisa ser um número!");
+  } else if (preco === "") {
+    alert("Escreva o preco do produto!");
   } else {
     //Acrescenta o produto na lista do site
     insertList(nome, quantidade, preco);
     //Envia um comando post para api
     postItem(nome, quantidade, preco);
-    produto(); //evita bug apos adicionar uma linha
+    //evita bug apos adicionar uma linha
     alert("Produto adicionado!");
   }
 }
@@ -269,7 +276,7 @@ function newItem() {
 //Função para inserir produtos na lista apresentada
 let rowId = 1;
 function insertList(nomeProduto, quantidadeProduto, precoProduto) {
-  console.log("Inserindo produtos")
+  console.log("Inserindo produtos");
   //alert("insertList");
   var produto = [nomeProduto, quantidadeProduto, precoProduto];
   var table = document.getElementById("myTable");
@@ -286,13 +293,14 @@ function insertList(nomeProduto, quantidadeProduto, precoProduto) {
   inserirBtnEditar(row.insertCell(-1));
 
   limparDados();
+  //Habilita as funções dos botões
   Remover();
   Editar();
 }
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
 function insertUm(nomeProduto, quantidadeProduto, precoProduto) {
-  console.log("Inserindo produto único")
+  console.log("Inserindo produto único");
   var produto = [nomeProduto, quantidadeProduto, precoProduto];
   var table = document.getElementById("myTable");
   while (table.rows.length > 1) {
@@ -310,7 +318,7 @@ function insertUm(nomeProduto, quantidadeProduto, precoProduto) {
 
 //Insere uma nova linha
 function insertMais(nomeProduto, quantidadeProduto, precoProduto) {
-  console.log("Inserindo produtos")
+  console.log("Inserindo produtos");
   var produto = [nomeProduto, quantidadeProduto, precoProduto];
   var table = document.getElementById("myTable");
   var row = table.insertRow();
@@ -353,7 +361,7 @@ function updateProduto(
 
 //busca um produto
 function buscarProduto() {
-  console.log("Buscando produto")
+  console.log("Buscando produto");
   document.getElementById("att2").style.display = "block";
   let inputID = document.querySelectorAll("#getId");
   let inputNome = document.querySelectorAll("#getNome");

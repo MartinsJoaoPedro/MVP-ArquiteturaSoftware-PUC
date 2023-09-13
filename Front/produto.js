@@ -77,11 +77,16 @@ function getList() {
 
 //Função para colocar um produto na lista do servidor via requisição POST
 async function postItem(inputProduct, inputQuantity, inputPrice) {
+  preco = inputPrice.replace("R$ ", "").replace(/\./g, "").replace(/,/g, ".");
   //Criação do objeto
   const formData = new FormData();
   formData.append("nome", inputProduct);
   formData.append("quantidade", inputQuantity);
-  formData.append("valor", inputPrice);
+  formData.append("valor", preco);
+  // Log dos valores do FormData
+  for (var pair of formData.entries()) {
+    console.log(pair[0] + ", " + pair[1]);
+  }
 
   //post do objeto
   let url = "http://127.0.0.1:5000/produto";
@@ -263,7 +268,7 @@ function newItem() {
     insertList(nome, quantidade, preco);
     //Envia um comando post para api
     postItem(nome, quantidade, preco);
-    produto(); //evita bug apos adicionar uma linha
+    //evita bug apos adicionar uma linha
     alert("Produto adicionado!");
   }
 }

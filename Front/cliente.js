@@ -263,7 +263,7 @@ function newItem() {
     insertList(cpf, nome, cep);
     //Envia um comando post para api
     postItem(cpf, nome, cep);
-    cliente(); //evita bug apos adicionar uma linha
+    //evita bug apos adicionar uma linha
     alert("Cliente adicionado!");
   }
 }

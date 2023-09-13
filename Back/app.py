@@ -46,6 +46,9 @@ def add_produto(form: ProdutoSchema):
 
     Retorna uma representação dos produtos associados.
     """
+    print(form.nome)
+    print(form.quantidade)
+    print(form.valor)
     produto = Produto(nome=form.nome, quantidade=form.quantidade, valor=form.valor)
     logger.debug(f"Adicionando produto de nome: '{produto.nome}'")
     try:
