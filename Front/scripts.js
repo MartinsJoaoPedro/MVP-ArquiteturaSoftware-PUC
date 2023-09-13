@@ -51,7 +51,7 @@ function limparDados() {
   edicao = false;
   document.getElementById("getNome").value = "";
   document.getElementById("getQuantidade").value = "";
-  document.getElementById("getValor").value = "";
+  document.getElementById("getPreco").value = "";
 }
 
 //Função para obter a lista existente do servidor via requisição GET
@@ -156,10 +156,11 @@ function editar() {
         input.value = celulasDaLinha[j].innerHTML;
         celulasDaLinha[j].innerHTML = "";
         celulasDaLinha[j].appendChild(input);
-
+y
         if (j == 2) {
+          alert("entrou");
           // Aplique a máscara ao novo campo de entrada
-          $("#getValor").maskMoney({
+          $("#getPreco").maskMoney({
             prefix: "R$ ",
             allowNegative: true,
             thousands: ".",
@@ -257,7 +258,7 @@ function newItem() {
   console.log("novo item");
   let nome = document.getElementById("getNome").value;
   let quantidade = document.getElementById("getQuantidade").value;
-  let preco = document.getElementById("getValor").value;
+  let preco = document.getElementById("getPreco").value;
 
   if (nome === "") {
     alert("Escreva o nome do produto!");
@@ -368,7 +369,7 @@ function buscarProduto() {
   let inputID = document.querySelectorAll("#getId");
   let inputNome = document.querySelectorAll("#getNome");
   let inputQuantidade = document.querySelectorAll("#getQuantidade");
-  let inputValor = document.querySelectorAll("#getValor");
+  let inputValor = document.querySelectorAll("#getPreco");
   let Produto;
 
   let buscar = document.getElementById("buscar");

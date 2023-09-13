@@ -151,7 +151,7 @@ function editar() {
         input.value = celulasDaLinha[j].innerHTML;
         celulasDaLinha[j].innerHTML = "";
         celulasDaLinha[j].appendChild(input);
-
+        
         if (j == 2) {
           // Aplique a máscara ao novo campo de entrada
           $(input).mask("00000-000");
@@ -399,7 +399,7 @@ function buscarCliente() {
   }
 }
 
-//Consulta para id
+//Consulta para cpf
 function buscaGet(ParametroUrl, paramentroCliente) {
   let url =
     "http://127.0.0.1:5000/cliente" +
@@ -417,9 +417,11 @@ function buscaGet(ParametroUrl, paramentroCliente) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      if (data.id != null) {
-        insertUm(data.cpf, data.nome, data.cep);
+      console.log(data.clientes);
+      if (data.clientes != null) {
+        data.clientes.forEach((item) =>
+        insertUm(item.cpf, item.nome, item.cep)
+        );
       } else {
         alert("Cliente não encontrado");
       }

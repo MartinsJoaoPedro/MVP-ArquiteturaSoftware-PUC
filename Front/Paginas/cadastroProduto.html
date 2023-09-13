@@ -39,7 +39,7 @@
           <!-- id= referenciar o css placeholder= texto de predefinição -->
           <input type="text" id="getNome" placeholder="Nome:" />
           <input type="text" id="getQuantidade" placeholder="Quantidade:" />
-          <input type="text" id="getValor" placeholder="Valor:" />
+          <input type="text" id="getPreco" placeholder="Valor:" />
           <span onclick="newItem()" class="addBtn">Adicionar</span>
         </div>
       </section>
@@ -61,7 +61,7 @@
     <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF -->
     <script>
       $(document).ready(function () {
-        $("#getValor").maskMoney({
+        $("#getPreco").maskMoney({
           prefix: "R$ ",
           allowNegative: true,
           thousands: ".",
