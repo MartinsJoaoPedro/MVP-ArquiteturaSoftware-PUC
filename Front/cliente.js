@@ -10,6 +10,7 @@ if (window.location.href.indexOf("cadastroCliente.html") !== -1) {
 
 //Função para carregamento da estrutura inicial
 function inicar() {
+  console.log("inicar");
   let atulizar = document.createElement("span");
   atulizar.innerHTML = "atulizar";
   atulizar.classList.add("addBtn");
@@ -23,6 +24,7 @@ function pegaListaId(idn) {
 
 //Função para colocar o botão de remover
 function inserirBtnRemover(item) {
+  console.log("botão de remoção");
   let span = document.createElement("span");
   //u00D7 == x
   let txt = document.createTextNode("\u00D7");
@@ -35,6 +37,7 @@ function inserirBtnRemover(item) {
 
 //Função para colocar o botão de editar
 function inserirBtnEditar(item) {
+  console.log("botão de edição");
   let span = document.createElement("span");
   let txt = document.createTextNode("\u270F");
   span.className = "edit";
@@ -44,6 +47,7 @@ function inserirBtnEditar(item) {
 
 //Função para limpar os valores da tabela
 function limparDados() {
+  console.log("limpar");
   edicao = false;
   document.getElementById("getNome").value = "";
   document.getElementById("getCpf").value = "";
@@ -78,10 +82,7 @@ async function postItem(inputCpf, inputNome, inputCep) {
   formData.append("cpf", inputCpf);
   formData.append("nome", inputNome);
   formData.append("cep", inputCep);
-  console.log("Formulário");
-  for (var pair of formData.entries()) {
-    console.log(pair[0] + ", " + pair[1]);
-  }
+
   //post do objeto
   let url = "http://127.0.0.1:5000/cliente";
   console.log("post");
@@ -98,7 +99,8 @@ async function postItem(inputCpf, inputNome, inputCep) {
 }
 
 //Função para remover um item do cliente da lista de acordo com o click no botão close
-function Remover() {
+function remover() {
+  console.log("Remover");
   let close = document.getElementsByClassName("close"); // Seleciona todas as células da tabela com a classe close
   // var table = document.getElementById('myTable');
   for (let i = 0; i < close.length; i++) {
@@ -121,7 +123,8 @@ function Remover() {
 }
 
 // Adicionando evento de clique ao botão
-function Editar() {
+function editar() {
+  console.log("Editar");
   let celulasBtnEditar = document.querySelectorAll(" .edit"); // Seleciona todas as células da tabela com a classe edit
 
   for (let i = 0; i < celulasBtnEditar.length; i++) {
@@ -248,6 +251,7 @@ function deletarClienteId(IdItem) {
 
 //Função para adicionar um novo item do cliente com cpf, nome e cep
 function newItem() {
+  console.log("novo item");
   let cpf = document.getElementById("getCpf").value;
   let nome = document.getElementById("getNome").value;
   let cep = document.getElementById("getCep").value;
@@ -271,6 +275,7 @@ function newItem() {
 let rowId = 1;
 //Função para inserir items ao cliente na lista apresentada
 function insertList(cpf, nome, cep) {
+  console.log("Inserindo clientes");
   var item = [cpf, nome, cep];
   var table = document.getElementById("myTable");
   var row = table.insertRow();
@@ -294,8 +299,8 @@ function insertList(cpf, nome, cep) {
   inserirBtnEditar(row.insertCell(-1));
 
   limparDados();
-  Remover();
-  Editar();
+  remover();
+  editar();
 }
 
 //Faz a consulta do cep em outra página
@@ -310,6 +315,7 @@ function setCep(celula) {
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
 function insertUm(cpf, nome, cep) {
+  console.log("Inserindo cliente único");
   var item = [cpf, nome, cep];
   var table = document.getElementById("myTable");
   while (table.rows.length > 1) {
@@ -327,6 +333,7 @@ function insertUm(cpf, nome, cep) {
 
 //Insere uma nova linha
 function insertMais(cpf, nome, cep) {
+  console.log("Inserindo clientes");
   var item = [cpf, nome, cep];
   var table = document.getElementById("myTable");
   var row = table.insertRow();
@@ -361,6 +368,7 @@ function updateCliente(cpf, nome, cep) {
 
 //busca um cliente
 function buscarCliente() {
+  console.log("Buscando cliente");
   document.getElementById("att2").style.display = "block";
   let inputCPF = document.querySelectorAll("#getCpf");
   let inputNome = document.querySelectorAll("#getNome");

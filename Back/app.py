@@ -385,7 +385,7 @@ def get_clientes_nome(query: ClienteBuscaSchemaNome):
 
 # Pega todos os clientes pelo cpf
 @app.get(
-    "/clientescpf",
+    "/clientecpf",
     tags=[cliente_tag],
     responses={"200": ListagemClientesSchema, "404": ErrorSchema},
 )

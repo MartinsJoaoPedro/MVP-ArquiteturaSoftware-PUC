@@ -104,7 +104,7 @@ async function postItem(inputProduct, inputQuantity, inputPrice) {
 }
 
 //Função para remover um produto da lista de acordo com o click no botão close
-function Remover() {
+function remover() {
   console.log("Remover");
   let close = document.getElementsByClassName("close"); // Seleciona todas as células da tabela com a classe close
   // var table = document.getElementById('myTable');
@@ -128,7 +128,7 @@ function Remover() {
 }
 
 // Adicionando evento de clique ao botão
-function Editar() {
+function editar() {
   console.log("Editar");
   let celulasBtnEditar = document.querySelectorAll(" .edit"); // Seleciona todas as células da tabela com a classe edit
 
@@ -159,11 +159,13 @@ function Editar() {
 
         if (j == 2) {
           // Aplique a máscara ao novo campo de entrada
-          $(input).mask("00000-000");
-        }
-        if (j == 0) {
-          // Aplique a máscara ao novo campo de entrada
-          $(input).mask("000.000.000-00");
+          $("#getValor").maskMoney({
+            prefix: "R$ ",
+            allowNegative: true,
+            thousands: ".",
+            decimal: ",",
+            affixesStay: false,
+          });
         }
       }
 
@@ -294,8 +296,8 @@ function insertList(nomeProduto, quantidadeProduto, precoProduto) {
 
   limparDados();
   //Habilita as funções dos botões
-  Remover();
-  Editar();
+  remover();
+  editar();
 }
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
