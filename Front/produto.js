@@ -158,9 +158,8 @@ function editar() {
         celulasDaLinha[j].appendChild(input);
 
         if (j == 2) {
-          alert("entrou");
           // Aplique a máscara ao novo campo de entrada
-          $("#getPreco").maskMoney({
+          $(input).maskMoney({
             prefix: "R$ ",
             allowNegative: true,
             thousands: ".",
