@@ -1,9 +1,10 @@
 //Váriaveis globais
 let ids = [];
 let id;
+let edicao = true;
 
 //Chamada da função para carregamento inicial dos dados
-if (window.location.href.indexOf("produto.html") !== -1) {
+if (window.location.href.indexOf("cadastroProduto.html") !== -1) {
   getList();
 }
 
@@ -12,7 +13,7 @@ function inicar() {
   let atulizar = document.createElement("span");
   atulizar.innerHTML = "atulizar";
   atulizar.classList.add("addBtn");
-  atulizar.onclick = busca();
+  atulizar.onclick = buscaProduto();
 }
 
 // Adiciona 'idn' à lista 'ids'
@@ -36,81 +37,60 @@ function inserirBtnRemover(item) {
 function inserirBtnEditar(item) {
   let span = document.createElement("span");
   let txt = document.createTextNode("\u270F");
-  span.className = 'edit';
+  span.className = "edit";
   span.appendChild(txt);
   item.appendChild(span);
 }
 
 //Função para limpar os valores da tabela
 function limparDados() {
+  edicao = false;
   document.getElementById("getNome").value = "";
   document.getElementById("getQuantidade").value = "";
   document.getElementById("getValor").value = "";
 }
 
-//Altera de pagina cliente
-function cliente() {
-  console.log("click cliente");
-  window.location.href = 'cliente.html';
-}
-
-//Altera de pagina produto
-function produto() {
-  console.log("click validade");
-  window.location.href = 'produto.html';
-}
-
-//Altera de pagina busca
-function busca() {
-  console.log("click sacola");
-  window.location.href = 'busca.html';
-}
-
-//Altera de pagina endereço
-function endereco() {
-  console.log("click endereco");
-  window.location.href = 'endereco.html';
-}
-
 //Função para obter a lista existente do servidor via requisição GET
 function getList() {
-  let url = 'http://127.0.0.1:5000/produtos';
-  console.log("get")
-  console.log(url)
+  limparDados();
+  let url = "http://127.0.0.1:5000/produtos";
+  console.log("get");
+  console.log(url);
   fetch(url, {
-    method: 'get',
+    method: "get",
   })
     .then((response) => response.json())
     .then((data) => {
-      data.produtos.forEach(item => insertList(item.nome, item.quantidade, item.valor));
-      data.produtos.forEach(item => pegaListaId(item.id));
+      data.produtos.forEach((item) =>
+        insertList(item.nome, item.quantidade, item.valor)
+      );
+      data.produtos.forEach((item) => pegaListaId(item.id));
     })
     .catch((error) => {
-      console.error('Error:', error);
+      console.error("Error:", error);
     });
 }
 
 //Função para colocar um item do produto na lista do servidor via requisição POST
 async function postItem(inputProduct, inputQuantity, inputPrice) {
-
   //Criação do objeto
   const formData = new FormData();
-  formData.append('nome', inputProduct);
-  formData.append('quantidade', inputQuantity);
-  formData.append('valor', inputPrice);
+  formData.append("nome", inputProduct);
+  formData.append("quantidade", inputQuantity);
+  formData.append("valor", inputPrice);
 
   //post do objeto
-  let url = 'http://127.0.0.1:5000/produto';
-  console.log("post")
-  console.log(url)
+  let url = "http://127.0.0.1:5000/produto";
+  console.log("post");
+  console.log(url);
   fetch(url, {
-    method: 'post',
-    body: formData
+    method: "post",
+    body: formData,
   })
     //a resposta deve ser convertida em json
     .then((response) => response.json())
     .catch((error) => {
-      console.error('Error:', error);
+      console.error("Error:", error);
     });
 }
 
@@ -121,12 +101,12 @@ function Remover() {
   for (let i = 0; i < close.length; i++) {
     close[i].onclick = function () {
       let div = this.parentElement.parentElement;
-      const nomeItem = div.getElementsByTagName('td')[0].innerHTML;
+      const nomeItem = div.getElementsByTagName("td")[0].innerHTML;
       console.log(nomeItem);
 
       let linha = this.parentNode.parentElement; // Seleciona a linha que contém a célula clicada
       let idLinha = linha.id - 1;
-      id = ids[idLinha];//Id do produto referente a linha
+      id = ids[idLinha]; //Id do produto referente a linha
 
       if (confirm("Você tem certeza?")) {
         div.remove();
@@ -137,20 +117,13 @@ function Remover() {
   }
 }
 
-/*
-  --------------------------------------------------------------------------------------
-  Função para editar um item do produto da lista de acordo com o click no botão edit
-  --------------------------------------------------------------------------------------
-*/
-
 // Adicionando evento de clique ao botão
 function Editar() {
   let celulasBtnEditar = document.querySelectorAll(" .edit"); // Seleciona todas as células da tabela com a classe edit
 
-
   for (let i = 0; i < celulasBtnEditar.length; i++) {
     celulasBtnEditar[i].onclick = function () {
-
+      edicao = true;
       // Esconde o botão de edição
       for (let i = 0; i < celulasBtnEditar.length; i++) {
         celulasBtnEditar[i].style.display = "none";
@@ -160,7 +133,8 @@ function Editar() {
       let idLinha = linha.id;
 
       let celulasDaLinhaGeral = document.getElementById(idLinha);
-      let celulasDaLinha = celulasDaLinhaGeral.querySelectorAll(" .linhaEditavel"); // Seleciona todas as células de classe linhaEditavel
+      let celulasDaLinha =
+        celulasDaLinhaGeral.querySelectorAll(" .linhaEditavel"); // Seleciona todas as células de classe linhaEditavel
 
       idLinha++;
 
@@ -171,6 +145,15 @@ function Editar() {
         input.value = celulasDaLinha[j].innerHTML;
         celulasDaLinha[j].innerHTML = "";
         celulasDaLinha[j].appendChild(input);
+
+        if (j == 2) {
+          // Aplique a máscara ao novo campo de entrada
+          $(input).mask("00000-000");
+        }
+        if (j == 0) {
+          // Aplique a máscara ao novo campo de entrada
+          $(input).mask("000.000.000-00");
+        }
       }
 
       // Adiciona um botão de salvar à linha
@@ -179,12 +162,10 @@ function Editar() {
       salvar.innerHTML = "Salvar";
       salvar.classList.add("addBtn");
       celulaEditar.appendChild(salvar);
-      /*
-            let salvar = document.createElement("button");
-            salvar.innerHTML = "Salvar";
-            linha.appendChild(salvar);*/
+
       // Adiciona um evento de clique ao botão de salvar
       salvar.onclick = function () {
+        edicao = false;
         // Obtém os valores dos inputs e salva os campos
         let inputs = linha.getElementsByTagName("input");
         for (let k = 0; k < inputs.length; k++) {
@@ -211,14 +192,7 @@ function Editar() {
 
         celulasDaLinha[0].innerHTML = nome;
         celulasDaLinha[1].innerHTML = quantidade;
-        celulasDaLinha[2].innerHTML = preco
-
-        /*
-        for (let l = 0; l < tamanho; l++) {
-          let valor = inputs[l].value;
-          celulasDaLinha[l].innerHTML = valor;
-        }
-        */
+        celulasDaLinha[2].innerHTML = preco;
 
         //Pega o id referente a coluna clicada
         idLinhaUpdate = idLinha - 1;
@@ -232,25 +206,24 @@ function Editar() {
         console.log("============");
         //updateItem(nome, quantidade, preco);
         updateProduto(id, nome, quantidade, preco);
-
       };
     };
   }
 }
 
-//Função para deletar um item do produto da lista do servidor via requisição DELETE
+//Função para deletar um item do produto da lista utilizando o nome do servidor via requisição DELETE
 function deletarProduto(nomeItem) {
   console.log("Nome do item");
   console.log(nomeItem);
-  let url = 'http://127.0.0.1:5000/produto?nome=' + nomeItem;
-  console.log("delete")
-  console.log(url)
+  let url = "http://127.0.0.1:5000/produto?nome=" + nomeItem;
+  console.log("delete");
+  console.log(url);
   fetch(url, {
-    method: 'delete'
+    method: "delete",
   })
     .then((response) => response.json())
     .catch((error) => {
-      console.error('Error:', error);
+      console.error("Error:", error);
     });
 }
 
@@ -258,15 +231,15 @@ function deletarProduto(nomeItem) {
 function deletarProdutoId(IdItem) {
   console.log("ID do item");
   console.log(IdItem);
-  let url = 'http://127.0.0.1:5000/produto?id=' + IdItem;
-  console.log("delete")
-  console.log(url)
+  let url = "http://127.0.0.1:5000/produto?id=" + IdItem;
+  console.log("delete");
+  console.log(url);
   fetch(url, {
-    method: 'delete'
+    method: "delete",
   })
     .then((response) => response.json())
     .catch((error) => {
-      console.error('Error:', error);
+      console.error("Error:", error);
     });
 }
 
@@ -276,7 +249,7 @@ function newItem() {
   let quantidade = document.getElementById("getQuantidade").value;
   let preco = document.getElementById("getValor").value;
 
-  if (nome === '') {
+  if (nome === "") {
     alert("Escreva o nome de um item!");
   } else if (isNaN(quantidade) || isNaN(preco)) {
     alert("Quantidade e valor precisam ser números!");
@@ -285,8 +258,8 @@ function newItem() {
     insertList(nome, quantidade, preco);
     //Envia um comando post para api
     postItem(nome, quantidade, preco);
-    produto();//evita bug apos adicionar uma linha
-    alert("Item adicionado!");
+    produto(); //evita bug apos adicionar uma linha
+    alert("Produto adicionado!");
   }
 }
 
@@ -295,16 +268,15 @@ let rowId = 1;
 function insertList(nameProduct, quantity, price) {
   //alert("insertList");
   var item = [nameProduct, quantity, price];
-  var table = document.getElementById('myTable');
+  var table = document.getElementById("myTable");
   var row = table.insertRow();
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
-
 
   // repita onde( inteiro "i" = 0 e menor que o numero de itens, some 1)
   for (var i = 0; i < item.length; i++) {
     var cel = row.insertCell(i);
     cel.textContent = item[i];
-    cel.classList.add('linhaEditavel'); // Adiciona a classe .linhaEditavel à célula
+    cel.classList.add("linhaEditavel"); // Adiciona a classe .linhaEditavel à célula
   }
   inserirBtnRemover(row.insertCell(-1));
   inserirBtnEditar(row.insertCell(-1));
@@ -317,13 +289,12 @@ function insertList(nameProduct, quantity, price) {
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
 function insertUm(nameProduct, quantity, price) {
   var item = [nameProduct, quantity, price];
-  var table = document.getElementById('myTable');
+  var table = document.getElementById("myTable");
   while (table.rows.length > 1) {
     table.deleteRow(1);
   }
   var row = table.insertRow();
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
-
 
   // repita onde(inteiro "i" = 0 e menor que o numero de itens, some 1)
   for (var i = 0; i < item.length; i++) {
@@ -332,14 +303,12 @@ function insertUm(nameProduct, quantity, price) {
   }
 }
 
-
 //Insere uma nova linha
 function insertMais(nameProduct, quantity, price) {
   var item = [nameProduct, quantity, price];
-  var table = document.getElementById('myTable');
+  var table = document.getElementById("myTable");
   var row = table.insertRow();
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
-
 
   //Repita onde( inteiro "i" = 0 e menor que o numero de itens, some 1)
   for (var i = 0; i < item.length; i++) {
@@ -349,42 +318,47 @@ function insertMais(nameProduct, quantity, price) {
 }
 
 //Função para alterar um produto
-function updateProduto(idProduto, nomeProduto, quantidadeProduto, precoProduto) {
-
+function updateProduto(
+  idProduto,
+  nomeProduto,
+  quantidadeProduto,
+  precoProduto
+) {
   //Criação do objeto
   const formData = new FormData();
-  formData.append('nome', nomeProduto);
-  formData.append('quantidade', quantidadeProduto);
-  formData.append('valor', precoProduto);
+  formData.append("nome", nomeProduto);
+  formData.append("quantidade", quantidadeProduto);
+  formData.append("valor", precoProduto);
 
   //put do objeto
-  let url = 'http://127.0.0.1:5000/produto?id=' + idProduto;
-  console.log("put")
-  console.log(url)
+  let url = "http://127.0.0.1:5000/produto?id=" + idProduto;
+  console.log("put");
+  console.log(url);
   fetch(url, {
-    method: 'put',
-    body: formData
+    method: "put",
+    body: formData,
   })
     //a resposta deve ser convertida em json
     .then((response) => response.json())
     .catch((error) => {
-      console.error('Error:', error);
+      console.error("Error:", error);
     });
 }
 
+//busca um produto
 function buscarProduto() {
-  document.getElementById("att2").style.display = 'block';
+  document.getElementById("att2").style.display = "block";
   let inputID = document.querySelectorAll("#getId");
   let inputNome = document.querySelectorAll("#getNome");
   let inputQuantidade = document.querySelectorAll("#getQuantidade");
   let inputValor = document.querySelectorAll("#getValor");
-  let Produto
+  let Produto;
 
   let buscar = document.getElementById("buscar");
   buscar.remove();
 
   for (let k = 0; k < inputID.length; k++) {
-    Produto = inputID[k].value;           // Salva o valor do campo aqui         }
+    Produto = inputID[k].value; // Salva o valor do campo aqui         }
     if (Produto != "") {
       console.log("id");
       buscaGet("id", Produto);
@@ -403,7 +377,6 @@ function buscarProduto() {
           if (Produto != "") {
             console.log("valor");
             buscaGetmais("valor", Produto);
-
           }
         }
       }
@@ -411,15 +384,21 @@ function buscarProduto() {
   }
 }
 
+//Consulta para id
 function buscaGet(ParametroUrl, paramentroProduto) {
-
-  let url = 'http://127.0.0.1:5000/produto' + ParametroUrl + '?' + ParametroUrl + '=' + paramentroProduto;
+  let url =
+    "http://127.0.0.1:5000/produto" +
+    ParametroUrl +
+    "?" +
+    ParametroUrl +
+    "=" +
+    paramentroProduto;
 
   //get do objeto
-  console.log("get")
-  console.log(url)
+  console.log("get");
+  console.log(url);
   fetch(url, {
-    method: 'get'
+    method: "get",
   })
     .then((response) => response.json())
     .then((data) => {
@@ -431,30 +410,38 @@ function buscaGet(ParametroUrl, paramentroProduto) {
       }
     })
     .catch((error) => {
-      console.error('Error:', error);
+      console.error("Error:", error);
     });
 }
 
+//Consulta para varios
 function buscaGetmais(ParametroUrl, paramentroProduto) {
-
-  let url = 'http://127.0.0.1:5000/produtos' + ParametroUrl + '?' + ParametroUrl + '=' + paramentroProduto;
+  let url =
+    "http://127.0.0.1:5000/produtos" +
+    ParametroUrl +
+    "?" +
+    ParametroUrl +
+    "=" +
+    paramentroProduto;
 
   //get do objeto
-  console.log("get")
-  console.log(url)
+  console.log("get");
+  console.log(url);
   fetch(url, {
-    method: 'get'
+    method: "get",
   })
     .then((response) => response.json())
     .then((data) => {
       console.log(data.produtos);
       if (data.produtos != 0) {
-        data.produtos.forEach(item => insertMais(item.nome, item.quantidade, item.valor));
+        data.produtos.forEach((item) =>
+          insertMais(item.nome, item.quantidade, item.valor)
+        );
       } else {
         alert("Prodduto não encontrado");
       }
     })
     .catch((error) => {
-      console.error('Error:', error);
+      console.error("Error:", error);
     });
 }

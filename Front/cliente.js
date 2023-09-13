@@ -4,7 +4,7 @@ let id;
 let edicao = true;
 
 //Chamada da função para carregamento inicial dos dados
-if (window.location.href.indexOf("cliente.html") !== -1) {
+if (window.location.href.indexOf("cadastroCliente.html") !== -1) {
   getList();
 }
 
@@ -13,7 +13,7 @@ function inicar() {
   let atulizar = document.createElement("span");
   atulizar.innerHTML = "atulizar";
   atulizar.classList.add("addBtn");
-  atulizar.onclick = busca();
+  atulizar.onclick = buscaCliente();
 }
 
 // Adiciona 'idn' à lista 'ids'
@@ -44,42 +44,13 @@ function inserirBtnEditar(item) {
 
 //Função para limpar os valores da tabela
 function limparDados() {
-  edicao=false;
+  edicao = false;
   document.getElementById("getNome").value = "";
-  document.getElementById("getCPF").value = "";
-  document.getElementById("getCEP").value = "";
+  document.getElementById("getCpf").value = "";
+  document.getElementById("getCep").value = "";
 }
 
-//Altera de pagina cliente
-function cliente() {
-  console.log("click cliente");
-  window.location.href = "cliente.html";
-}
-
-//Altera de pagina cliente
-function produto() {
-  console.log("click validade");
-  window.location.href = "produto.html";
-}
-
-//Altera de pagina busca
-function busca() {
-  console.log("click sacola");
-  window.location.href = "busca.html";
-}
-
-//Altera de pagina endereço
-function endereco() {
-  console.log("click endereco");
-  window.location.href = "endereco.html";
-}
-
-/*
-  --------------------------------------------------------------------------------------
-  Função para obter a lista existente do servidor via requisição GET
-  --------------------------------------------------------------------------------------
-*/
-
+//Função para obter a lista existente do servidor via requisição GET
 function getList() {
   limparDados();
   let url = "http://127.0.0.1:5000/clientes";
@@ -100,13 +71,7 @@ function getList() {
     });
 }
 
-/*
-  --------------------------------------------------------------------------------------
-  Função para colocar um item do estoque na lista do servidor via requisição POST
-  --------------------------------------------------------------------------------------
-*/
-
-//Função para colocar um item do cliente na lista do servidor via requisição POST
+//Função para colocar um item do produto na lista do servidor via requisição POST
 async function postItem(inputCpf, inputNome, inputCep) {
   //Criação do objeto
   const formData = new FormData();
@@ -139,8 +104,8 @@ function Remover() {
   for (let i = 0; i < close.length; i++) {
     close[i].onclick = function () {
       let div = this.parentElement.parentElement;
-      const cpfCliente = div.getElementsByTagName("td")[0].innerHTML;
-      console.log(cpfCliente);
+      const cpf = div.getElementsByTagName("td")[0].innerHTML;
+      console.log(cpf);
 
       let linha = this.parentNode.parentElement; // Seleciona a linha que contém a célula clicada
       let idLinha = linha.id - 1;
@@ -249,11 +214,11 @@ function Editar() {
   }
 }
 
-//Função para deletar um item do cliente da lista do servidor via requisição DELETE
-function deletarCliente(cpfCliente) {
+//Função para deletar um item do cliente da lista utilizando o cpf do servidor via requisição DELETE
+function deletarCliente(cpf) {
   console.log("CPF do cliente");
-  console.log(cpfCliente);
-  let url = "http://127.0.0.1:5000/cliente?cpf=" + cpfCliente;
+  console.log(cpf);
+  let url = "http://127.0.0.1:5000/cliente?cpf=" + cpf;
   console.log("delete");
   console.log(url);
   fetch(url, {
@@ -283,9 +248,9 @@ function deletarClienteId(IdItem) {
 
 //Função para adicionar um novo item do cliente com cpf, nome e cep
 function newItem() {
-  let cpf = document.getElementById("getCPF").value;
+  let cpf = document.getElementById("getCpf").value;
   let nome = document.getElementById("getNome").value;
-  let cep = document.getElementById("getCEP").value;
+  let cep = document.getElementById("getCep").value;
 
   if (cpf === "") {
     alert("Escreva o CPF de um cliente!");
@@ -305,8 +270,8 @@ function newItem() {
 
 let rowId = 1;
 //Função para inserir items ao cliente na lista apresentada
-function insertList(cpfCliente, nome, cep) {
-  var item = [cpfCliente, nome, cep];
+function insertList(cpf, nome, cep) {
+  var item = [cpf, nome, cep];
   var table = document.getElementById("myTable");
   var row = table.insertRow();
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
@@ -333,6 +298,7 @@ function insertList(cpfCliente, nome, cep) {
   Editar();
 }
 
+//Faz a consulta do cep em outra página
 function setCep(celula) {
   if (edicao == false) {
     alert("Célula clicada: " + celula.innerHTML);
@@ -343,8 +309,8 @@ function setCep(celula) {
 }
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
-function insertUm(cpfCliente, nome, cep) {
-  var item = [cpfCliente, nome, cep];
+function insertUm(cpf, nome, cep) {
+  var item = [cpf, nome, cep];
   var table = document.getElementById("myTable");
   while (table.rows.length > 1) {
     table.deleteRow(1);
@@ -352,6 +318,7 @@ function insertUm(cpfCliente, nome, cep) {
   var row = table.insertRow();
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
 
+  // repita onde(inteiro "i" = 0 e menor que o numero de itens, some 1)
   for (var i = 0; i < item.length; i++) {
     var cel = row.insertCell(i);
     cel.textContent = item[i];
@@ -359,8 +326,8 @@ function insertUm(cpfCliente, nome, cep) {
 }
 
 //Insere uma nova linha
-function insertMais(cpfCliente, nome, cep) {
-  var item = [cpfCliente, nome, cep];
+function insertMais(cpf, nome, cep) {
+  var item = [cpf, nome, cep];
   var table = document.getElementById("myTable");
   var row = table.insertRow();
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
@@ -372,14 +339,14 @@ function insertMais(cpfCliente, nome, cep) {
 }
 
 //Função para alterar um cliente
-function updateCliente(cpfCliente, nomeCliente, cepCliente) {
+function updateCliente(cpf, nome, cep) {
   //Criação do objeto
   const formData = new FormData();
-  formData.append("nome", nomeCliente);
-  formData.append("cep", cepCliente);
+  formData.append("nome", nome);
+  formData.append("cep", cep);
 
   //put do objeto
-  let url = "http://127.0.0.1:5000/cliente?cpf=" + cpfCliente;
+  let url = "http://127.0.0.1:5000/cliente?cpf=" + cpf;
   console.log("put");
   console.log(url);
   fetch(url, {
@@ -392,11 +359,12 @@ function updateCliente(cpfCliente, nomeCliente, cepCliente) {
     });
 }
 
+//busca um cliente
 function buscarCliente() {
   document.getElementById("att2").style.display = "block";
-  let inputCPF = document.querySelectorAll("#getCPF");
+  let inputCPF = document.querySelectorAll("#getCpf");
   let inputNome = document.querySelectorAll("#getNome");
-  let inputCEP = document.querySelectorAll("#getCEP");
+  let inputCEP = document.querySelectorAll("#getCep");
   let Cliente;
 
   let buscar = document.getElementById("buscar");
@@ -423,6 +391,7 @@ function buscarCliente() {
   }
 }
 
+//Consulta para id
 function buscaGet(ParametroUrl, paramentroCliente) {
   let url =
     "http://127.0.0.1:5000/cliente" +
@@ -452,6 +421,7 @@ function buscaGet(ParametroUrl, paramentroCliente) {
     });
 }
 
+//Consulta para varios
 function buscaGetmais(ParametroUrl, paramentroCliente) {
   let url =
     "http://127.0.0.1:5000/clientes" +

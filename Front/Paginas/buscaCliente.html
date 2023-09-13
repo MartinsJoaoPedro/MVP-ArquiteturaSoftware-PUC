@@ -12,66 +12,73 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
     <title>IFrutas</title>
-
-    <title>Exemplo de consumo da API do ViaCEP</title>
   </head>
 
   <body>
     <!-- Cabeçalho de informações do sistema -->
     <header>
       <div class="title">
-        <h2 onclick="endereco()">Endereço</h2>
+        <h2 onclick="buscaCliente()">Busca de Clientes</h2>
 
         <section class="ajusteAtt">
-          <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
           <span onclick="buscaProduto()" class="addBtn">Busca de Produtos</span>
-          <span onclick="cadastroCliente()" id="cliente" class="addBtn"
-            >Cadastro de Cliente</span
-          >
           <span onclick="cadastroProduto()" id="produto" class="addBtn"
-            >Cadastro de Produto</span
+            >Produto</span
           >
-          <!-- <a href="validade.html" class="botaoPagina btnSacola">validade</a> -->
+          <span onclick="cadastroCliente()" id="cliente" class="addBtn"
+            >Cliente</span
+          >
+          <span onclick="endereco()" id="endereco" class="addBtn"
+            >Endereço</span
+          >
         </section>
       </div>
 
-      <!-- Opções para adicionar um novo item -->
-      <section class="image-background">
+      <!-- Opções para bucar uma pessoa -->
+      <section class="image-background buscarPessoa myTable">
         <div class="ajusteTable">
           <!-- id= referenciar o css placeholder= texto de predefinição -->
-          <input type="text" id="getCep" placeholder="Cep:" />
-          <span onclick="getEndereco()" class="addBtn">Buscar</span>
+          <input type="text" id="getCpf" placeholder="CPF:" />
+          <input type="text" id="getNome" placeholder="Nome:" />
+          <input type="text" id="getCep" placeholder="CEP:" />
+          <span onclick="buscarCliente()" id="buscar" class="addBtn"
+            >Buscar</span
+          >
+          <span onclick="buscaCliente()" id="att2" class="addBtn"
+            >Limpar Busca</span
+          >
+          <button id="sheetjsexport"><b>Export as XLSX</b></button>
         </div>
       </section>
     </header>
 
     <!-- Tabela com items existentes -->
     <section class="items">
-      <h3>Dados do CEP</h3>
-      <ul id="cep-data"></ul>
-
-      <!--
-        <table id="myTable">
-            <tr id="idDaLinha">
-                <td>Nome</td>
-                <td>Quantidade</td>
-                <td>Valor</td>
-                <td><img class="lixo close icone"></td>
-                <td><img onclick="updateItem()" class="editar icone"></td>
-            </tr>
-        </table>-->
+      <table id="myTable">
+        <tr id="idDaLinha">
+          <td>CPF</td>
+          <td>Nome</td>
+          <td>CEP</td>
+        </tr>
+      </table>
     </section>
 
+    <!-- Códicos javascript -->
+    <script
+      lang="javascript"
+      src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"
+    ></script>
     <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF -->
     <script>
       $(document).ready(function () {
+        $("#getCpf").mask("000.000.000-00");
         $("#getCep").mask("00000-000");
       });
     </script>
 
     <!-- Seu script existente -->
     <script src="../botoes.js"></script>
-    <script src="../scripts.js"></script>
-    <script src="../endereco.js"></script>
+    <script src="../cliente.js"></script>
+    <script src="../excel.js"></script>
   </body>
 </html>
