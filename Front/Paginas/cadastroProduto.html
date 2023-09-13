@@ -7,6 +7,10 @@
 
     <link rel="stylesheet" href="../styles.css" />
 
+    <!-- Inclua as bibliotecas jQuery e jQuery Mask Plugin -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+    
     <title>IFrutas</title>
   </head>
 
@@ -53,6 +57,19 @@
         </tr>
       </table>
     </section>
+
+    <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF -->
+    <script>
+      $(document).ready(function () {
+        $("#getValor").maskMoney({
+          prefix: "R$ ",
+          allowNegative: true,
+          thousands: ".",
+          decimal: ",",
+          affixesStay: false,
+        });
+      });
+    </script>
 
     <!-- Seu script existente -->
     <script src="../botoes.js"></script>

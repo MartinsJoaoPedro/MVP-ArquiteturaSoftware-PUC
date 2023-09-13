@@ -7,6 +7,10 @@
 
     <link rel="stylesheet" href="../styles.css" />
 
+    <!-- Inclua as bibliotecas jQuery e jQuery Mask Plugin -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+
     <title>IFrutas</title>
   </head>
 
@@ -18,8 +22,12 @@
 
         <section class="ajusteAtt">
           <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
-          <span onclick="cadastroProduto()" id="produto" class="addBtn">Produto</span>
-          <span onclick="cadastroCliente()" id="cliente" class="addBtn">Cliente</span>
+          <span onclick="cadastroProduto()" id="produto" class="addBtn"
+            >Cadastro de Produto</span
+          >
+          <span onclick="cadastroCliente()" id="cliente" class="addBtn"
+            >Cadastro de Cliente</span
+          >
           <span onclick="endereco()" id="endereco" class="addBtn"
             >Endereço</span
           >
@@ -37,7 +45,9 @@
           <span onclick="buscarProduto()" id="buscar" class="addBtn"
             >Buscar</span
           >
-          <span onclick="buscaProduto()" id="att2" class="addBtn">Limpar Busca</span>
+          <span onclick="buscaProduto()" id="att2" class="addBtn"
+            >Limpar Busca</span
+          >
           <button id="sheetjsexport"><b>Export as XLSX</b></button>
         </div>
       </section>
@@ -59,6 +69,18 @@
       lang="javascript"
       src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"
     ></script>
+    <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF -->
+    <script>
+      $(document).ready(function () {
+        $("#getValor").maskMoney({
+          prefix: "R$ ",
+          allowNegative: true,
+          thousands: ".",
+          decimal: ",",
+          affixesStay: false,
+        });
+      });
+    </script>
 
     <!-- Seu script existente -->
     <script src="../botoes.js"></script>

@@ -10,6 +10,7 @@ if (window.location.href.indexOf("cadastroProduto.html") !== -1) {
 
 //Função para carregamento da estrutura inicial
 function inicar() {
+  console.log("inicar");
   let atulizar = document.createElement("span");
   atulizar.innerHTML = "atulizar";
   atulizar.classList.add("addBtn");
@@ -22,7 +23,8 @@ function pegaListaId(idn) {
 }
 
 //Função para colocar o botão de remover
-function inserirBtnRemover(item) {
+function inserirBtnRemover(Produto) {
+  console.log("botão de remoção");
   let span = document.createElement("span");
   //u00D7 == x
   let txt = document.createTextNode("\u00D7");
@@ -30,20 +32,22 @@ function inserirBtnRemover(item) {
   //x está no span
   span.appendChild(txt);
   //span está no paramentro parent
-  item.appendChild(span);
+  Produto.appendChild(span);
 }
 
 //Função para colocar o botão de editar
-function inserirBtnEditar(item) {
+function inserirBtnEditar(produto) {
+  console.log("botão de edição");
   let span = document.createElement("span");
   let txt = document.createTextNode("\u270F");
   span.className = "edit";
   span.appendChild(txt);
-  item.appendChild(span);
+  produto.appendChild(span);
 }
 
 //Função para limpar os valores da tabela
 function limparDados() {
+  console.log("limpar");
   edicao = false;
   document.getElementById("getNome").value = "";
   document.getElementById("getQuantidade").value = "";
@@ -61,17 +65,17 @@ function getList() {
   })
     .then((response) => response.json())
     .then((data) => {
-      data.produtos.forEach((item) =>
-        insertList(item.nome, item.quantidade, item.valor)
+      data.produtos.forEach((produto) =>
+        insertList(produto.nome, produto.quantidade, produto.valor)
       );
-      data.produtos.forEach((item) => pegaListaId(item.id));
+      data.produtos.forEach((produto) => pegaListaId(produto.id));
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
 
-//Função para colocar um item do produto na lista do servidor via requisição POST
+//Função para colocar um produto na lista do servidor via requisição POST
 async function postItem(inputProduct, inputQuantity, inputPrice) {
   //Criação do objeto
   const formData = new FormData();
@@ -94,8 +98,9 @@ async function postItem(inputProduct, inputQuantity, inputPrice) {
     });
 }
 
-//Função para remover um item do produto da lista de acordo com o click no botão close
+//Função para remover um produto da lista de acordo com o click no botão close
 function Remover() {
+  console.log("Remover");
   let close = document.getElementsByClassName("close"); // Seleciona todas as células da tabela com a classe close
   // var table = document.getElementById('myTable');
   for (let i = 0; i < close.length; i++) {
@@ -119,6 +124,7 @@ function Remover() {
 
 // Adicionando evento de clique ao botão
 function Editar() {
+  console.log("Editar");
   let celulasBtnEditar = document.querySelectorAll(" .edit"); // Seleciona todas as células da tabela com a classe edit
 
   for (let i = 0; i < celulasBtnEditar.length; i++) {
@@ -211,11 +217,9 @@ function Editar() {
   }
 }
 
-//Função para deletar um item do produto da lista utilizando o nome do servidor via requisição DELETE
-function deletarProduto(nomeItem) {
-  console.log("Nome do item");
-  console.log(nomeItem);
-  let url = "http://127.0.0.1:5000/produto?nome=" + nomeItem;
+//Função para deletar um produto da lista utilizando o nome do servidor via requisição DELETE
+function deletarProduto(nomeProduto) {
+  let url = "http://127.0.0.1:5000/produto?nome=" + nomeProduto;
   console.log("delete");
   console.log(url);
   fetch(url, {
@@ -227,11 +231,9 @@ function deletarProduto(nomeItem) {
     });
 }
 
-//Função para deletar um item do produto da lista utilizando o ID do servidor via requisição DELETE
-function deletarProdutoId(IdItem) {
-  console.log("ID do item");
-  console.log(IdItem);
-  let url = "http://127.0.0.1:5000/produto?id=" + IdItem;
+//Função para deletar um produto da lista utilizando o ID do servidor via requisição DELETE
+function deletarProdutoId(IdProduto) {
+  let url = "http://127.0.0.1:5000/produto?id=" + IdProduto;
   console.log("delete");
   console.log(url);
   fetch(url, {
@@ -243,18 +245,21 @@ function deletarProdutoId(IdItem) {
     });
 }
 
-//Função para adicionar um novo item do produto com nome, quantidade e valor
+//Função para adicionar um novo produto com nome, quantidade e valor
 function newItem() {
+  console.log("novo item");
   let nome = document.getElementById("getNome").value;
   let quantidade = document.getElementById("getQuantidade").value;
   let preco = document.getElementById("getValor").value;
 
   if (nome === "") {
-    alert("Escreva o nome de um item!");
-  } else if (isNaN(quantidade) || isNaN(preco)) {
-    alert("Quantidade e valor precisam ser números!");
+    alert("Escreva o nome do produto!");
+  } else if (isNaN(quantidade)) {
+    alert("Quantidade precisa ser um número!");
+  } else if (preco === "") {
+    alert("Escreva o preco do produto!");
   } else {
-    //Acrescenta o item do produto na lista do site
+    //Acrescenta o produto na lista do site
     insertList(nome, quantidade, preco);
     //Envia um comando post para api
     postItem(nome, quantidade, preco);
@@ -263,32 +268,35 @@ function newItem() {
   }
 }
 
-//Função para inserir items ao produto na lista apresentada
+//Função para inserir produtos na lista apresentada
 let rowId = 1;
-function insertList(nameProduct, quantity, price) {
+function insertList(nomeProduto, quantidadeProduto, precoProduto) {
+  console.log("Inserindo produtos");
   //alert("insertList");
-  var item = [nameProduct, quantity, price];
+  var produto = [nomeProduto, quantidadeProduto, precoProduto];
   var table = document.getElementById("myTable");
   var row = table.insertRow();
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
 
   // repita onde( inteiro "i" = 0 e menor que o numero de itens, some 1)
-  for (var i = 0; i < item.length; i++) {
+  for (var i = 0; i < produto.length; i++) {
     var cel = row.insertCell(i);
-    cel.textContent = item[i];
+    cel.textContent = produto[i];
     cel.classList.add("linhaEditavel"); // Adiciona a classe .linhaEditavel à célula
   }
   inserirBtnRemover(row.insertCell(-1));
   inserirBtnEditar(row.insertCell(-1));
 
   limparDados();
+  //Habilita as funções dos botões
   Remover();
   Editar();
 }
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
-function insertUm(nameProduct, quantity, price) {
-  var item = [nameProduct, quantity, price];
+function insertUm(nomeProduto, quantidadeProduto, precoProduto) {
+  console.log("Inserindo produto único");
+  var produto = [nomeProduto, quantidadeProduto, precoProduto];
   var table = document.getElementById("myTable");
   while (table.rows.length > 1) {
     table.deleteRow(1);
@@ -297,23 +305,24 @@ function insertUm(nameProduct, quantity, price) {
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
 
   // repita onde(inteiro "i" = 0 e menor que o numero de itens, some 1)
-  for (var i = 0; i < item.length; i++) {
+  for (var i = 0; i < produto.length; i++) {
     var cel = row.insertCell(i);
-    cel.textContent = item[i];
+    cel.textContent = produto[i];
   }
 }
 
 //Insere uma nova linha
-function insertMais(nameProduct, quantity, price) {
-  var item = [nameProduct, quantity, price];
+function insertMais(nomeProduto, quantidadeProduto, precoProduto) {
+  console.log("Inserindo produtos");
+  var produto = [nomeProduto, quantidadeProduto, precoProduto];
   var table = document.getElementById("myTable");
   var row = table.insertRow();
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
 
   //Repita onde( inteiro "i" = 0 e menor que o numero de itens, some 1)
-  for (var i = 0; i < item.length; i++) {
+  for (var i = 0; i < produto.length; i++) {
     var cel = row.insertCell(i);
-    cel.textContent = item[i];
+    cel.textContent = produto[i];
   }
 }
 
@@ -347,6 +356,7 @@ function updateProduto(
 
 //busca um produto
 function buscarProduto() {
+  console.log("Buscando produto");
   document.getElementById("att2").style.display = "block";
   let inputID = document.querySelectorAll("#getId");
   let inputNome = document.querySelectorAll("#getNome");
@@ -434,8 +444,8 @@ function buscaGetmais(ParametroUrl, paramentroProduto) {
     .then((data) => {
       console.log(data.produtos);
       if (data.produtos != 0) {
-        data.produtos.forEach((item) =>
-          insertMais(item.nome, item.quantidade, item.valor)
+        data.produtos.forEach((Produto) =>
+          insertMais(Produto.nome, Produto.quantidade, Produto.valor)
         );
       } else {
         alert("Prodduto não encontrado");
