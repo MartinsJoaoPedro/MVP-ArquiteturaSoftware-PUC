@@ -2,6 +2,7 @@
 let ids = [];
 let id;
 let edicao = true;
+let erroServidor = true;
 
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("index.html") !== -1) {
@@ -71,6 +72,10 @@ function getList() {
     })
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -97,6 +102,10 @@ async function postItem(inputCpf, inputProduct) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -230,6 +239,10 @@ function deletarCompra(produtoCompra) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -244,6 +257,10 @@ function deletarCompraId(IdCompra) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -344,6 +361,10 @@ function updateCompra(idCompra, cpfCompra, produtoCompra) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -407,6 +428,10 @@ function buscaGet(ParametroUrl, paramentroCompra) {
     })
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -439,6 +464,10 @@ function buscaGetmais(ParametroUrl, paramentroCompra) {
     })
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -464,6 +493,10 @@ function getListCpf() {
     })
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -489,5 +522,9 @@ function getListProduto() {
     })
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }

@@ -72,6 +72,10 @@ function getList() {
     })
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -100,6 +104,10 @@ async function postItem(inputProduct, inputQuantity, inputPrice) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -235,6 +243,10 @@ function deletarProduto(nomeProduto) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -249,6 +261,10 @@ function deletarProdutoId(IdProduto) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -358,6 +374,10 @@ function updateProduto(
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -428,6 +448,10 @@ function buscaGet(ParametroUrl, paramentroProduto) {
     })
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -460,5 +484,9 @@ function buscaGetmais(ParametroUrl, paramentroProduto) {
     })
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }

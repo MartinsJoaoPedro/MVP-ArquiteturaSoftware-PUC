@@ -72,6 +72,10 @@ function getList() {
     })
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -95,6 +99,10 @@ async function postItem(inputCpf, inputNome, inputCep) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -151,7 +159,7 @@ function editar() {
         input.value = celulasDaLinha[j].innerHTML;
         celulasDaLinha[j].innerHTML = "";
         celulasDaLinha[j].appendChild(input);
-        
+
         if (j == 2) {
           // Aplique a máscara ao novo campo de entrada
           $(input).mask("00000-000");
@@ -230,6 +238,10 @@ function deletarCliente(cpf) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -246,6 +258,10 @@ function deletarClienteId(IdItem) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -363,6 +379,10 @@ function updateCliente(cpf, nome, cep) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -420,7 +440,7 @@ function buscaGet(ParametroUrl, paramentroCliente) {
       console.log(data.clientes);
       if (data.clientes != null) {
         data.clientes.forEach((item) =>
-        insertUm(item.cpf, item.nome, item.cep)
+          insertUm(item.cpf, item.nome, item.cep)
         );
       } else {
         alert("Cliente não encontrado");
@@ -428,6 +448,10 @@ function buscaGet(ParametroUrl, paramentroCliente) {
     })
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
 
@@ -460,5 +484,9 @@ function buscaGetmais(ParametroUrl, paramentroCliente) {
     })
     .catch((error) => {
       console.error("Error:", error);
+      alert(
+        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
+      );
+      erroServidor = false;
     });
 }
