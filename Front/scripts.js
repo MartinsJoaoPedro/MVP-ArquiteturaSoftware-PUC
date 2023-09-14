@@ -58,7 +58,7 @@ function limparDados() {
 //Função para obter a lista existente do servidor via requisição GET
 function getList() {
   limparDados();
-  let url = "http://127.0.0.1:5002/compras";
+  let url = "http://127.0.0.1:5003/compras";
   console.log("get");
   console.log(url);
   fetch(url, {
@@ -86,7 +86,7 @@ async function postItem(inputCpf, inputProduct) {
   }
 
   //post do objeto
-  let url = "http://127.0.0.1:5002/compra";
+  let url = "http://127.0.0.1:5003/compra";
   console.log("post");
   console.log(url);
   fetch(url, {
@@ -221,7 +221,7 @@ function editar() {
 
 //Função para deletar um compra da lista utilizando o produto do servidor via requisição DELETE
 function deletarCompra(produtoCompra) {
-  let url = "http://127.0.0.1:5002/compra?produto=" + produtoCompra;
+  let url = "http://127.0.0.1:5003/compra?produto=" + produtoCompra;
   console.log("delete");
   console.log(url);
   fetch(url, {
@@ -235,7 +235,7 @@ function deletarCompra(produtoCompra) {
 
 //Função para deletar um compra da lista utilizando o ID do servidor via requisição DELETE
 function deletarCompraId(IdCompra) {
-  let url = "http://127.0.0.1:5002/compra?id=" + IdCompra;
+  let url = "http://127.0.0.1:5003/compra?id=" + IdCompra;
   console.log("delete");
   console.log(url);
   fetch(url, {
@@ -333,7 +333,7 @@ function updateCompra(idCompra, cpfCompra, produtoCompra) {
   formData.append("produto", produtoCompra);
 
   //put do objeto
-  let url = "http://127.0.0.1:5002/compra?id=" + idCompra;
+  let url = "http://127.0.0.1:5003/compra?id=" + idCompra;
   console.log("put");
   console.log(url);
   fetch(url, {
@@ -383,7 +383,7 @@ function buscarCompra() {
 //Consulta para id
 function buscaGet(ParametroUrl, paramentroCompra) {
   let url =
-    "http://127.0.0.1:5002/compra" +
+    "http://127.0.0.1:5003/compra" +
     ParametroUrl +
     "?" +
     ParametroUrl +
@@ -413,7 +413,7 @@ function buscaGet(ParametroUrl, paramentroCompra) {
 //Consulta para varios
 function buscaGetmais(ParametroUrl, paramentroCompra) {
   let url =
-    "http://127.0.0.1:5002/compras" +
+    "http://127.0.0.1:5003/compras" +
     ParametroUrl +
     "?" +
     ParametroUrl +
