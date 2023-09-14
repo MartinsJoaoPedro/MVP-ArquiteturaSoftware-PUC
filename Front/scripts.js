@@ -6,6 +6,8 @@ let edicao = true;
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("index.html") !== -1) {
   getList();
+  getListCpf();
+  getListProduto();
 }
 
 //Função para carregamento da estrutura inicial
@@ -257,9 +259,9 @@ function newItem() {
     alert("Escreva o cpf da compra!");
   } else {
     //Acrescenta o compra na lista do site
-    insertList(cpf,produto);
+    insertList(cpf, produto);
     //Envia um comando post para api
-    postItem(cpf,produto);
+    postItem(cpf, produto);
     //evita bug apos adicionar uma linha
     alert("Compra adicionada!");
   }
@@ -434,6 +436,92 @@ function buscaGetmais(ParametroUrl, paramentroCompra) {
       } else {
         alert("Prodduto não encontrado");
       }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+function buscaGetmais(ParametroUrl, paramentroCliente) {
+  let url =
+    "http://127.0.0.1:5001/clientes" +
+    ParametroUrl +
+    "?" +
+    ParametroUrl +
+    "=" +
+    paramentroCliente;
+
+  //get do objeto
+  console.log("get");
+  console.log(url);
+  fetch(url, {
+    method: "get",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.clientes);
+      if (data.clientes != null) {
+        let select = document.getElementById("getCpf");
+        select.innerHTML = ""; // Limpa o select
+        data.clientes.forEach((item) => {
+          let option = document.createElement("option");
+          option.value = item.cpf;
+          option.text = item.cpf;
+          select.appendChild(option);
+        });
+      } else {
+        alert("Clientes não encontrados");
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+function getListCpf() {
+  limparDados();
+  let url = "http://127.0.0.1:5001/clientes";
+  console.log("get");
+  console.log(url);
+  fetch(url, {
+    method: "get",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      let select = document.getElementById("getCpf");
+      select.innerHTML = ""; // Limpa o select
+      data.clientes.forEach((item) => {
+        let option = document.createElement("option");
+        option.value = item.cpf;
+        option.text = item.cpf;
+        select.appendChild(option);
+      });
+      data.clientes.forEach((item) => pegaListaId(item.cpf));
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+function getListProduto() {
+  limparDados();
+  let url = "http://127.0.0.1:5001/produtos";
+  console.log("get");
+  console.log(url);
+  fetch(url, {
+    method: "get",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      let select = document.getElementById("getProduto");
+      select.innerHTML = ""; // Limpa o select
+      data.produtos.forEach((produto) => {
+        let option = document.createElement("option");
+        option.value = produto.nome;
+        option.text = produto.nome;
+        select.appendChild(option);
+      });
+      data.produtos.forEach((produto) => pegaListaId(produto.id));
     })
     .catch((error) => {
       console.error("Error:", error);
