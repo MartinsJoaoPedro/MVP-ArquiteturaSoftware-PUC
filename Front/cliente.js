@@ -57,7 +57,7 @@ function limparDados() {
 //Função para obter a lista existente do servidor via requisição GET
 function getList() {
   limparDados();
-  let url = "http://127.0.0.1:5001/clientes";
+  let url = "http://127.0.0.1:5002/clientes";
   console.log("get");
   console.log(url);
   fetch(url, {
@@ -84,7 +84,7 @@ async function postItem(inputCpf, inputNome, inputCep) {
   formData.append("cep", inputCep);
 
   //post do objeto
-  let url = "http://127.0.0.1:5001/cliente";
+  let url = "http://127.0.0.1:5002/cliente";
   console.log("post");
   console.log(url);
   fetch(url, {
@@ -221,7 +221,7 @@ function editar() {
 function deletarCliente(cpf) {
   console.log("CPF do cliente");
   console.log(cpf);
-  let url = "http://127.0.0.1:5001/cliente?cpf=" + cpf;
+  let url = "http://127.0.0.1:5002/cliente?cpf=" + cpf;
   console.log("delete");
   console.log(url);
   fetch(url, {
@@ -237,7 +237,7 @@ function deletarCliente(cpf) {
 function deletarClienteId(IdItem) {
   console.log("ID do item");
   console.log(IdItem);
-  let url = "http://127.0.0.1:5001/cliente?cpf=" + IdItem;
+  let url = "http://127.0.0.1:5002/cliente?cpf=" + IdItem;
   console.log("delete");
   console.log(url);
   fetch(url, {
@@ -353,7 +353,7 @@ function updateCliente(cpf, nome, cep) {
   formData.append("cep", cep);
 
   //put do objeto
-  let url = "http://127.0.0.1:5001/cliente?cpf=" + cpf;
+  let url = "http://127.0.0.1:5002/cliente?cpf=" + cpf;
   console.log("put");
   console.log(url);
   fetch(url, {
@@ -402,7 +402,7 @@ function buscarCliente() {
 //Consulta para cpf
 function buscaGet(ParametroUrl, paramentroCliente) {
   let url =
-    "http://127.0.0.1:5001/cliente" +
+    "http://127.0.0.1:5002/cliente" +
     ParametroUrl +
     "?" +
     ParametroUrl +
@@ -434,7 +434,7 @@ function buscaGet(ParametroUrl, paramentroCliente) {
 //Consulta para varios
 function buscaGetmais(ParametroUrl, paramentroCliente) {
   let url =
-    "http://127.0.0.1:5001/clientes" +
+    "http://127.0.0.1:5002/clientes" +
     ParametroUrl +
     "?" +
     ParametroUrl +
