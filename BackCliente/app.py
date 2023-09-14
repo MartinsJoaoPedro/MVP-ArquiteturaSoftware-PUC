@@ -4,7 +4,7 @@ from urllib.parse import unquote
 
 from sqlalchemy.exc import IntegrityError
 
-from model import Session, Produto, Cliente
+from model import Session, Cliente
 from logger import logger
 from schemas import *
 from flask_cors import CORS
