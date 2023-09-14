@@ -11,4 +11,4 @@ COPY . .
 #Expõe a porta 5000
 EXPOSE 5001
 #Define o comando de execução da API
-CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5001"]
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5002"]
