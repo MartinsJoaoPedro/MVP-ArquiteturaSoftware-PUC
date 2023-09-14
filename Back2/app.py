@@ -4,7 +4,7 @@ from urllib.parse import unquote
 
 from sqlalchemy.exc import IntegrityError
 
-from model import Session, Produto, Compra
+from model import Session, Compra
 from logger import logger
 from schemas import *
 from flask_cors import CORS
@@ -152,32 +152,61 @@ def get_compras_cpf(query: CompraBuscaSchemaCpf):
         return apresenta_compras(compras), 200
 
 
+# Pega um compra especifico pelo id
+@app.get(
+    "/compraid",
+    tags=[compra_tag],
+    responses={"200": CompraViewSchema, "404": ErrorSchema},
+)
+def get_compra_id(query: CompraBuscaSchema):
+    """Faz a busca por um Compra a partir do id do compra
+
+    Retorna uma representação dos compras associados ao id.
+    """
+    compra_id = query.id
+    logger.debug(f"Coletando dados sobre compra #{compra_id}")
+    # criando conexão com a base
+    session = Session()
+    # fazendo a busca
+    compra = session.query(Compra).filter(Compra.id == compra_id).first()
+
+    if not compra:
+        # se o compra não foi encontrado
+        error_msg = "Compra não encontrado na base :/"
+        logger.warning(f"Erro ao buscar compra '{compra_id}', {error_msg}")
+        return {"mesage": error_msg}, 404
+    else:
+        logger.debug(f"Compra econtrado: '{compra.id}'")
+        # retorna a representação de compra
+        return apresenta_compra(compra), 200
+
+
 # Deleta compra especifico a partir do cpf
 @app.delete(
     "/compra",
     tags=[compra_tag],
     responses={"200": CompraDelSchema, "404": ErrorSchema},
 )
-def del_compra(query: CompraBuscaSchemaCpf):
-    """Deleta um compra a partir do cpf informado
+def del_compra(query: CompraBuscaSchema):
+    """Deleta um compra a partir do id informado
 
     Retorna uma mensagem de confirmação da remoção.
     """
-    print(query.cpf)
-    compra_cpf = query.cpf
-    print(compra_cpf)
-    Stringpi = str(compra_cpf)
+    print(query.id)
+    compra_id = query.id
+    print(compra_id)
+    Stringpi = str(compra_id)
     logger.debug(f"Deletando dados sobre compra #{Stringpi}")
     # criando conexão com a base
     session = Session()
     # fazendo a remoção
-    count = session.query(Compra).filter(Compra.cpf == compra_cpf).delete()
+    count = session.query(Compra).filter(Compra.id == compra_id).delete()
     session.commit()
 
     if count:
         # retorna a representação da mensagem de confirmação
         logger.debug(f"Deletado compra #{Stringpi}")
-        return {"mesage": "Compra removido", "cpf": Stringpi}
+        return {"mesage": "Compra removido", "id": Stringpi}
     else:
         # se o compra não foi encontrado
         error_msg = "Compra não encontrado na base :/"
@@ -191,13 +220,13 @@ def del_compra(query: CompraBuscaSchemaCpf):
     tags=[compra_tag],
     responses={"200": CompraDelSchema, "404": ErrorSchema},
 )
-def update_compra(query: CompraBuscaSchemaCpf, form: CompraUpdateSchema):
-    """Edita um compra a partir do cpf informado
+def update_compra(query: CompraBuscaSchema, form: CompraUpdateSchema):
+    """Edita um compra a partir do id informado
 
     Retorna uma mensagem de confirmação da edição.
     """
-    compra_cpf = query.cpf
-    Stringpi = str(compra_cpf)
+    compra_id = query.id
+    Stringpi = str(compra_id)
     logger.debug(f"Editando dados sobre compra #{Stringpi}")
     logger.debug(f"Editando dados sobre compra #{Stringpi}")
     # criando conexão com a base
@@ -206,7 +235,7 @@ def update_compra(query: CompraBuscaSchemaCpf, form: CompraUpdateSchema):
     count = (
         # compra.nome == compra_nome).first()
         session.query(Compra)
-        .filter(Compra.cpf == compra_cpf)
+        .filter(Compra.id == compra_id)
         .first()
     )
 

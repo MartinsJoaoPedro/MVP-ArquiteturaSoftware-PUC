@@ -27,3 +27,5 @@
 [2023-09-14 01:41:58,747] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
 [2023-09-14 01:43:58,792] INFO _log() L224   * Detected change in 'C:\\Users\\jpmar\\OneDrive\\Documentos\\Projetos\\Puc\\SitePuc2\\Back\\schemas\\produto.py', reloading - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
 [2023-09-14 01:43:58,933] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-14 01:49:45,254] INFO _log() L224   * Detected change in 'C:\\Users\\jpmar\\OneDrive\\Documentos\\Projetos\\Puc\\SitePuc2\\Back\\app.py', reloading - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-14 01:49:45,379] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 

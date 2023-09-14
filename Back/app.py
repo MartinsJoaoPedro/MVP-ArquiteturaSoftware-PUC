@@ -143,11 +143,7 @@ def get_produtos_quantidade(query: ProdutoBuscaSchemaQuantidade):
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    produtos = (
-        session.query(Produto)
-        .filter(Produto.quantidade.contains(produto_quantidade))
-        .all()
-    )
+    produtos = (session.query(Produto).filter(Produto.quantidade.contains(produto_quantidade)).all())
 
     if not produtos:
         # se não há produtos cadastrados
