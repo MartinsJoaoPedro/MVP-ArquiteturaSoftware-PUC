@@ -442,45 +442,9 @@ function buscaGetmais(ParametroUrl, paramentroCompra) {
     });
 }
 
-function buscaGetmais(ParametroUrl, paramentroCliente) {
-  let url =
-    "http://127.0.0.1:5001/clientes" +
-    ParametroUrl +
-    "?" +
-    ParametroUrl +
-    "=" +
-    paramentroCliente;
-
-  //get do objeto
-  console.log("get");
-  console.log(url);
-  fetch(url, {
-    method: "get",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data.clientes);
-      if (data.clientes != null) {
-        let select = document.getElementById("getCpf");
-        select.innerHTML = ""; // Limpa o select
-        data.clientes.forEach((item) => {
-          let option = document.createElement("option");
-          option.value = item.cpf;
-          option.text = item.cpf;
-          select.appendChild(option);
-        });
-      } else {
-        alert("Clientes não encontrados");
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
-
 function getListCpf() {
   limparDados();
-  let url = "http://127.0.0.1:5001/clientes";
+  let url = "http://127.0.0.1:5002/clientes";
   console.log("get");
   console.log(url);
   fetch(url, {
