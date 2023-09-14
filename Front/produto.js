@@ -57,7 +57,7 @@ function limparDados() {
 //Função para obter a lista existente do servidor via requisição GET
 function getList() {
   limparDados();
-  let url = "http://127.0.0.1:5000/produtos";
+  let url = "http://127.0.0.1:5001/produtos";
   console.log("get");
   console.log(url);
   fetch(url, {
@@ -89,7 +89,7 @@ async function postItem(inputProduct, inputQuantity, inputPrice) {
   }
 
   //post do objeto
-  let url = "http://127.0.0.1:5000/produto";
+  let url = "http://127.0.0.1:5001/produto";
   console.log("post");
   console.log(url);
   fetch(url, {
@@ -226,7 +226,7 @@ function editar() {
 
 //Função para deletar um produto da lista utilizando o nome do servidor via requisição DELETE
 function deletarProduto(nomeProduto) {
-  let url = "http://127.0.0.1:5000/produto?nome=" + nomeProduto;
+  let url = "http://127.0.0.1:5001/produto?nome=" + nomeProduto;
   console.log("delete");
   console.log(url);
   fetch(url, {
@@ -240,7 +240,7 @@ function deletarProduto(nomeProduto) {
 
 //Função para deletar um produto da lista utilizando o ID do servidor via requisição DELETE
 function deletarProdutoId(IdProduto) {
-  let url = "http://127.0.0.1:5000/produto?id=" + IdProduto;
+  let url = "http://127.0.0.1:5001/produto?id=" + IdProduto;
   console.log("delete");
   console.log(url);
   fetch(url, {
@@ -347,7 +347,7 @@ function updateProduto(
   formData.append("valor", precoProduto);
 
   //put do objeto
-  let url = "http://127.0.0.1:5000/produto?id=" + idProduto;
+  let url = "http://127.0.0.1:5001/produto?id=" + idProduto;
   console.log("put");
   console.log(url);
   fetch(url, {
@@ -404,7 +404,7 @@ function buscarProduto() {
 //Consulta para id
 function buscaGet(ParametroUrl, paramentroProduto) {
   let url =
-    "http://127.0.0.1:5000/produto" +
+    "http://127.0.0.1:5001/produto" +
     ParametroUrl +
     "?" +
     ParametroUrl +
@@ -434,7 +434,7 @@ function buscaGet(ParametroUrl, paramentroProduto) {
 //Consulta para varios
 function buscaGetmais(ParametroUrl, paramentroProduto) {
   let url =
-    "http://127.0.0.1:5000/produtos" +
+    "http://127.0.0.1:5001/produtos" +
     ParametroUrl +
     "?" +
     ParametroUrl +

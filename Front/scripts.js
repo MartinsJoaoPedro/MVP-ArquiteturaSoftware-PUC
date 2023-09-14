@@ -4,7 +4,7 @@ let id;
 let edicao = true;
 
 //Chamada da função para carregamento inicial dos dados
-if (window.location.href.indexOf("cadastroProduto.html") !== -1) {
+if (window.location.href.indexOf("index.html") !== -1) {
   getList();
 }
 
@@ -14,7 +14,7 @@ function inicar() {
   let atulizar = document.createElement("span");
   atulizar.innerHTML = "atulizar";
   atulizar.classList.add("addBtn");
-  atulizar.onclick = buscaProduto();
+  atulizar.onclick = buscaCompra();
 }
 
 // Adiciona 'idn' à lista 'ids'
@@ -23,7 +23,7 @@ function pegaListaId(idn) {
 }
 
 //Função para colocar o botão de remover
-function inserirBtnRemover(Produto) {
+function inserirBtnRemover(Compra) {
   console.log("botão de remoção");
   let span = document.createElement("span");
   //u00D7 == x
@@ -32,32 +32,31 @@ function inserirBtnRemover(Produto) {
   //x está no span
   span.appendChild(txt);
   //span está no paramentro parent
-  Produto.appendChild(span);
+  Compra.appendChild(span);
 }
 
 //Função para colocar o botão de editar
-function inserirBtnEditar(produto) {
+function inserirBtnEditar(compra) {
   console.log("botão de edição");
   let span = document.createElement("span");
   let txt = document.createTextNode("\u270F");
   span.className = "edit";
   span.appendChild(txt);
-  produto.appendChild(span);
+  compra.appendChild(span);
 }
 
 //Função para limpar os valores da tabela
 function limparDados() {
   console.log("limpar");
   edicao = false;
-  document.getElementById("getNome").value = "";
-  document.getElementById("getQuantidade").value = "";
-  document.getElementById("getPreco").value = "";
+  document.getElementById("getCpf").value = "";
+  document.getElementById("getProduto").value = "";
 }
 
 //Função para obter a lista existente do servidor via requisição GET
 function getList() {
   limparDados();
-  let url = "http://127.0.0.1:5000/produtos";
+  let url = "http://127.0.0.1:5002/compras";
   console.log("get");
   console.log(url);
   fetch(url, {
@@ -65,31 +64,27 @@ function getList() {
   })
     .then((response) => response.json())
     .then((data) => {
-      data.produtos.forEach((produto) =>
-        insertList(produto.nome, produto.quantidade, produto.valor)
-      );
-      data.produtos.forEach((produto) => pegaListaId(produto.id));
+      data.compras.forEach((compra) => insertList(compra.cpf, compra.produto));
+      data.compras.forEach((compra) => pegaListaId(compra.id));
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
 
-//Função para colocar um produto na lista do servidor via requisição POST
-async function postItem(inputProduct, inputQuantity, inputPrice) {
-  preco = inputPrice.replace("R$ ", "").replace(/\./g, "").replace(/,/g, ".");
+//Função para colocar um compra na lista do servidor via requisição POST
+async function postItem(inputCpf, inputProduct) {
   //Criação do objeto
   const formData = new FormData();
-  formData.append("nome", inputProduct);
-  formData.append("quantidade", inputQuantity);
-  formData.append("valor", preco);
+  formData.append("cpf", inputCpf);
+  formData.append("produto", inputProduct);
   // Log dos valores do FormData
   for (var pair of formData.entries()) {
     console.log(pair[0] + ", " + pair[1]);
   }
 
   //post do objeto
-  let url = "http://127.0.0.1:5000/produto";
+  let url = "http://127.0.0.1:5002/compra";
   console.log("post");
   console.log(url);
   fetch(url, {
@@ -103,7 +98,7 @@ async function postItem(inputProduct, inputQuantity, inputPrice) {
     });
 }
 
-//Função para remover um produto da lista de acordo com o click no botão close
+//Função para remover um compra da lista de acordo com o click no botão close
 function remover() {
   console.log("Remover");
   let close = document.getElementsByClassName("close"); // Seleciona todas as células da tabela com a classe close
@@ -116,11 +111,11 @@ function remover() {
 
       let linha = this.parentNode.parentElement; // Seleciona a linha que contém a célula clicada
       let idLinha = linha.id - 1;
-      id = ids[idLinha]; //Id do produto referente a linha
+      id = ids[idLinha]; //Id do compra referente a linha
 
       if (confirm("Você tem certeza?")) {
         div.remove();
-        deletarProdutoId(id);
+        deletarCompraId(id);
         alert("Removido!");
       }
     };
@@ -156,7 +151,7 @@ function editar() {
         input.value = celulasDaLinha[j].innerHTML;
         celulasDaLinha[j].innerHTML = "";
         celulasDaLinha[j].appendChild(input);
-y
+        y;
         if (j == 2) {
           alert("entrou");
           // Aplique a máscara ao novo campo de entrada
@@ -200,34 +195,31 @@ y
         // Transforma os elementos de input de volta em text
         let tamanho = inputs.length;
 
-        let nome = inputs[0].value;
-        let quantidade = inputs[1].value;
-        let preco = inputs[2].value;
+        let cpf = inputs[0].value;
+        let produto = inputs[1].value;
 
-        celulasDaLinha[0].innerHTML = nome;
-        celulasDaLinha[1].innerHTML = quantidade;
-        celulasDaLinha[2].innerHTML = preco;
+        celulasDaLinha[0].innerHTML = cpf;
+        celulasDaLinha[1].innerHTML = produto;
 
         //Pega o id referente a coluna clicada
         idLinhaUpdate = idLinha - 1;
         let id = ids[idLinhaUpdate];
 
-        console.log("produto");
+        console.log("compra");
         console.log(id);
-        console.log(nome);
-        console.log(quantidade);
-        console.log(preco);
+        console.log(cpf);
+        console.log(produto);
         console.log("============");
-        //updateItem(nome, quantidade, preco);
-        updateProduto(id, nome, quantidade, preco);
+        //updateItem(produto, cpf);
+        updateCompra(id, cpf, produto);
       };
     };
   }
 }
 
-//Função para deletar um produto da lista utilizando o nome do servidor via requisição DELETE
-function deletarProduto(nomeProduto) {
-  let url = "http://127.0.0.1:5000/produto?nome=" + nomeProduto;
+//Função para deletar um compra da lista utilizando o produto do servidor via requisição DELETE
+function deletarCompra(produtoCompra) {
+  let url = "http://127.0.0.1:5002/compra?produto=" + produtoCompra;
   console.log("delete");
   console.log(url);
   fetch(url, {
@@ -239,9 +231,9 @@ function deletarProduto(nomeProduto) {
     });
 }
 
-//Função para deletar um produto da lista utilizando o ID do servidor via requisição DELETE
-function deletarProdutoId(IdProduto) {
-  let url = "http://127.0.0.1:5000/produto?id=" + IdProduto;
+//Função para deletar um compra da lista utilizando o ID do servidor via requisição DELETE
+function deletarCompraId(IdCompra) {
+  let url = "http://127.0.0.1:5002/compra?id=" + IdCompra;
   console.log("delete");
   console.log(url);
   fetch(url, {
@@ -253,43 +245,40 @@ function deletarProdutoId(IdProduto) {
     });
 }
 
-//Função para adicionar um novo produto com nome, quantidade e valor
+//Função para adicionar um novo compra com produto e cpf
 function newItem() {
   console.log("novo item");
-  let nome = document.getElementById("getNome").value;
-  let quantidade = document.getElementById("getQuantidade").value;
-  let preco = document.getElementById("getPreco").value;
+  let cpf = document.getElementById("getCpf").value;
+  let produto = document.getElementById("getProduto").value;
 
-  if (nome === "") {
-    alert("Escreva o nome do produto!");
-  } else if (isNaN(quantidade)) {
-    alert("Quantidade precisa ser um número!");
-  } else if (preco === "") {
-    alert("Escreva o preco do produto!");
+  if (produto === "") {
+    alert("Escreva o produto da compra!");
+  } else if (cpf === "") {
+    alert("Escreva o cpf da compra!");
   } else {
-    //Acrescenta o produto na lista do site
-    insertList(nome, quantidade, preco);
+    //Acrescenta o compra na lista do site
+    insertList(cpf,produto);
     //Envia um comando post para api
-    postItem(nome, quantidade, preco);
+    postItem(cpf,produto);
     //evita bug apos adicionar uma linha
-    alert("Produto adicionado!");
+    alert("Compra adicionada!");
   }
 }
 
-//Função para inserir produtos na lista apresentada
+//Função para inserir compras na lista apresentada
 let rowId = 1;
-function insertList(nomeProduto, quantidadeProduto, precoProduto) {
-  console.log("Inserindo produtos");
+function insertList(cpfCompra, produtoCompra) {
+  console.log("Inserindo compras");
   //alert("insertList");
-  var produto = [nomeProduto, quantidadeProduto, precoProduto];
+  var compra = [cpfCompra, produtoCompra];
   var table = document.getElementById("myTable");
   var row = table.insertRow();
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
 
   // repita onde( inteiro "i" = 0 e menor que o numero de itens, some 1)
-  for (var i = 0; i < produto.length; i++) {
+  for (var i = 0; i < compra.length; i++) {
     var cel = row.insertCell(i);
-    cel.textContent = produto[i];
+    cel.textContent = compra[i];
     cel.classList.add("linhaEditavel"); // Adiciona a classe .linhaEditavel à célula
   }
   inserirBtnRemover(row.insertCell(-1));
@@ -302,9 +291,9 @@ function insertList(nomeProduto, quantidadeProduto, precoProduto) {
 }
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
-function insertUm(nomeProduto, quantidadeProduto, precoProduto) {
-  console.log("Inserindo produto único");
-  var produto = [nomeProduto, quantidadeProduto, precoProduto];
+function insertUm(cpfCompra, produtoCompra) {
+  console.log("Inserindo compra única");
+  var compra = [cpfCompra, produtoCompra];
   var table = document.getElementById("myTable");
   while (table.rows.length > 1) {
     table.deleteRow(1);
@@ -313,42 +302,36 @@ function insertUm(nomeProduto, quantidadeProduto, precoProduto) {
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
 
   // repita onde(inteiro "i" = 0 e menor que o numero de itens, some 1)
-  for (var i = 0; i < produto.length; i++) {
+  for (var i = 0; i < compra.length; i++) {
     var cel = row.insertCell(i);
-    cel.textContent = produto[i];
+    cel.textContent = compra[i];
   }
 }
 
 //Insere uma nova linha
-function insertMais(nomeProduto, quantidadeProduto, precoProduto) {
-  console.log("Inserindo produtos");
-  var produto = [nomeProduto, quantidadeProduto, precoProduto];
+function insertMais(cpfCompra, produtoCompra) {
+  console.log("Inserindo compras");
+  var compra = [cpfCompra, produtoCompra];
   var table = document.getElementById("myTable");
   var row = table.insertRow();
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
 
   //Repita onde( inteiro "i" = 0 e menor que o numero de itens, some 1)
-  for (var i = 0; i < produto.length; i++) {
+  for (var i = 0; i < compra.length; i++) {
     var cel = row.insertCell(i);
-    cel.textContent = produto[i];
+    cel.textContent = compra[i];
   }
 }
 
-//Função para alterar um produto
-function updateProduto(
-  idProduto,
-  nomeProduto,
-  quantidadeProduto,
-  precoProduto
-) {
+//Função para alterar um compra
+function updateCompra(idCompra, cpfCompra, produtoCompra) {
   //Criação do objeto
   const formData = new FormData();
-  formData.append("nome", nomeProduto);
-  formData.append("quantidade", quantidadeProduto);
-  formData.append("valor", precoProduto);
+  formData.append("cpf", cpfCompra);
+  formData.append("produto", produtoCompra);
 
   //put do objeto
-  let url = "http://127.0.0.1:5000/produto?id=" + idProduto;
+  let url = "http://127.0.0.1:5002/compra?id=" + idCompra;
   console.log("put");
   console.log(url);
   fetch(url, {
@@ -362,40 +345,33 @@ function updateProduto(
     });
 }
 
-//busca um produto
-function buscarProduto() {
-  console.log("Buscando produto");
+//busca um compra
+function buscarCompra() {
+  console.log("Buscando compra");
   document.getElementById("att2").style.display = "block";
   let inputID = document.querySelectorAll("#getId");
-  let inputNome = document.querySelectorAll("#getNome");
-  let inputQuantidade = document.querySelectorAll("#getQuantidade");
-  let inputValor = document.querySelectorAll("#getPreco");
-  let Produto;
+  let inputCpf = document.querySelectorAll("#getCpf");
+  let inputProduto = document.querySelectorAll("#getProduto");
+  let Compra;
 
   let buscar = document.getElementById("buscar");
   buscar.remove();
 
   for (let k = 0; k < inputID.length; k++) {
-    Produto = inputID[k].value; // Salva o valor do campo aqui         }
-    if (Produto != "") {
+    Compra = inputID[k].value; // Salva o valor do campo aqui         }
+    if (Compra != "") {
       console.log("id");
-      buscaGet("id", Produto);
+      buscaGet("id", Compra);
     } else {
-      Produto = inputNome[k].value;
-      if (Produto != "") {
-        console.log("nome");
-        buscaGetmais("nome", Produto);
+      Compra = inputCpf[k].value;
+      if (Compra != "") {
+        console.log("cpf");
+        buscaGetmais("cpf", Compra);
       } else {
-        Produto = inputQuantidade[k].value;
-        if (Produto != "") {
-          console.log("quantidade");
-          buscaGetmais("quantidade", Produto);
-        } else {
-          Produto = inputValor[k].value;
-          if (Produto != "") {
-            console.log("valor");
-            buscaGetmais("valor", Produto);
-          }
+        Compra = inputProduto[k].value;
+        if (Compra != "") {
+          console.log("produto");
+          buscaGetmais("produto", Compra);
         }
       }
     }
@@ -403,14 +379,14 @@ function buscarProduto() {
 }
 
 //Consulta para id
-function buscaGet(ParametroUrl, paramentroProduto) {
+function buscaGet(ParametroUrl, paramentroCompra) {
   let url =
-    "http://127.0.0.1:5000/produto" +
+    "http://127.0.0.1:5002/compra" +
     ParametroUrl +
     "?" +
     ParametroUrl +
     "=" +
-    paramentroProduto;
+    paramentroCompra;
 
   //get do objeto
   console.log("get");
@@ -422,9 +398,9 @@ function buscaGet(ParametroUrl, paramentroProduto) {
     .then((data) => {
       console.log(data);
       if (data.id != null) {
-        insertUm(data.nome, data.quantidade, data.valor);
+        insertUm(data.cpf, data.produto);
       } else {
-        alert("Produto não encontrado");
+        alert("Compra não encontrada");
       }
     })
     .catch((error) => {
@@ -433,14 +409,14 @@ function buscaGet(ParametroUrl, paramentroProduto) {
 }
 
 //Consulta para varios
-function buscaGetmais(ParametroUrl, paramentroProduto) {
+function buscaGetmais(ParametroUrl, paramentroCompra) {
   let url =
-    "http://127.0.0.1:5000/produtos" +
+    "http://127.0.0.1:5002/compras" +
     ParametroUrl +
     "?" +
     ParametroUrl +
     "=" +
-    paramentroProduto;
+    paramentroCompra;
 
   //get do objeto
   console.log("get");
@@ -450,10 +426,10 @@ function buscaGetmais(ParametroUrl, paramentroProduto) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data.produtos);
-      if (data.produtos != 0) {
-        data.produtos.forEach((Produto) =>
-          insertMais(Produto.nome, Produto.quantidade, Produto.valor)
+      console.log(data.compras);
+      if (data.compras != 0) {
+        data.compras.forEach((Compra) =>
+          insertMais(Compra.cpf, Compra.produto)
         );
       } else {
         alert("Prodduto não encontrado");

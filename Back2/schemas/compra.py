@@ -7,12 +7,12 @@ class CompraSchema(BaseModel):
     """Define como um novo compra a ser inserido deve ser representado"""
 
     cpf: str = "000.000.000-00"
-    nome: str = "Banana"
+    produto: str = "Banana"
 
 
 class CompraBuscaSchema(BaseModel):
     """Define como deve ser a estrutura que representa a busca. Que será
-    feita apenas com base no nome do compra.
+    feita apenas com base no produto do compra.
     """
 
     id: int = 1
@@ -20,18 +20,18 @@ class CompraBuscaSchema(BaseModel):
 
 class CompraBuscaSchemaCpf(BaseModel):
     """Define como deve ser a estrutura que representa a busca. Que será
-    feita apenas com base no nome do compra.
+    feita apenas com base no produto do compra.
     """
 
     cpf: str = "000.000.000-00"
 
 
-class CompraBuscaSchemaNome(BaseModel):
+class CompraBuscaSchemaProduto(BaseModel):
     """Define como deve ser a estrutura que representa a busca. Que será
-    feita apenas com base no nome do compra.
+    feita apenas com base no produto do compra.
     """
 
-    nome: str = "Banana"
+    produto: str = "Banana"
 
 
 class ListagemComprasSchema(BaseModel):
@@ -49,7 +49,7 @@ def apresenta_compras(compras: List[Compra]):
         result.append(
             {
                 "cpf": compra.cpf,
-                "nome": compra.nome,
+                "produto": compra.produto,
             }
         )
 
@@ -61,7 +61,7 @@ class CompraViewSchema(BaseModel):
 
     id: int = 1
     cpf: str = "000.000.000-00"
-    nome: str = "Banana"
+    produto: str = "Banana"
 
 
 class CompraDelSchema(BaseModel):
@@ -70,12 +70,12 @@ class CompraDelSchema(BaseModel):
     """
 
     mesage: str
-    nome: str
+    produto: str
 
 
 class CompraUpdateSchema(BaseModel):
     cpf: str = "000.000.000-00"
-    nome: str = "Banana"
+    produto: str = "Banana"
 
 
 def apresenta_compra(compra: Compra):
@@ -85,5 +85,5 @@ def apresenta_compra(compra: Compra):
     return {
         "id": compra.id,
         "cpf": compra.cpf,
-        "nome": compra.nome,
+        "produto": compra.produto,
     }

@@ -46,9 +46,9 @@ def add_compra(form: CompraSchema):
     Retorna uma representação dos compras associados.
     """
     print(form.cpf)
-    print(form.nome)
-    compra = Compra(cpf=form.cpf, nome=form.nome)
-    logger.debug(f"Adicionando compra de nome: '{compra.nome}'")
+    print(form.produto)
+    compra = Compra(cpf=form.cpf, produto=form.produto)
+    logger.debug(f"Adicionando compra de produto: '{compra.produto}'")
     try:
         # criando conexão com a base
         session = Session()
@@ -56,19 +56,19 @@ def add_compra(form: CompraSchema):
         session.add(compra)
         # efetivando o camando de adição de novo item na tabela
         session.commit()
-        logger.debug(f"Adicionado compra de nome: '{compra.nome}'")
+        logger.debug(f"Adicionado compra de produto: '{compra.produto}'")
         return apresenta_compra(compra), 200
 
     except IntegrityError as e:
-        # como a duplicidade do nome é a provável razão do IntegrityError
-        error_msg = "Compra de mesmo nome já salvo na base :/"
-        logger.warning(f"Erro ao adicionar compra '{compra.nome}', {error_msg}")
+        # como a duplicidade do produto é a provável razão do IntegrityError
+        error_msg = "Compra de mesmo produto já salvo na base :/"
+        logger.warning(f"Erro ao adicionar compra '{compra.produto}', {error_msg}")
         return {"mesage": error_msg}, 409
 
     except Exception as e:
         # caso um erro fora do previsto
         error_msg = "Não foi possível salvar novo item :/"
-        logger.warning(f"Erro ao adicionar compra '{compra.nome}', {error_msg}")
+        logger.warning(f"Erro ao adicionar compra '{compra.produto}', {error_msg}")
         return {"mesage": error_msg}, 400
 
 
@@ -98,23 +98,23 @@ def get_compras():
         return apresenta_compras(compras), 200
 
 
-# Pega todos os compras pelo nome
+# Pega todos os compras pelo produto
 @app.get(
-    "/comprasnome",
+    "/comprasproduto",
     tags=[compra_tag],
     responses={"200": ListagemComprasSchema, "404": ErrorSchema},
 )
-def get_compras_nome(query: CompraBuscaSchemaNome):
-    """Faz a busca por todos os compra cadastrados a partir do nome informado
+def get_compras_produto(query: CompraBuscaSchemaProduto):
+    """Faz a busca por todos os compra cadastrados a partir do produto informado
 
-    Retorna uma representação da listagem de compras associados ao nome.
+    Retorna uma representação da listagem de compras associados ao produto.
     """
-    compra_nome = query.nome
+    compra_produto = query.produto
     logger.debug(f"Coletando compras ")
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    compras = session.query(Compra).filter(Compra.nome.contains(compra_nome)).all()
+    compras = session.query(Compra).filter(Compra.produto.contains(compra_produto)).all()
 
     if not compras:
         # se não há compras cadastrados
@@ -233,18 +233,18 @@ def update_compra(query: CompraBuscaSchema, form: CompraUpdateSchema):
     session = Session()
     # fazendo a remoção
     count = (
-        # compra.nome == compra_nome).first()
+        # compra.produto == compra_produto).first()
         session.query(Compra)
         .filter(Compra.id == compra_id)
         .first()
     )
 
-    count.nome = form.cpf
-    count.cep = form.nome
+    count.cpf = form.cpf
+    count.produto = form.produto
 
-    print("nome")
+    print("produto")
     print(count.cpf)
-    print(count.nome)
+    print(count.produto)
 
     session.commit()
     return apresenta_compra(count), 200

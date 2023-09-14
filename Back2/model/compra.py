@@ -11,8 +11,7 @@ class Compra(Base):
 
     id = Column("pk_produto", Integer, primary_key=True)
     cpf = Column(String)
-    nome = Column(String(140), unique=True)
-    cep = Column(String)
+    produto = Column(String(140), unique=True)
     data_insercao = Column(DateTime, default=datetime.now())
 
     # Definição do relacionamento entre o compra e o comentário.
@@ -22,19 +21,19 @@ class Compra(Base):
     # comentarios = relationship("Comentario")
 
     def __init__(
-        self, cpf: str, nome: str, data_insercao: Union[DateTime, None] = None
+        self, cpf: str, produto: str, data_insercao: Union[DateTime, None] = None
     ):
         """
         Cria um compra
 
         Arguments:
-            nome: nome do compra.
+            produto: produto do compra.
             quantidade: quantidade que se espera comprar daquele compra
             valor: valor esperado para o compra
             data_insercao: data de quando o compra foi inserido à base
         """
         self.cpf = cpf
-        self.nome = nome
+        self.produto = produto
 
         # se não for informada, será o data exata da inserção no banco
         if data_insercao:
