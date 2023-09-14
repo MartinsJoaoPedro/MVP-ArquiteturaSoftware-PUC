@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="styles.css" />
 
     <!-- Inclua as bibliotecas jQuery e jQuery Mask Plugin -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -23,14 +23,11 @@
         <h2 onclick="endereco()">Endereço</h2>
 
         <section class="ajusteAtt">
+          <span onclick="index()" class="addBtn">HOME</span>
           <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
           <span onclick="buscaProduto()" class="addBtn">Busca de Produtos</span>
-          <span onclick="cadastroCliente()" id="cliente" class="addBtn"
-            >Cadastro de Cliente</span
-          >
-          <span onclick="cadastroProduto()" id="produto" class="addBtn"
-            >Cadastro de Produto</span
-          >
+          <span onclick="cadastroCliente()" class="addBtn">Cadastro de Cliente</span>
+          <span onclick="cadastroProduto()" class="addBtn">Cadastro de Produto</span>
           <!-- <a href="validade.html" class="botaoPagina btnSacola">validade</a> -->
         </section>
       </div>
@@ -70,8 +67,8 @@
     </script>
 
     <!-- Seu script existente -->
-    <script src="../botoes.js"></script>
-    <script src="../scripts.js"></script>
-    <script src="../endereco.js"></script>
+    <script src="botoes.js"></script>
+    <script src="scripts.js"></script>
+    <script src="endereco.js"></script>
   </body>
 </html>

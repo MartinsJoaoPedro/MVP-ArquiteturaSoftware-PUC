@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="styles.css" />
 
     <!-- Inclua as bibliotecas jQuery e jQuery Mask Plugin -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -18,37 +18,26 @@
     <!-- Cabeçalho de informações do sistema -->
     <header>
       <div class="title">
-        <h2 onclick="buscaProduto()">Busca de Produtos</h2>
+        <h2 onclick="cadastroProduto()">Cadastro de Produto</h2>
 
         <section class="ajusteAtt">
+          <span onclick="index()" class="addBtn">HOME</span>
           <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
-          <span onclick="cadastroProduto()" id="produto" class="addBtn"
-            >Cadastro de Produto</span
-          >
-          <span onclick="cadastroCliente()" id="cliente" class="addBtn"
-            >Cadastro de Cliente</span
-          >
-          <span onclick="endereco()" id="endereco" class="addBtn"
-            >Endereço</span
-          >
+          <span onclick="buscaProduto()" class="addBtn">Busca de Produtos</span>
+          <span onclick="cadastroCliente()" class="addBtn">Cadastro de Cliente</span>
+          <span onclick="endereco()" class="addBtn">Endereço</span>
+          <!-- <a href="validade.html" class="botaoPagina btnSacola">validade</a> -->
         </section>
       </div>
 
-      <!-- Opções para bucar uma pessoa -->
-      <section class="image-background buscarPessoa myTable">
+      <!-- Opções para adicionar um novo item -->
+      <section class="image-background">
         <div class="ajusteTable">
           <!-- id= referenciar o css placeholder= texto de predefinição -->
-          <input type="text" id="getId" placeholder="Id:" />
           <input type="text" id="getNome" placeholder="Nome:" />
           <input type="text" id="getQuantidade" placeholder="Quantidade:" />
           <input type="text" id="getPreco" placeholder="Valor:" />
-          <span onclick="buscarProduto()" id="buscar" class="addBtn"
-            >Buscar</span
-          >
-          <span onclick="buscaProduto()" id="att2" class="addBtn"
-            >Limpar Busca</span
-          >
-          <button id="sheetjsexport"><b>Export as XLSX</b></button>
+          <span onclick="newItem()" class="addBtn">Adicionar</span>
         </div>
       </section>
     </header>
@@ -60,15 +49,12 @@
           <td>Nome</td>
           <td>Quantidade</td>
           <td>Valor</td>
+          <td><img class="lixo close icone" /></td>
+          <td><img onclick="updateItem()" class="editar icone" /></td>
         </tr>
       </table>
     </section>
 
-    <!-- Códicos javascript -->
-    <script
-      lang="javascript"
-      src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"
-    ></script>
     <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF -->
     <script>
       $(document).ready(function () {
@@ -83,8 +69,7 @@
     </script>
 
     <!-- Seu script existente -->
-    <script src="../botoes.js"></script>
-    <script src="../produto.js"></script>
-    <script src="../excel.js"></script>
+    <script src="botoes.js"></script>
+    <script src="produto.js"></script>
   </body>
 </html>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="styles.css" />
 
     <!-- Inclua as bibliotecas jQuery e jQuery Mask Plugin -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -18,19 +18,13 @@
     <!-- Cabeçalho de informações do sistema -->
     <header>
       <div class="title">
-        <h2 onclick="buscaCliente()">Busca de Clientes</h2>
+        <h2 onclick="index()">HOME</h2>
 
         <section class="ajusteAtt">
           <span onclick="buscaProduto()" class="addBtn">Busca de Produtos</span>
-          <span onclick="cadastroProduto()" id="produto" class="addBtn"
-            >Cadastro de Produto</span
-          >
-          <span onclick="cadastroCliente()" id="cliente" class="addBtn"
-            >Cadastro de Cliente</span
-          >
-          <span onclick="endereco()" id="endereco" class="addBtn"
-            >Endereço</span
-          >
+          <span onclick="cadastroProduto()" class="addBtn">Cadastro de Produto</span>
+          <span onclick="cadastroCliente()" class="addBtn">Cadastro de Cliente</span>
+          <span onclick="endereco()" class="addBtn">Endereço</span>
         </section>
       </div>
 
@@ -41,12 +35,8 @@
           <input type="text" id="getCpf" placeholder="CPF:" />
           <input type="text" id="getNome" placeholder="Nome:" />
           <input type="text" id="getCep" placeholder="CEP:" />
-          <span onclick="buscarCliente()" id="buscar" class="addBtn"
-            >Buscar</span
-          >
-          <span onclick="buscaCliente()" id="att2" class="addBtn"
-            >Limpar Busca</span
-          >
+          <span onclick="buscarCliente()" id="buscar" class="addBtn">Buscar</span>
+          <span onclick="buscaCliente()" id="att2" class="addBtn">Limpar Busca</span>
           <button id="sheetjsexport"><b>Export as XLSX</b></button>
         </div>
       </section>
@@ -77,8 +67,8 @@
     </script>
 
     <!-- Seu script existente -->
-    <script src="../botoes.js"></script>
-    <script src="../cliente.js"></script>
-    <script src="../excel.js"></script>
+    <script src="botoes.js"></script>
+    <script src="scripts.js"></script>
+    <script src="excel.js"></script>
   </body>
 </html>
