@@ -18,6 +18,7 @@ Basta fazer o download do projeto e abrir o arquivo index.html no seu browser.
 4 flask run --host 0.0.0.0 --port 5001 --reload
 ##Para o back 2
 4 flask run --host 0.0.0.0 --port 5002 --reload
+5 docker build --pull --rm -f "Front\Dockerfile" -t front
 ---
 ## API externa
 

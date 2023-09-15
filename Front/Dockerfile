@@ -4,7 +4,13 @@ FROM nginx
 # Como nossa aplicação irá consultar requisições HTTP, então usaremos uma imagem do Ngnix
 
 # Copia os arquivos de código-fonte para o diretório de trabalho do ngnix
-COPY . /usr/share/nginx/html
+COPY ./html /usr/share/nginx/html/html
+# Copia os arquivos de código-fonte JavaScript para o diretório de trabalho do ngnix
+COPY ./js /usr/share/nginx/html/js
+# Copia os arquivos de código-fonte CSS para o diretório de trabalho do ngnix
+COPY ./styles.css /usr/share/nginx/html/styles.css
+
+COPY ./default.conf /etc/nginx/conf.d
 
 EXPOSE 80
 

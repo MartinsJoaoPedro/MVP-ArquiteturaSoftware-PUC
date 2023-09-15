@@ -1,0 +1,10 @@
+[2023-09-15 19:16:54,510] INFO _log() L224   * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.109:5001 (Press CTRL+C to quit) - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-15 19:16:54,514] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-15 19:19:20,534] INFO _log() L224  127.0.0.1 - - [15/Sep/2023 19:19:20] "GET /produtos HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-15 19:19:58,358] INFO _log() L224  127.0.0.1 - - [15/Sep/2023 19:19:58] "GET /produtos HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-15 19:19:58,961] INFO _log() L224  127.0.0.1 - - [15/Sep/2023 19:19:58] "GET /produtos HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-15 19:23:28,064] INFO _log() L224  127.0.0.1 - - [15/Sep/2023 19:23:28] "GET /produtos HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-15 19:23:28,245] INFO _log() L224  127.0.0.1 - - [15/Sep/2023 19:23:28] "GET /produtos HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\AppData\Local\Programs\Python\Python311\Lib\site-packages\werkzeug\_internal.py L224 
