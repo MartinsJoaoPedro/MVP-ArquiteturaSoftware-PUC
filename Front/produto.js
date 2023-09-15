@@ -72,20 +72,16 @@ function getList() {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
 //Função para colocar um produto na lista do servidor via requisição POST
-async function postItem(inputProduct, inputQuantity, inputPrice) {
-  preco = inputPrice.replace("R$ ", "").replace(/\./g, "").replace(/,/g, ".");
+async function postItem(nomeProduto, quantidadeProduto, precoProduto) {
+  preco = precoProduto.replace("R$ ", "").replace(/\./g, "").replace(/,/g, ".");
   //Criação do objeto
   const formData = new FormData();
-  formData.append("nome", inputProduct);
-  formData.append("quantidade", inputQuantity);
+  formData.append("nome", nomeProduto);
+  formData.append("quantidade", quantidadeProduto);
   formData.append("valor", preco);
   // Log dos valores do FormData
   for (var pair of formData.entries()) {
@@ -104,10 +100,6 @@ async function postItem(inputProduct, inputQuantity, inputPrice) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -243,10 +235,6 @@ function deletarProduto(nomeProduto) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -261,10 +249,6 @@ function deletarProdutoId(IdProduto) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -356,11 +340,12 @@ function updateProduto(
   quantidadeProduto,
   precoProduto
 ) {
+  preco = precoProduto.replace("R$ ", "").replace(/\./g, "").replace(/,/g, ".");
   //Criação do objeto
   const formData = new FormData();
   formData.append("nome", nomeProduto);
   formData.append("quantidade", quantidadeProduto);
-  formData.append("valor", precoProduto);
+  formData.append("valor", preco);
 
   //put do objeto
   let url = "http://127.0.0.1:5001/produto?id=" + idProduto;
@@ -374,10 +359,6 @@ function updateProduto(
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -448,10 +429,6 @@ function buscaGet(ParametroUrl, paramentroProduto) {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -484,9 +461,5 @@ function buscaGetmais(ParametroUrl, paramentroProduto) {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }

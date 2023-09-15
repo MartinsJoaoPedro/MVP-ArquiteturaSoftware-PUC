@@ -72,10 +72,6 @@ function getList() {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -99,10 +95,6 @@ async function postItem(inputCpf, inputNome, inputCep) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -130,29 +122,28 @@ function remover() {
   }
 }
 
-// Adicionando evento de clique ao botão
 function editar() {
   console.log("Editar");
-  let celulasBtnEditar = document.querySelectorAll(" .edit"); // Seleciona todas as células da tabela com a classe edit
+  let celulasBtnEditar = document.querySelectorAll(".edit");
 
   for (let i = 0; i < celulasBtnEditar.length; i++) {
     celulasBtnEditar[i].onclick = function () {
       edicao = true;
-      // Esconde o botão de edição
       for (let i = 0; i < celulasBtnEditar.length; i++) {
         celulasBtnEditar[i].style.display = "none";
       }
 
-      let linha = this.parentNode.parentElement; // Seleciona a linha que contém a célula clicada
+      let linha = this.parentNode.parentElement;
       let idLinha = linha.id;
 
       let celulasDaLinhaGeral = document.getElementById(idLinha);
-      let celulasDaLinha =
-        celulasDaLinhaGeral.querySelectorAll(" .linhaEditavel"); // Seleciona todas as células de classe linhaEditavel
+      // Obtenha o valor do CPF diretamente da tabela
+      let celulaCpf = celulasDaLinhaGeral.querySelectorAll(".linhaId");
+      cpf = celulaCpf[0].innerText
+      let celulasDaLinha = celulasDaLinhaGeral.querySelectorAll(".linhaEditavel");
 
       idLinha++;
 
-      // Transforma cada célula em um elemento de input
       for (let j = 0; j < celulasDaLinha.length; j++) {
         let input = document.createElement("input");
         input.type = "text";
@@ -161,62 +152,49 @@ function editar() {
         celulasDaLinha[j].appendChild(input);
 
         if (j == 2) {
-          // Aplique a máscara ao novo campo de entrada
           $(input).mask("00000-000");
-        }
-        if (j == 0) {
-          // Aplique a máscara ao novo campo de entrada
-          $(input).mask("000.000.000-00");
         }
       }
 
-      // Adiciona um botão de salvar à linha
       let celulaEditar = this.parentNode;
       let salvar = document.createElement("span");
       salvar.innerHTML = "Salvar";
       salvar.classList.add("addBtn");
       celulaEditar.appendChild(salvar);
 
-      // Adiciona um evento de clique ao botão de salvar
       salvar.onclick = function () {
         edicao = false;
-        // Obtém os valores dos inputs e salva os campos
+
+        // Obtém os valores dos inputs
         let inputs = linha.getElementsByTagName("input");
-        for (let k = 0; k < inputs.length; k++) {
-          let valor = inputs[k].value;
-          // Salva o valor do campo aqui
+        // Obtenha os valores de Nome e CEP dos campos de entrada HTML
+        let nome = inputs[0].value;
+        let cep = inputs[1].value;
+        celulasDaLinha[0].innerHTML = nome;
+        celulasDaLinha[1].innerHTML = cep;
+
+        // Verifique se os campos de entrada HTML para Nome e CEP não estão vazios
+        if (nome === "" || cep === "") {
+          alert("Por favor, preencha todos os campos.");
+          return;
         }
 
         idLinha--;
 
-        // Remove o botão de salvar
         salvar.remove();
 
-        // Mostra o botão de edição novamente
         for (let i = 0; i < celulasBtnEditar.length; i++) {
           celulasBtnEditar[i].style.display = "";
         }
 
-        // Transforma os elementos de input de volta em text
-        let tamanho = inputs.length;
-
-        let cpf = inputs[0].value;
-        let nome = inputs[1].value;
-        let cep = inputs[2].value;
-
-        celulasDaLinha[0].innerHTML = cpf;
-        celulasDaLinha[1].innerHTML = nome;
-        celulasDaLinha[2].innerHTML = cep;
-
-        //Pega o id referente a coluna clicada
         idLinhaUpdate = idLinha - 1;
         let id = ids[idLinhaUpdate];
 
         console.log("cliente");
-        console.log(id);
-        console.log(cpf);
-        console.log(nome);
-        console.log(cep);
+        console.log("id " + id);
+        console.log("cpf " + cpf);
+        console.log("nome " + nome);
+        console.log("cep " + cep);
         console.log("============");
 
         updateCliente(cpf, nome, cep);
@@ -238,10 +216,6 @@ function deletarCliente(cpf) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -258,10 +232,6 @@ function deletarClienteId(IdItem) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -300,7 +270,11 @@ function insertList(cpf, nome, cep) {
   for (var i = 0; i < item.length; i++) {
     var cel = row.insertCell(i);
     cel.textContent = item[i];
-    cel.classList.add("linhaEditavel"); // Adiciona a classe .linhaEditavel à célula
+    if(i==0){
+      cel.classList.add("linhaId"); // Adiciona a classe .linhaId à célula
+    }else{
+      cel.classList.add("linhaEditavel"); // Adiciona a classe .linhaEditavel à célula
+    }
 
     // Adiciona um evento de clique à célula do CEP
     if (i == 2) {
@@ -379,10 +353,6 @@ function updateCliente(cpf, nome, cep) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -448,10 +418,6 @@ function buscaGet(ParametroUrl, paramentroCliente) {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -484,9 +450,5 @@ function buscaGetmais(ParametroUrl, paramentroCliente) {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }

@@ -2,7 +2,6 @@
 let ids = [];
 let id;
 let edicao = true;
-let erroServidor = true;
 
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("index.html") !== -1) {
@@ -62,21 +61,37 @@ function getList() {
   let url = "http://127.0.0.1:5003/compras";
   console.log("get");
   console.log(url);
-  fetch(url, {
-    method: "get",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      data.compras.forEach((compra) => insertList(compra.cpf, compra.produto));
-      data.compras.forEach((compra) => pegaListaId(compra.id));
+  try {
+    fetch(url, {
+      method: "get",
     })
-    .catch((error) => {
-      console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        data.compras.forEach((compra) =>
+          insertList(compra.cpf, compra.produto)
+        );
+        data.compras.forEach((compra) => pegaListaId(compra.id));
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          // Trate o TypeError aqui
+          console.log(
+            "Ocorreu um erro ao buscar a lista de compras. Por favor, tente novamente mais tarde."
+          );
+          console.error("TypeError:", error.message);
+        } else {
+          // Relance o erro se não for um TypeError
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Função para colocar um compra na lista do servidor via requisição POST
@@ -102,10 +117,6 @@ async function postItem(inputCpf, inputProduct) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -239,10 +250,6 @@ function deletarCompra(produtoCompra) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -257,10 +264,6 @@ function deletarCompraId(IdCompra) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -361,10 +364,6 @@ function updateCompra(idCompra, cpfCompra, produtoCompra) {
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -428,10 +427,6 @@ function buscaGet(ParametroUrl, paramentroCompra) {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -464,10 +459,6 @@ function buscaGetmais(ParametroUrl, paramentroCompra) {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -493,10 +484,6 @@ function getListCpf() {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
 
@@ -522,9 +509,5 @@ function getListProduto() {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert(
-        "O servidor está atualmente inacessível. Por favor, tente novamente mais tarde."
-      );
-      erroServidor = false;
     });
 }
