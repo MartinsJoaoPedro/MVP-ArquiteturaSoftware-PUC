@@ -35,6 +35,9 @@ flask run --host 0.0.0.0 --port 5002 --reload
 ## Para api cliente
 flask run --host 0.0.0.0 --port 5002 --reload
 
+## Para desativar o env
+deactivate
+
 ## Para criação da imagem
 docker build --pull --rm -f "Front\Dockerfile" -t front
 
