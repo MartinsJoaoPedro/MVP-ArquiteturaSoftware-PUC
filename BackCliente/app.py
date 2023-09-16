@@ -55,7 +55,7 @@ def add_cliente(form: ClienteSchema):
         session = Session()
         # adicionando cliente
         session.add(cliente)
-        # efetivando o camando de adição de novo item na tabela
+        # efetivando o camando de adição de novo cliente na tabela
         session.commit()
         logger.debug(f"Adicionado cliente de nome: '{cliente.nome}'")
         return apresenta_cliente(cliente), 200
@@ -68,12 +68,12 @@ def add_cliente(form: ClienteSchema):
 
     except Exception as e:
         # caso um erro fora do previsto
-        error_msg = "Não foi possível salvar novo item :/"
+        error_msg = "Não foi possível salvar novo cliente :/"
         logger.warning(f"Erro ao adicionar cliente '{cliente.nome}', {error_msg}")
         return {"mesage": error_msg}, 400
 
 
-# Pega todos os clientes sem filtro
+# Pega todos os clientes
 @app.get(
     "/clientes",
     tags=[cliente_tag],
@@ -94,7 +94,7 @@ def get_clientes():
         # se não há clientes cadastrados
         return {"clientes": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(clientes))
+        logger.debug(f"%d clientes econtrados" % len(clientes))
         # retorna a representação de cliente
         return apresenta_clientes(clientes), 200
 
@@ -121,7 +121,7 @@ def get_clientes_nome(query: ClienteBuscaSchemaNome):
         # se não há clientes cadastrados
         return {"clientes": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(clientes))
+        logger.debug(f"%d clientes econtrados" % len(clientes))
         # retorna a representação de cliente
         return apresenta_clientes(clientes), 200
 
@@ -180,7 +180,7 @@ def get_clientes_cep(query: ClienteBuscaSchemaCep):
         return apresenta_clientes(clientes), 200
 
 
-# Deleta cliente especifico a partir do cpf
+# Deletar cliente específico a partir do cpf
 @app.delete(
     "/cliente",
     tags=[cliente_tag],
@@ -213,7 +213,7 @@ def del_cliente(query: ClienteBuscaSchemaCpf):
         return {"mesage": error_msg}, 404
 
 
-# Altera cliente especifico a partir do cpf
+# Alterar cliente específico a partir do cpf
 @app.put(
     "/cliente",
     tags=[cliente_tag],

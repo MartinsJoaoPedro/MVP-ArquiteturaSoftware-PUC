@@ -34,7 +34,7 @@ def home():
 # compra
 
 
-# Adicionar um compra
+# Adicionar uma compra
 @app.post(
     "/compra",
     tags=[compra_tag],
@@ -67,19 +67,19 @@ def add_compra(form: CompraSchema):
 
     except Exception as e:
         # caso um erro fora do previsto
-        error_msg = "Não foi possível salvar novo item :/"
+        error_msg = "Não foi possível salvar nova compra :/"
         logger.warning(f"Erro ao adicionar compra '{compra.produto}', {error_msg}")
         return {"mesage": error_msg}, 400
 
 
-# Pega todos os compras sem filtro
+# Pega todos os compras
 @app.get(
     "/compras",
     tags=[compra_tag],
     responses={"200": ListagemComprasSchema, "404": ErrorSchema},
 )
 def get_compras():
-    """Faz a busca por todos os compra cadastrados
+    """Faz a busca por todas as compra cadastradas
 
     Retorna uma representação da listagem de compras.
     """
@@ -93,12 +93,12 @@ def get_compras():
         # se não há compras cadastrados
         return {"compras": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(compras))
+        logger.debug(f"%d compras econtradas" % len(compras))
         # retorna a representação de compra
         return apresenta_compras(compras), 200
 
 
-# Pega todos os compras pelo produto
+# Pega todos as compras pelo produto
 @app.get(
     "/comprasproduto",
     tags=[compra_tag],
@@ -117,15 +117,15 @@ def get_compras_produto(query: CompraBuscaSchemaProduto):
     compras = session.query(Compra).filter(Compra.produto.contains(compra_produto)).all()
 
     if not compras:
-        # se não há compras cadastrados
+        # se não há compras cadastradas
         return {"compras": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(compras))
+        logger.debug(f"%d compras econtrados" % len(compras))
         # retorna a representação de compra
         return apresenta_compras(compras), 200
 
 
-# Pega todos os compras pelo cpf
+# Pega todas as compras pelo cpf
 @app.get(
     "/compracpf",
     tags=[compra_tag],
@@ -152,7 +152,7 @@ def get_compras_cpf(query: CompraBuscaSchemaCpf):
         return apresenta_compras(compras), 200
 
 
-# Pega um compra especifico pelo id
+# Pega uma compra específica pelo id
 @app.get(
     "/compraid",
     tags=[compra_tag],
@@ -181,7 +181,7 @@ def get_compra_id(query: CompraBuscaSchema):
         return apresenta_compra(compra), 200
 
 
-# Deleta compra especifico a partir do cpf
+# Deletar compra específica a partir do cpf
 @app.delete(
     "/compra",
     tags=[compra_tag],
@@ -214,7 +214,7 @@ def del_compra(query: CompraBuscaSchema):
         return {"mesage": error_msg}, 404
 
 
-# Altera compra especifico a partir do cpf
+# Alterar compra específica a partir do cpf
 @app.put(
     "/compra",
     tags=[compra_tag],

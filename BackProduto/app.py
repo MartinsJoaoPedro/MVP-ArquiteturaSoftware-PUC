@@ -55,7 +55,7 @@ def add_produto(form: ProdutoSchema):
         session = Session()
         # adicionando produto
         session.add(produto)
-        # efetivando o camando de adição de novo item na tabela
+        # efetivando o camando de adição de novo produto na tabela
         session.commit()
         logger.debug(f"Adicionado produto de nome: '{produto.nome}'")
         return apresenta_produto(produto), 200
@@ -68,12 +68,12 @@ def add_produto(form: ProdutoSchema):
 
     except Exception as e:
         # caso um erro fora do previsto
-        error_msg = "Não foi possível salvar novo item :/"
+        error_msg = "Não foi possível salvar novo produto :/"
         logger.warning(f"Erro ao adicionar produto '{produto.nome}', {error_msg}")
         return {"mesage": error_msg}, 400
 
 
-# Pega todos os produtos
+# Pegar todos os produtos
 @app.get(
     "/produtos",
     tags=[produto_tag],
@@ -94,7 +94,7 @@ def get_produtos():
         # se não há produtos cadastrados
         return {"produtos": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(produtos))
+        logger.debug(f"%d produtos econtrados" % len(produtos))
         # retorna a representação de produto
         return apresenta_produtos(produtos), 200
 
@@ -121,7 +121,7 @@ def get_produtos_nome(query: ProdutoBuscaSchemaNome):
         # se não há produtos cadastrados
         return {"produtos": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(produtos))
+        logger.debug(f"%d produtos econtrados" % len(produtos))
         # retorna a representação de produto
         return apresenta_produtos(produtos), 200
 
@@ -152,7 +152,7 @@ def get_produtos_quantidade(query: ProdutoBuscaSchemaQuantidade):
         # se não há produtos cadastrados
         return {"produtos": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(produtos))
+        logger.debug(f"%d produtos econtrados" % len(produtos))
         # retorna a representação de produto
         return apresenta_produtos(produtos), 200
 
@@ -181,12 +181,12 @@ def get_produtos_valor(query: ProdutoBuscaSchemaValor):
         # se não há produtos cadastrados
         return {"produtos": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(produtos))
+        logger.debug(f"%d produtos econtrados" % len(produtos))
         # retorna a representação de produto
         return apresenta_produtos(produtos), 200
 
 
-# Pega um produto especifico pelo id
+# Pega um produto específico pelo id
 @app.get(
     "/produtoid",
     tags=[produto_tag],
@@ -215,7 +215,7 @@ def get_produto_id(query: ProdutoBuscaSchema):
         return apresenta_produto(produto), 200
 
 
-# Deleta produto especifico pelo id
+# Deletar produto específico pelo id
 @app.delete(
     "/produto",
     tags=[produto_tag],
@@ -246,7 +246,7 @@ def del_produto(query: ProdutoBuscaSchema):
         return {"mesage": error_msg}, 404
 
 
-# Altera produto especifico a partir do id
+# Alterar produto específico a partir do id
 @app.put(
     "/produto",
     tags=[produto_tag],
