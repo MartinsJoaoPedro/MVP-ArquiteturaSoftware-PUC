@@ -5,6 +5,7 @@ let edicao = true;
 
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("cadastroProduto.html") !== -1) {
+  console.log("Carregamento");
   getList();
 }
 
@@ -49,6 +50,7 @@ function inserirBtnEditar(produto) {
 function limparDados() {
   console.log("limpar");
   edicao = false;
+  document.getElementById("getId").value = "";
   document.getElementById("getNome").value = "";
   document.getElementById("getQuantidade").value = "";
   document.getElementById("getPreco").value = "";
@@ -290,7 +292,7 @@ function insertList(nomeProduto, quantidadeProduto, precoProduto) {
     var cel = row.insertCell(i);
     cel.textContent = produto[i];
     cel.classList.add("linhaEditavel"); // Adiciona a classe .linhaEditavel à célula
-    
+
     // Adiciona um evento de clique à célula do preco
     if (i == 2) {
       // Supondo que o preco seja o terceiro item na lista
