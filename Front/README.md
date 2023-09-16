@@ -9,17 +9,35 @@ O objetivo entregar um projeto nos confromes.
 
 Basta fazer o download do projeto e abrir o arquivo index.html no seu browser.
 
+## Criação do ambiente virtual
+
+```
+python -m venv env
+
+```
+
+## Ativação do ambiente virtual
+```
+.\env\Scripts\Activate
+```
+
 ## Para api
 
 1 pip3 install
 2 pip install -r requirements.txt
-3 pip install flask
-##Para o back 1
-4 flask run --host 0.0.0.0 --port 5001 --reload
-##Para o back 2
-4 flask run --host 0.0.0.0 --port 5002 --reload
-5 docker build --pull --rm -f "Front\Dockerfile" -t front
----
+3 python.exe -m pip install --upgrade pip
+4 pip install flask
+
+## Para api produto
+flask run --host 0.0.0.0 --port 5001 --reload
+## Para api cliente
+flask run --host 0.0.0.0 --port 5002 --reload
+## Para api cliente
+flask run --host 0.0.0.0 --port 5002 --reload
+
+## Para criação da imagem
+docker build --pull --rm -f "Front\Dockerfile" -t front
+
 ## API externa
 
 Essa api faz uso de duas apis externas:
