@@ -53,4 +53,3 @@ https://docs.awesomeapi.com.br/
 Essa api faz uso de duas bibliotecas https:
 https://cdnjs.cloudflare.com/
 https://developers.google.com/speed/libraries?hl=pt-br
-viacep.com.br

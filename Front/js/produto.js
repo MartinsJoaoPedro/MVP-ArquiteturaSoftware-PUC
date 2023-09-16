@@ -290,6 +290,16 @@ function insertList(nomeProduto, quantidadeProduto, precoProduto) {
     var cel = row.insertCell(i);
     cel.textContent = produto[i];
     cel.classList.add("linhaEditavel"); // Adiciona a classe .linhaEditavel à célula
+    
+    // Adiciona um evento de clique à célula do preco
+    if (i == 2) {
+      // Supondo que o preco seja o terceiro item na lista
+      cel.classList.add("preco"); // Adiciona a classe .preco à célula do preco
+      cel.onclick = function () {
+        console.log(this);
+        setPreco(this);
+      };
+    }
   }
   inserirBtnRemover(row.insertCell(-1));
   inserirBtnEditar(row.insertCell(-1));
