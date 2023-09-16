@@ -1,9 +1,7 @@
-front = "../";
-html = "html/"
 //Altera de pagina cliente
 function cadastroCliente() {
   console.log("click cliente");
-  window.location.href = 2+"cadastroCliente.html";
+  window.location.href ="../html/cadastroCliente.html";
 }
 
 //Altera de pagina cliente
