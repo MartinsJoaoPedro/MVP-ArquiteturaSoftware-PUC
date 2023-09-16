@@ -23,9 +23,12 @@
         <section class="ajusteAtt">
           <span onclick="index()" class="addBtn">HOME</span>
           <span onclick="buscaProduto()" class="addBtn">Busca de Produtos</span>
-          <span onclick="cadastroProduto()" class="addBtn">Cadastro de Produto</span>
-          <span onclick="cadastroCliente()" class="addBtn">Cadastro de Cliente</span>
-          <span onclick="endereco()" class="addBtn">Endereço</span>
+          <span onclick="cadastroProduto()" class="addBtn"
+            >Cadastro de Produto</span
+          >
+          <span onclick="cadastroCliente()" class="addBtn"
+            >Cadastro de Cliente</span
+          >
         </section>
       </div>
 
@@ -36,8 +39,12 @@
           <input type="text" id="getCpf" placeholder="CPF:" />
           <input type="text" id="getNome" placeholder="Nome:" />
           <input type="text" id="getCep" placeholder="CEP:" />
-          <span onclick="buscarCliente()" id="buscar" class="addBtn">Buscar</span>
-          <span onclick="buscaCliente()" id="att2" class="addBtn">Limpar Busca</span>
+          <span onclick="buscarCliente()" id="buscar" class="addBtn"
+            >Buscar</span
+          >
+          <span onclick="buscaCliente()" id="att2" class="addBtn"
+            >Limpar Busca</span
+          >
           <button id="sheetjsexport"><b>Export as XLSX</b></button>
         </div>
       </section>
@@ -54,6 +61,14 @@
       </table>
     </section>
 
+    <!-- Modal do cep -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <div id="resultados"></div>
+        <span id="close" class="addBtn">&times;</span>
+      </div>
+    </div>
+
     <!-- Códicos javascript -->
     <script
       lang="javascript"
@@ -69,6 +84,8 @@
 
     <!-- Seu script existente -->
     <script src="../js/botoes.js"></script>
+    <script src="../js/endereco.js"></script>
+    <script src="../js/genero.js"></script>
     <script src="../js/cliente.js"></script>
     <script src="../js/excel.js"></script>
   </body>

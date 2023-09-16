@@ -250,6 +250,14 @@ h3 {
 .cep:hover {
   color: orange;
 }
+
+.nome:hover {
+  color: orange;
+}
+
+.preco:hover {
+  color: orange;
+}
 /*
 .myModal {
   display: none; 
@@ -284,7 +292,7 @@ h3 {
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
 }
 
 /* O botão de fechar */
@@ -300,4 +308,10 @@ h3 {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+#close {
+  float: right;
+  cursor: pointer;
+  margin-top: -20px; /* Ajuste este valor conforme necessário */
 }

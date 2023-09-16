@@ -139,8 +139,9 @@ function editar() {
       let celulasDaLinhaGeral = document.getElementById(idLinha);
       // Obtenha o valor do CPF diretamente da tabela
       let celulaCpf = celulasDaLinhaGeral.querySelectorAll(".linhaId");
-      cpf = celulaCpf[0].innerText
-      let celulasDaLinha = celulasDaLinhaGeral.querySelectorAll(".linhaEditavel");
+      cpf = celulaCpf[0].innerText;
+      let celulasDaLinha =
+        celulasDaLinhaGeral.querySelectorAll(".linhaEditavel");
 
       idLinha++;
 
@@ -270,17 +271,27 @@ function insertList(cpf, nome, cep) {
   for (var i = 0; i < item.length; i++) {
     var cel = row.insertCell(i);
     cel.textContent = item[i];
-    if(i==0){
+    if (i == 0) {
       cel.classList.add("linhaId"); // Adiciona a classe .linhaId à célula
-    }else{
+    } else {
       cel.classList.add("linhaEditavel"); // Adiciona a classe .linhaEditavel à célula
     }
 
+    // Adiciona um evento de clique à célula do nome
+    if (i == 1) {
+      // Supondo que o nome seja o segundo item na lista
+      cel.classList.add("nome"); // Adiciona a classe .nome à célula do nome
+      cel.onclick = function () {
+        console.log(this);
+        setNome(this);
+      };
+    }
     // Adiciona um evento de clique à célula do CEP
     if (i == 2) {
       // Supondo que o CEP seja o terceiro item na lista
       cel.classList.add("cep"); // Adiciona a classe .cep à célula do CEP
       cel.onclick = function () {
+        console.log(this);
         setCep(this);
       };
     }
@@ -291,16 +302,6 @@ function insertList(cpf, nome, cep) {
   limparDados();
   remover();
   editar();
-}
-
-//Faz a consulta do cep em outra página
-function setCep(celula) {
-  if (edicao == false) {
-    alert("Célula clicada: " + celula.innerHTML);
-    var cep = celula.innerHTML;
-    // Redireciona para a página endereco.html com o CEP como parâmetro na URL
-    window.location.href = "endereco.html?cep=" + cep;
-  }
 }
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha

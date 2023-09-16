@@ -23,13 +23,16 @@
         <section class="ajusteAtt">
           <span onclick="index()" class="addBtn">HOME</span>
           <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
-          <span onclick="cadastroProduto()" class="addBtn">Cadastro de Produto</span>
-          <span onclick="cadastroCliente()" class="addBtn">Cadastro de Cliente</span>
-          <span onclick="endereco()" class="addBtn">Endereço</span>
+          <span onclick="cadastroProduto()" class="addBtn"
+            >Cadastro de Produto</span
+          >
+          <span onclick="cadastroCliente()" class="addBtn"
+            >Cadastro de Cliente</span
+          >
         </section>
       </div>
 
-      <!-- Opções para bucar uma pessoa -->
+      <!-- Opções para bucar um produto -->
       <section class="image-background buscarPessoa myTable">
         <div class="ajusteTable">
           <!-- id= referenciar o css placeholder= texto de predefinição -->
@@ -37,8 +40,12 @@
           <input type="text" id="getNome" placeholder="Nome:" />
           <input type="text" id="getQuantidade" placeholder="Quantidade:" />
           <input type="text" id="getPreco" placeholder="Valor:" />
-          <span onclick="buscarCliente()" id="buscar" class="addBtn">Buscar</span>
-          <span onclick="buscaCliente()" id="att2" class="addBtn">Limpar Busca</span>
+          <span onclick="buscarCliente()" id="buscar" class="addBtn"
+            >Buscar</span
+          >
+          <span onclick="buscaCliente()" id="att2" class="addBtn"
+            >Limpar Busca</span
+          >
           <button id="sheetjsexport"><b>Export as XLSX</b></button>
         </div>
       </section>
@@ -54,6 +61,14 @@
         </tr>
       </table>
     </section>
+
+    <!-- Modal do cep -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <div id="resultados"></div>
+        <span id="close" class="addBtn">&times;</span>
+      </div>
+    </div>
 
     <!-- Códicos javascript -->
     <script
@@ -75,6 +90,7 @@
 
     <!-- Seu script existente -->
     <script src="../js/botoes.js"></script>
+    <script src="../js/dolar.js"></script>
     <script src="../js/produto.js"></script>
     <script src="../js/excel.js"></script>
   </body>

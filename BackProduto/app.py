@@ -226,9 +226,7 @@ def del_produto(query: ProdutoBuscaSchema):
 
     Retorna uma mensagem de confirmação da remoção.
     """
-    print(query.id)
     produto_id = query.id
-    print(produto_id)
     Stringpi = str(produto_id)
     logger.debug(f"Deletando dados sobre produto #{Stringpi}")
     # criando conexão com a base

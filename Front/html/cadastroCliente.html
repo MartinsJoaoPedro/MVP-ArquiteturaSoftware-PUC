@@ -24,8 +24,9 @@
           <span onclick="index()" class="addBtn">HOME</span>
           <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
           <span onclick="buscaProduto()" class="addBtn">Busca de Produtos</span>
-          <span onclick="cadastroProduto()" class="addBtn">Cadastro de Produto</span>
-          <span onclick="endereco()" class="addBtn">Endereço</span>
+          <span onclick="cadastroProduto()" class="addBtn"
+            >Cadastro de Produto</span
+          >
           <!-- <a href="validade.html" class="botaoPagina btnSacola">validade</a> -->
         </section>
       </div>
@@ -55,6 +56,14 @@
       </table>
     </section>
 
+    <!-- Modal do cep -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <div id="resultados"></div>
+        <span id="close" class="addBtn">&times;</span>
+      </div>
+    </div>
+
     <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF -->
     <script>
       $(document).ready(function () {
@@ -65,6 +74,8 @@
 
     <!-- Seu script existente -->
     <script src="../js/botoes.js"></script>
+    <script src="../js/endereco.js"></script>
+    <script src="../js/genero.js"></script>
     <script src="../js/cliente.js"></script>
   </body>
 </html>

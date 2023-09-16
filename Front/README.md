@@ -24,9 +24,8 @@ python -m venv env
 ## Para api
 
 1 pip3 install
-2 pip install -r requirements.txt
-3 python.exe -m pip install --upgrade pip
-4 pip install flask
+2 python.exe -m pip install --upgrade pip
+3 pip install -r requirements.txt
 
 ## Para api produto
 flask run --host 0.0.0.0 --port 5001 --reload
@@ -43,9 +42,11 @@ docker build --pull --rm -f "Front\Dockerfile" -t front
 
 ## API externa
 
-Essa api faz uso de duas apis externas:
+Essa api faz uso das apis externas:
 https://docs.sheetjs.com/
 https://viacep.com.br/
+https://genderize.io/
+https://docs.awesomeapi.com.br/
 
 ## Biblioteca
 
