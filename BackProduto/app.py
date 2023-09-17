@@ -260,7 +260,6 @@ def update_produto(query: ProdutoBuscaSchema, form: ProdutoUpdateSchema):
     produto_id = query.id
     Stringpi = str(produto_id)
     logger.debug(f"Editando dados sobre produto #{Stringpi}")
-    logger.debug(f"Editando dados sobre produto #{Stringpi}")
     # criando conexão com a base
     session = Session()
     # fazendo a remoção
