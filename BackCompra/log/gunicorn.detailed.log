@@ -3,3 +3,8 @@
  * Running on http://127.0.0.1:5003
  * Running on http://192.168.1.109:5003 (Press CTRL+C to quit) - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
 [2023-09-16 22:52:13,500] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 23:24:29,321] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 23:24:29] "GET /compras HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 23:24:49,576] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 23:24:49] "GET /compras HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 23:24:57,120] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 23:24:57] "GET /compras HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 23:26:48,409] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 23:26:48] "GET /compras HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 23:27:11,557] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 23:27:11] "GET /compras HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
