@@ -212,27 +212,27 @@ table {
 tr:nth-child(odd) {
   background-color: #eee;
 }
-
+/*
 td:nth-child(1) {
   width: 30%;
 }
 
 td:nth-child(2) {
-  width: 25%;
+  width: 30%;
 }
 
 td:nth-child(3) {
-  width: 25%;
+  width: 30%;
 }
 
 td:nth-child(4) {
-  width: 10%;
+  width: 5%;
 }
 
 td:nth-child(5) {
-  width: 10%;
+  width: 5%;
 }
-
+*/
 tr:hover {
   background: rgb(200, 199, 199);
 }
@@ -271,18 +271,6 @@ h3 {
 .preco:hover {
   color: orange;
 }
-/*
-.myModal {
-  display: none; 
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4); 
-}*/
 
 /* A janela modal */
 .modal {
@@ -327,4 +315,8 @@ h3 {
   float: right;
   cursor: pointer;
   margin-top: -20px; /* Ajuste este valor conforme necessário */
+}
+
+.colunaBtn {
+  width: 5%;
 }
