@@ -2,6 +2,7 @@
 FROM nginx
 # O nginx é um servidor leve e de código fonte aberto
 # Como nossa aplicação irá consultar requisições HTTP, então usaremos uma imagem do Ngnix
+# Ngnix necessita de uma página index.html
 
 # Copia os arquivos de código-fonte para o diretório de trabalho do ngnix
 COPY ./html /usr/share/nginx/html/html
