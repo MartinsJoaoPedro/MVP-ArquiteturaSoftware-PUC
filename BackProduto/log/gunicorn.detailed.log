@@ -38,3 +38,14 @@
 [2023-09-16 18:51:08,887] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
 [2023-09-16 18:51:15,287] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 18:51:15] "GET /produtos HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
 [2023-09-16 18:51:20,949] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 18:51:20] "GET /produtoid?id=1 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 19:08:43,627] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 19:08:43] "GET /produtoid?id=1 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 22:51:46,630] INFO _log() L224   * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.109:5001 (Press CTRL+C to quit) - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 22:51:46,637] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 22:54:05,516] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 22:54:05] "GET /produtos HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 22:54:18,255] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 22:54:18] "GET /produtoid?id=1 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 22:58:42,339] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 22:58:42] "GET /produtoid?id=1 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 23:07:11,683] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 23:07:11] "GET /produtoid?id=1 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 23:07:12,562] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 23:07:12] "GET /produtoid?id=1 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 

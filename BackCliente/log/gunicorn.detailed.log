@@ -1,0 +1,13 @@
+[2023-09-16 22:52:33,729] INFO _log() L224   * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:5002
+ * Running on http://192.168.1.109:5002 (Press CTRL+C to quit) - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 22:52:33,732] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 22:52:41,881] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 22:52:41] "GET /clientes HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 22:52:44,603] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 22:52:44] "GET /clientes HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 22:54:11,022] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 22:54:11] "GET /clientes HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 22:57:24,977] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 22:57:24] "GET /clientecpf?cpf=111.111.111-11 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 23:07:42,312] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 23:07:42] "GET /clientes HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 23:07:49,913] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 23:07:49] "GET /clientes HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 23:07:54,314] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 23:07:54] "GET /clientecpf?cpf=111.111.111-11 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-09-16 23:10:47,890] INFO _log() L224  127.0.0.1 - - [16/Sep/2023 23:10:47] "GET /clientecpf?cpf=1 HTTP/1.1" 200 - - call_trace=C:\Users\jpmar\OneDrive\Documentos\Projetos\Puc\SitePuc2\env\Lib\site-packages\werkzeug\_internal.py L224 

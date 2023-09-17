@@ -50,7 +50,6 @@ function inserirBtnEditar(produto) {
 function limparDados() {
   console.log("limpar");
   edicao = false;
-  document.getElementById("getId").value = "";
   document.getElementById("getNome").value = "";
   document.getElementById("getQuantidade").value = "";
   document.getElementById("getPreco").value = "";
