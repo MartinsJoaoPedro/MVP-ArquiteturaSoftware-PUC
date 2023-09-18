@@ -10,7 +10,7 @@ class Cliente(Base):
     __tablename__ = 'cliente'
 
     cpf = Column("pk_cliente", String, primary_key=True)
-    nome = Column(String(140), unique=True)
+    nome = Column(String(140))
     cep = Column(String)
     data_insercao = Column(DateTime, default=datetime.now())
 

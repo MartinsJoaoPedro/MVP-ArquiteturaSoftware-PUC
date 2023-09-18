@@ -11,7 +11,7 @@ class Compra(Base):
 
     id = Column("pk_produto", Integer, primary_key=True)
     cpf = Column(String)
-    produto = Column(String(140), unique=True)
+    produto = Column(String(140))
     data_insercao = Column(DateTime, default=datetime.now())
 
     # Definição do relacionamento entre o compra e o comentário.

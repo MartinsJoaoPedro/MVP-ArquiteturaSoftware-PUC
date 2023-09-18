@@ -75,7 +75,7 @@ class ProdutoDelSchema(BaseModel):
         de remoção.
     """
     mesage: str
-    nome: str
+    id: int = 1
 
 
 class ProdutoUpdateSchema(BaseModel):
