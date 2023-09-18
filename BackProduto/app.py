@@ -62,7 +62,7 @@ def add_produto(form: ProdutoSchema):
 
     except IntegrityError as e:
         # como a duplicidade do nome é a provável razão do IntegrityError
-        error_msg = "Produto de mesmo nome já salvo na base :/"
+        error_msg = "Produto de mesmo id já salvo na base :/"
         logger.warning(f"Erro ao adicionar produto '{produto.nome}', {error_msg}")
         return {"mesage": error_msg}, 409
 
