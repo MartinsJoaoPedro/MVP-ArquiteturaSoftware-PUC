@@ -35,6 +35,10 @@ deactivate
 
 docker build --pull --rm -f "Front\Dockerfile" -t back
 
+## Para criação dos conteiner
+
+O conteiner deve ser criado apartir do software desktop do docker
+
 # Dica
 
 Abra o [http://localhost:5000/#/](http://localhost:5002/#/) no navegador para verificar o status da API em execução.

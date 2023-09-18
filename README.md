@@ -8,7 +8,6 @@ O objetivo entregar um projeto nos confromes.
 
 Basta fazer o download do projeto e abrir o arquivo index.html no seu browser.
 
-
 ## Para criação da imagem
 
 docker build --pull --rm -f "Front\Dockerfile" -t front
@@ -68,9 +67,21 @@ flask run --host 0.0.0.0 --port 5003 --reload
 
 deactivate
 
-## Para criação da imagem
+## Para criação da imagem produto
 
-docker build --pull --rm -f "Front\Dockerfile" -t back
+docker build --pull --rm -f "Front\Dockerfile" -t backproduto
+
+## Para criação da imagem cliente
+
+docker build --pull --rm -f "Front\Dockerfile" -t backcliente
+
+## Para criação da imagem compra
+
+docker build --pull --rm -f "Front\Dockerfile" -t backcompra
+
+## Para criação dos conteiner
+
+Os conteiner deve ser criados apartir do software desktop do docker
 
 ## API externa
 

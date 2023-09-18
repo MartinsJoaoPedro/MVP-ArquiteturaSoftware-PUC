@@ -10,6 +10,10 @@ Basta fazer o download do projeto e abrir o arquivo index.html no seu browser.
 
 docker build --pull --rm -f "Front\Dockerfile" -t front
 
+## Para criação dos conteiner
+
+O conteiner deve ser criado apartir do software desktop do docker
+
 ## API externa
 
 Essa api faz uso das apis externas:
