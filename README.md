@@ -1,6 +1,6 @@
 # Meu Front
 
-Este pequeno projeto é o mvp do **Sprint q**
+Este pequeno projeto é o mvp do **Sprint Arquitetura de Software**
 
 O objetivo entregar um projeto nos confromes.
 
@@ -8,7 +8,28 @@ O objetivo entregar um projeto nos confromes.
 
 Basta fazer o download do projeto e abrir o arquivo index.html no seu browser.
 
+
+## Para criação da imagem
+
+docker build --pull --rm -f "Front\Dockerfile" -t front
+
+## API externa
+
+Essa api faz uso das apis externas:
+https://docs.sheetjs.com/
+https://viacep.com.br/
+https://genderize.io/
+https://docs.awesomeapi.com.br/
+
+## Biblioteca
+
+Essa api faz uso de duas bibliotecas https:
+https://cdnjs.cloudflare.com/
+https://developers.google.com/speed/libraries?hl=pt-br
+
 # Meu Back
+
+Este pequeno projeto é o mvp do **Sprint Arquitetura de Software**
 
 ## Como executar
 
@@ -49,7 +70,7 @@ deactivate
 
 ## Para criação da imagem
 
-docker build --pull --rm -f "Front\Dockerfile" -t front
+docker build --pull --rm -f "Front\Dockerfile" -t back
 
 ## API externa
 

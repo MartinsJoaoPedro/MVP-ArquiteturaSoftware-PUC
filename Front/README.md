@@ -1,10 +1,6 @@
 # Meu Front
 
-Este pequeno projeto é o mvp do **Sprint q**
-
-O objetivo entregar um projeto nos confromes.
-
----
+Este pequeno projeto é o mvp do **Sprint Arquitetura de Software**
 
 ## Como executar
 

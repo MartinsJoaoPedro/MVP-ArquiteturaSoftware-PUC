@@ -1,3 +1,7 @@
+# Meu Front
+
+Este pequeno projeto é o mvp do **Sprint Arquitetura de Software**
+
 ## Como executar
 
 Será necessário ter todas as libs python listadas no `requirements.txt` instaladas.
@@ -26,5 +30,11 @@ flask run --host 0.0.0.0 --port 5001 --reload
 ## Para desativar o env
 
 deactivate
+
+## Para criação da imagem
+
+docker build --pull --rm -f "Front\Dockerfile" -t back
+
+# Dica
 
 Abra o [http://localhost:5000/#/](http://localhost:5001/#/) no navegador para verificar o status da API em execução.
