@@ -3,11 +3,11 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from typing import Union
 
-from  model import Base
+from model import Base
 
 
 class Produto(Base):
-    __tablename__ = 'produto'
+    __tablename__ = "produto"
 
     id = Column("pk_produto", Integer, primary_key=True)
     nome = Column(String(140))
@@ -21,8 +21,13 @@ class Produto(Base):
     # de reconstruir esse relacionamento.
     # comentarios = relationship("Comentario")
 
-    def __init__(self, nome:str, quantidade:int, valor:float,
-                 data_insercao:Union[DateTime, None] = None):
+    def __init__(
+        self,
+        nome: str,
+        quantidade: int,
+        valor: float,
+        data_insercao: Union[DateTime, None] = None,
+    ):
         """
         Cria um Produto
 
@@ -39,4 +44,3 @@ class Produto(Base):
         # se não for informada, será o data exata da inserção no banco
         if data_insercao:
             self.data_insercao = data_insercao
-
