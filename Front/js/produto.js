@@ -67,7 +67,7 @@ function getList() {
     .then((response) => response.json())
     .then((data) => {
       data.produtos.forEach((produto) =>
-        insertList(produto.nome, produto.quantidade, produto.valor)
+        insertList(produto.nome, produto.quantidade, produto.valor),
       );
       data.produtos.forEach((produto) => pegaListaId(produto.id));
     })
@@ -203,7 +203,10 @@ function editar() {
         let nome = inputs[0].value;
         let quantidade = inputs[1].value;
         let preco = inputs[2].value;
-        let precoFormatado = preco.replace("R$ ", "").replace(/\./g, "").replace(/,/g, ".");
+        let precoFormatado = preco
+          .replace("R$ ", "")
+          .replace(/\./g, "")
+          .replace(/,/g, ".");
 
         celulasDaLinha[0].innerHTML = nome;
         celulasDaLinha[1].innerHTML = quantidade;
@@ -352,7 +355,7 @@ function updateProduto(
   idProduto,
   nomeProduto,
   quantidadeProduto,
-  precoProduto
+  precoProduto,
 ) {
   preco = precoProduto.replace("R$ ", "").replace(/\./g, "").replace(/,/g, ".");
   //Criação do objeto
@@ -467,7 +470,7 @@ function buscaGetmais(ParametroUrl, paramentroProduto) {
       console.log(data.produtos);
       if (data.produtos != 0) {
         data.produtos.forEach((Produto) =>
-          insertMais(Produto.nome, Produto.quantidade, Produto.valor)
+          insertMais(Produto.nome, Produto.quantidade, Produto.valor),
         );
       } else {
         alert("Prodduto não encontrado");

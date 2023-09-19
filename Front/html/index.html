@@ -1,76 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="../styles.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>IFrutas</title>
-  </head>
+  <link rel="stylesheet" href="../styles.css" />
 
-  <body>
-    <!-- Cabeçalho de informações do sistema -->
-    <header>
-      <div class="title">
-        <h2 onclick="index()">HOME</h2>
+  <title>IFrutas</title>
+</head>
 
-        <section class="ajusteAtt">
-          <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
-          <span onclick="buscaProduto()" class="addBtn">Busca de Produtos</span>
-          <span onclick="cadastroProduto()" class="addBtn"
-            >Cadastro de Produto</span
-          >
-          <span onclick="cadastroCliente()" class="addBtn"
-            >Cadastro de Cliente</span
-          >
-        </section>
-      </div>
+<body>
+  <!-- Cabeçalho de informações do sistema -->
+  <header>
+    <div class="title">
+      <h2 onclick="index()">HOME</h2>
 
-      <!-- Opções para bucar uma pessoa -->
-      <section class="image-background buscarPessoa myTable">
-        <div class="ajusteTable">
-          <!-- id= referenciar o css placeholder= texto de predefinição -->
-          <select
-            type="text"
-            class="select"
-            id="getCpf"
-            placeholder="CPF:"
-          ></select>
-          <select
-            type="text"
-            class="select"
-            id="getProduto"
-            placeholder="Produto:"
-          ></select>
-          <span onclick="newItem()" class="addBtn">Adicionar</span>
-          <button id="sheetjsexport"><b>Export as XLSX</b></button>
-        </div>
+      <section class="ajusteAtt">
+        <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
+        <span onclick="buscaProduto()" class="addBtn">Busca de Produtos</span>
+        <span onclick="cadastroProduto()" class="addBtn">Cadastro de Produto</span>
+        <span onclick="cadastroCliente()" class="addBtn">Cadastro de Cliente</span>
       </section>
-    </header>
+    </div>
 
-    <!-- Tabela com items existentes -->
-    <section class="items">
-      <table id="myTable">
-        <tr id="idDaLinha">
-          <td>CPF</td>
-          <td>Produto</td>
-          <td class="colunaBtn"><img class="lixo close icone" /></td>
-          <td class="colunaBtn"><img onclick="updateItem()" class="editar icone" /></td>
-        </tr>
-      </table>
+    <!-- Opções para bucar uma pessoa -->
+    <section class="image-background buscarPessoa myTable">
+      <div class="ajusteTable">
+        <!-- id= referenciar o css placeholder= texto de predefinição -->
+        <select type="text" class="select" id="getCpf" placeholder="CPF:"></select>
+        <select type="text" class="select" id="getProduto" placeholder="Produto:"></select>
+        <span onclick="newItem()" class="addBtn">Adicionar</span>
+        <button id="sheetjsexport"><b>Export as XLSX</b></button>
+      </div>
     </section>
+  </header>
 
-    <!-- Códicos javascript -->
-    <script
-      lang="javascript"
-      src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"
-    ></script>
+  <!-- Tabela com items existentes -->
+  <section class="items">
+    <table id="myTable">
+      <tr id="idDaLinha">
+        <td>CPF</td>
+        <td>Produto</td>
+        <td class="colunaBtn"><img class="lixo close icone" /></td>
+        <td class="colunaBtn">
+          <img onclick="updateItem()" class="editar icone" />
+        </td>
+      </tr>
+    </table>
+  </section>
 
-    <!-- Seu script existente -->
-    <script src="../js/botoes.js"></script>
-    <script src="../js/scripts.js"></script>
-    <script src="../js/excel.js"></script>
-  </body>
+  <!-- Códicos javascript -->
+  <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+
+  <!-- Seu script existente -->
+  <script src="../js/botoes.js"></script>
+  <script src="../js/scripts.js"></script>
+  <script src="../js/excel.js"></script>
+</body>
+
 </html>

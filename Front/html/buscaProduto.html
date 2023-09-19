@@ -1,97 +1,88 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="../styles.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Inclua as bibliotecas jQuery e jQuery Mask Plugin -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+  <link rel="stylesheet" href="../styles.css" />
 
-    <title>IFrutas</title>
-  </head>
+  <!-- Inclua as bibliotecas jQuery e jQuery Mask Plugin -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 
-  <body>
-    <!-- Cabeçalho de informações do sistema -->
-    <header>
-      <div class="title">
-        <h2 onclick="buscaProduto()">Busca de Produtos</h2>
+  <title>IFrutas</title>
+</head>
 
-        <section class="ajusteAtt">
-          <span onclick="index()" class="addBtn">HOME</span>
-          <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
-          <span onclick="cadastroProduto()" class="addBtn"
-            >Cadastro de Produto</span
-          >
-          <span onclick="cadastroCliente()" class="addBtn"
-            >Cadastro de Cliente</span
-          >
-        </section>
-      </div>
+<body>
+  <!-- Cabeçalho de informações do sistema -->
+  <header>
+    <div class="title">
+      <h2 onclick="buscaProduto()">Busca de Produtos</h2>
 
-      <!-- Opções para bucar um produto -->
-      <section class="image-background buscarPessoa myTable">
-        <div class="ajusteTable">
-          <!-- id= referenciar o css placeholder= texto de predefinição -->
-          <input type="text" id="getId" placeholder="Id:" />
-          <input type="text" id="getNome" placeholder="Nome:" />
-          <input type="text" id="getQuantidade" placeholder="Quantidade:" />
-          <input type="text" id="getPreco" placeholder="Valor:" />
-          <span onclick="buscarProduto()" id="buscar" class="addBtn"
-            >Buscar</span
-          >
-          <span onclick="buscaProduto()" id="att2" class="addBtn"
-            >Limpar Busca</span
-          >
-          <button id="sheetjsexport"><b>Export as XLSX</b></button>
-        </div>
+      <section class="ajusteAtt">
+        <span onclick="index()" class="addBtn">HOME</span>
+        <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
+        <span onclick="cadastroProduto()" class="addBtn">Cadastro de Produto</span>
+        <span onclick="cadastroCliente()" class="addBtn">Cadastro de Cliente</span>
       </section>
-    </header>
-
-    <!-- Tabela com items existentes -->
-    <section class="items">
-      <table id="myTable">
-        <tr id="idDaLinha">
-          <td>Nome</td>
-          <td>Quantidade</td>
-          <td>Valor</td>
-        </tr>
-      </table>
-    </section>
-
-    <!-- Modal do cep -->
-    <div id="myModal" class="modal">
-      <div class="modal-content">
-        <div id="resultados"></div>
-        <span id="close" class="addBtn">&times;</span>
-      </div>
     </div>
 
-    <!-- Códicos javascript -->
-    <script
-      lang="javascript"
-      src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"
-    ></script>
-    <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF -->
-    <script>
-      $(document).ready(function () {
-        $("#getPreco").maskMoney({
-          prefix: "R$ ",
-          allowNegative: true,
-          thousands: ".",
-          decimal: ",",
-          affixesStay: false,
-        });
-      });
-    </script>
+    <!-- Opções para bucar um produto -->
+    <section class="image-background buscarPessoa myTable">
+      <div class="ajusteTable">
+        <!-- id= referenciar o css placeholder= texto de predefinição -->
+        <input type="text" id="getId" placeholder="Id:" />
+        <input type="text" id="getNome" placeholder="Nome:" />
+        <input type="text" id="getQuantidade" placeholder="Quantidade:" />
+        <input type="text" id="getPreco" placeholder="Valor:" />
+        <span onclick="buscarProduto()" id="buscar" class="addBtn">Buscar</span>
+        <span onclick="buscaProduto()" id="att2" class="addBtn">Limpar Busca</span>
+        <button id="sheetjsexport"><b>Export as XLSX</b></button>
+      </div>
+    </section>
+  </header>
 
-    <!-- Seu script existente -->
-    <script src="../js/botoes.js"></script>
-    <script src="../js/dolar.js"></script>
-    <script src="../js/produto.js"></script>
-    <script src="../js/excel.js"></script>
-  </body>
+  <!-- Tabela com items existentes -->
+  <section class="items">
+    <table id="myTable">
+      <tr id="idDaLinha">
+        <td>Nome</td>
+        <td>Quantidade</td>
+        <td>Valor</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- Modal do cep -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div id="resultados"></div>
+      <span id="close" class="addBtn">&times;</span>
+    </div>
+  </div>
+
+  <!-- Códicos javascript -->
+  <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+  <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF -->
+  <script>
+    $(document).ready(function () {
+      $("#getPreco").maskMoney({
+        prefix: "R$ ",
+        allowNegative: true,
+        thousands: ".",
+        decimal: ",",
+        affixesStay: false,
+      });
+    });
+  </script>
+
+  <!-- Seu script existente -->
+  <script src="../js/botoes.js"></script>
+  <script src="../js/dolar.js"></script>
+  <script src="../js/produto.js"></script>
+  <script src="../js/excel.js"></script>
+</body>
+
 </html>

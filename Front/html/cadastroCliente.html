@@ -1,81 +1,81 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="../styles.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Inclua as bibliotecas jQuery e jQuery Mask Plugin -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+  <link rel="stylesheet" href="../styles.css" />
 
-    <title>IFrutas</title>
-  </head>
+  <!-- Inclua as bibliotecas jQuery e jQuery Mask Plugin -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
-  <body>
-    <!-- Cabeçalho de informações do sistema -->
-    <header>
-      <div class="title">
-        <h2 onclick="cadastroCliente()">Cadastro de Cliente</h2>
+  <title>IFrutas</title>
+</head>
 
-        <section class="ajusteAtt">
-          <span onclick="index()" class="addBtn">HOME</span>
-          <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
-          <span onclick="buscaProduto()" class="addBtn">Busca de Produtos</span>
-          <span onclick="cadastroProduto()" class="addBtn"
-            >Cadastro de Produto</span
-          >
-          <!-- <a href="validade.html" class="botaoPagina btnSacola">validade</a> -->
-        </section>
-      </div>
+<body>
+  <!-- Cabeçalho de informações do sistema -->
+  <header>
+    <div class="title">
+      <h2 onclick="cadastroCliente()">Cadastro de Cliente</h2>
 
-      <!-- Opções para adicionar um novo item -->
-      <section class="image-background">
-        <div class="ajusteTable">
-          <!-- id= referenciar o css placeholder= texto de predefinição -->
-          <input type="text" id="getCpf" placeholder="CPF:" />
-          <input type="text" id="getNome" placeholder="Nome:" />
-          <input type="text" id="getCep" placeholder="Cep:" />
-          <span onclick="newItem()" class="addBtn">Adicionar</span>
-        </div>
+      <section class="ajusteAtt">
+        <span onclick="index()" class="addBtn">HOME</span>
+        <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
+        <span onclick="buscaProduto()" class="addBtn">Busca de Produtos</span>
+        <span onclick="cadastroProduto()" class="addBtn">Cadastro de Produto</span>
+        <!-- <a href="validade.html" class="botaoPagina btnSacola">validade</a> -->
       </section>
-    </header>
-
-    <!-- Tabela com items existentes -->
-    <section class="items">
-      <table id="myTable">
-        <tr id="idDaLinha">
-          <td>CPF</td>
-          <td>Nome</td>
-          <td>Cep</td>
-          <td><img class="lixo close icone" /></td>
-          <td><img onclick="updateItem()" class="editar icone" /></td>
-        </tr>
-      </table>
-    </section>
-
-    <!-- Modal do cep -->
-    <div id="myModal" class="modal">
-      <div class="modal-content">
-        <div id="resultados"></div>
-        <span id="close" class="addBtn">&times;</span>
-      </div>
     </div>
 
-    <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF -->
-    <script>
-      $(document).ready(function () {
-        $("#getCpf").mask("000.000.000-00");
-        $("#getCep").mask("00000-000");
-      });
-    </script>
+    <!-- Opções para adicionar um novo item -->
+    <section class="image-background">
+      <div class="ajusteTable">
+        <!-- id= referenciar o css placeholder= texto de predefinição -->
+        <input type="text" id="getCpf" placeholder="CPF:" />
+        <input type="text" id="getNome" placeholder="Nome:" />
+        <input type="text" id="getCep" placeholder="Cep:" />
+        <span onclick="newItem()" class="addBtn">Adicionar</span>
+      </div>
+    </section>
+  </header>
 
-    <!-- Seu script existente -->
-    <script src="../js/botoes.js"></script>
-    <script src="../js/endereco.js"></script>
-    <script src="../js/genero.js"></script>
-    <script src="../js/cliente.js"></script>
-  </body>
+  <!-- Tabela com items existentes -->
+  <section class="items">
+    <table id="myTable">
+      <tr id="idDaLinha">
+        <td>CPF</td>
+        <td>Nome</td>
+        <td>Cep</td>
+        <td><img class="lixo close icone" /></td>
+        <td><img onclick="updateItem()" class="editar icone" /></td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- Modal do cep -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div id="resultados"></div>
+      <span id="close" class="addBtn">&times;</span>
+    </div>
+  </div>
+
+  <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF -->
+  <script>
+    $(document).ready(function () {
+      $("#getCpf").mask("000.000.000-00");
+      $("#getCep").mask("00000-000");
+    });
+  </script>
+
+  <!-- Seu script existente -->
+  <script src="../js/botoes.js"></script>
+  <script src="../js/endereco.js"></script>
+  <script src="../js/genero.js"></script>
+  <script src="../js/cliente.js"></script>
+</body>
+
 </html>

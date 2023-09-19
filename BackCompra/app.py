@@ -114,7 +114,9 @@ def get_compras_produto(query: CompraBuscaSchemaProduto):
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    compras = session.query(Compra).filter(Compra.produto.contains(compra_produto)).all()
+    compras = (
+        session.query(Compra).filter(Compra.produto.contains(compra_produto)).all()
+    )
 
     if not compras:
         # se não há compras cadastradas
