@@ -203,10 +203,11 @@ function editar() {
         let nome = inputs[0].value;
         let quantidade = inputs[1].value;
         let preco = inputs[2].value;
+        let precoFormatado = preco.replace("R$ ", "").replace(/\./g, "").replace(/,/g, ".");
 
         celulasDaLinha[0].innerHTML = nome;
         celulasDaLinha[1].innerHTML = quantidade;
-        celulasDaLinha[2].innerHTML = preco;
+        celulasDaLinha[2].innerHTML = precoFormatado;
 
         //Pega o id referente a coluna clicada
         idLinhaUpdate = idLinha - 1;
@@ -259,6 +260,8 @@ function newItem() {
   let nome = document.getElementById("getNome").value;
   let quantidade = document.getElementById("getQuantidade").value;
   let preco = document.getElementById("getPreco").value;
+  preco = preco.replace("R$ ", "").replace(/\./g, "").replace(/,/g, ".");
+  console.log(preco);
 
   if (nome === "") {
     alert("Escreva o nome do produto!");
