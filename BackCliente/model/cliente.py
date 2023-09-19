@@ -3,11 +3,11 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from typing import Union
 
-from  model import Base
+from model import Base
 
 
 class Cliente(Base):
-    __tablename__ = 'cliente'
+    __tablename__ = "cliente"
 
     cpf = Column("pk_cliente", String, primary_key=True)
     nome = Column(String(140))
@@ -20,8 +20,9 @@ class Cliente(Base):
     # de reconstruir esse relacionamento.
     # comentarios = relationship("Comentario")
 
-    def __init__(self, cpf:str, nome:str, cep:str,
-                 data_insercao:Union[DateTime, None] = None):
+    def __init__(
+        self, cpf: str, nome: str, cep: str, data_insercao: Union[DateTime, None] = None
+    ):
         """
         Cria um cliente
 
@@ -38,4 +39,3 @@ class Cliente(Base):
         # se não for informada, será o data exata da inserção no banco
         if data_insercao:
             self.data_insercao = data_insercao
-
