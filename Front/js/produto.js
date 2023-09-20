@@ -61,19 +61,30 @@ function getList() {
   let url = "http://127.0.0.1:5001/produtos";
   console.log("get");
   console.log(url);
-  fetch(url, {
-    method: "get",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      data.produtos.forEach((produto) =>
-        insertList(produto.nome, produto.quantidade, produto.valor),
-      );
-      data.produtos.forEach((produto) => pegaListaId(produto.id));
+  try {
+    fetch(url, {
+      method: "get",
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        data.produtos.forEach((produto) =>
+          insertList(produto.nome, produto.quantidade, produto.valor),
+        );
+        data.produtos.forEach((produto) => pegaListaId(produto.id));
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Função para colocar um produto na lista do servidor via requisição POST
@@ -93,15 +104,26 @@ async function postItem(nomeProduto, quantidadeProduto, precoProduto) {
   let url = "http://127.0.0.1:5001/produto";
   console.log("post");
   console.log(url);
-  fetch(url, {
-    method: "post",
-    body: formData,
-  })
-    //a resposta deve ser convertida em json
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  try {
+    fetch(url, {
+      method: "post",
+      body: formData,
+    })
+      //a resposta deve ser convertida em json
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Função para remover um produto da lista de acordo com o click no botão close
@@ -234,13 +256,24 @@ function deletarProduto(nomeProduto) {
   let url = "http://127.0.0.1:5001/produto?nome=" + nomeProduto;
   console.log("delete");
   console.log(url);
-  fetch(url, {
-    method: "delete",
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  try {
+    fetch(url, {
+      method: "delete",
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Função para deletar um produto da lista utilizando o ID do servidor via requisição DELETE
@@ -248,13 +281,24 @@ function deletarProdutoId(IdProduto) {
   let url = "http://127.0.0.1:5001/produto?id=" + IdProduto;
   console.log("delete");
   console.log(url);
-  fetch(url, {
-    method: "delete",
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  try {
+    fetch(url, {
+      method: "delete",
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Função para adicionar um novo produto com nome, quantidade e valor
@@ -368,15 +412,26 @@ function updateProduto(
   let url = "http://127.0.0.1:5001/produto?id=" + idProduto;
   console.log("put");
   console.log(url);
-  fetch(url, {
-    method: "put",
-    body: formData,
-  })
-    //a resposta deve ser convertida em json
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  try {
+    fetch(url, {
+      method: "put",
+      body: formData,
+    })
+      //a resposta deve ser convertida em json
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //busca um produto
@@ -432,21 +487,32 @@ function buscaGet(ParametroUrl, paramentroProduto) {
   //get do objeto
   console.log("get");
   console.log(url);
-  fetch(url, {
-    method: "get",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      if (data.id != null) {
-        insertUm(data.nome, data.quantidade, data.valor);
-      } else {
-        alert("Produto não encontrado");
-      }
+  try {
+    fetch(url, {
+      method: "get",
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.id != null) {
+          insertUm(data.nome, data.quantidade, data.valor);
+        } else {
+          alert("Produto não encontrado");
+        }
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Consulta para varios
@@ -462,21 +528,32 @@ function buscaGetmais(ParametroUrl, paramentroProduto) {
   //get do objeto
   console.log("get");
   console.log(url);
-  fetch(url, {
-    method: "get",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data.produtos);
-      if (data.produtos != 0) {
-        data.produtos.forEach((Produto) =>
-          insertMais(Produto.nome, Produto.quantidade, Produto.valor),
-        );
-      } else {
-        alert("Prodduto não encontrado");
-      }
+  try {
+    fetch(url, {
+      method: "get",
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.produtos);
+        if (data.produtos != 0) {
+          data.produtos.forEach((Produto) =>
+            insertMais(Produto.nome, Produto.quantidade, Produto.valor),
+          );
+        } else {
+          alert("Prodduto não encontrado");
+        }
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
