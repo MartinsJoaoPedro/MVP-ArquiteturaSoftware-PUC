@@ -11,6 +11,7 @@ class Compra(Base):
 
     id = Column("pk_produto", Integer, primary_key=True)
     cpf = Column(String)
+    nome = Column(String(140))
     produto = Column(String(140))
     data_insercao = Column(DateTime, default=datetime.now())
 
@@ -21,7 +22,7 @@ class Compra(Base):
     # comentarios = relationship("Comentario")
 
     def __init__(
-        self, cpf: str, produto: str, data_insercao: Union[DateTime, None] = None
+        self, cpf: str, nome: str, produto: str, data_insercao: Union[DateTime, None] = None
     ):
         """
         Cria um compra
@@ -33,6 +34,7 @@ class Compra(Base):
             data_insercao: data de quando o compra foi inserido à base
         """
         self.cpf = cpf
+        self.nome = nome
         self.produto = produto
 
         # se não for informada, será o data exata da inserção no banco

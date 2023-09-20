@@ -73,7 +73,7 @@ function getList() {
       })
       .then((data) => {
         data.compras.forEach((compra) =>
-          insertList(compra.cpf, compra.produto)
+          insertList(compra.cpf, compra.nome, compra.produto)
         );
         data.compras.forEach((compra) => pegaListaId(compra.id));
       })
@@ -95,10 +95,11 @@ function getList() {
 }
 
 //Função para colocar um compra na lista do servidor via requisição POST
-async function postItem(inputCpf, inputProduct) {
+async function postItem(inputCpf, inputNome, inputProduct) {
   //Criação do objeto
   const formData = new FormData();
   formData.append("cpf", inputCpf);
+  formData.append("nome", inputNome);
   formData.append("produto", inputProduct);
   // Log dos valores do FormData
   for (var pair of formData.entries()) {
@@ -279,9 +280,9 @@ function newItem() {
     alert("Escreva o cpf da compra!");
   } else {
     //Acrescenta o compra na lista do site
-    insertList(cpf, produto);
+    insertList(cpf, nomeComprador, produto);
     //Envia um comando post para api
-    postItem(cpf, produto);
+    postItem(cpf, nomeComprador, produto);
     //evita bug apos adicionar uma linha
     alert("Compra adicionada!");
   }
@@ -289,10 +290,10 @@ function newItem() {
 
 //Função para inserir compras na lista apresentada
 let rowId = 1;
-function insertList(cpfCompra, produtoCompra) {
+function insertList(cpfCompra, nomeCompra, produtoCompra) {
   console.log("Inserindo compras");
   //alert("insertList");
-  var compra = [cpfCompra, produtoCompra];
+  var compra = [cpfCompra, nomeCompra, produtoCompra];
   var table = document.getElementById("myTable");
   var row = table.insertRow();
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
@@ -480,6 +481,14 @@ function getListCpf() {
         option.text = item.cpf;
         select.appendChild(option);
       });
+
+      // Adicione um evento de mudança aqui
+      select.onchange = function () {
+        getName(this.value);
+        console.log('Você selecionou a opção: ' + this.value);
+        // Adicione sua lógica aqui
+      };
+
       data.clientes.forEach((item) => pegaListaId(item.cpf));
     })
     .catch((error) => {
@@ -506,6 +515,27 @@ function getListProduto() {
         select.appendChild(option);
       });
       data.produtos.forEach((produto) => pegaListaId(produto.id));
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+let nomeComprador;
+function getName(cpf) {
+  limparDados();
+  let url = "http://127.0.0.1:5002/clientescpf?" + cpf;
+  console.log("get");
+  console.log(url);
+  fetch(url, {
+    method: "get",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      data.cliente.forEach((cliente) => {
+        nomeComprador = cliente.nome;
+      });
+      console.log(nomeComprador); // Mova esta linha para aqui
     })
     .catch((error) => {
       console.error("Error:", error);

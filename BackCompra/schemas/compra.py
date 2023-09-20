@@ -7,6 +7,7 @@ class CompraSchema(BaseModel):
     """Define como um novo compra a ser inserido deve ser representado"""
 
     cpf: str = "000.000.000-00"
+    nome: str = "João"
     produto: str = "Banana"
 
 
@@ -24,6 +25,14 @@ class CompraBuscaSchemaCpf(BaseModel):
     """
 
     cpf: str = "000.000.000-00"
+
+
+class CompraBuscaSchemaNome(BaseModel):
+    """Define como deve ser a estrutura que representa a busca. Que será
+    feita apenas com base no produto do compra.
+    """
+
+    nome: str = "João"
 
 
 class CompraBuscaSchemaProduto(BaseModel):
@@ -49,6 +58,7 @@ def apresenta_compras(compras: List[Compra]):
         result.append(
             {
                 "cpf": compra.cpf,
+                "nome": compra.nome,
                 "produto": compra.produto,
             }
         )
@@ -61,6 +71,7 @@ class CompraViewSchema(BaseModel):
 
     id: int = 1
     cpf: str = "000.000.000-00"
+    nome: str = "João"
     produto: str = "Banana"
 
 
@@ -70,11 +81,12 @@ class CompraDelSchema(BaseModel):
     """
 
     mesage: str
-    produto: str
+    id: int = 1
 
 
 class CompraUpdateSchema(BaseModel):
     cpf: str = "000.000.000-00"
+    nome: str = "João"
     produto: str = "Banana"
 
 
@@ -84,6 +96,7 @@ def apresenta_compra(compra: Compra):
     """
     return {
         "id": compra.id,
+        "nome": compra.nome,
         "cpf": compra.cpf,
         "produto": compra.produto,
     }

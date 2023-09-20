@@ -46,8 +46,9 @@ def add_compra(form: CompraSchema):
     Retorna uma representação dos compras associados.
     """
     print(form.cpf)
+    print(form.nome)
     print(form.produto)
-    compra = Compra(cpf=form.cpf, produto=form.produto)
+    compra = Compra(cpf=form.cpf, nome=form.nome, produto=form.produto)
     logger.debug(f"Adicionando compra de produto: '{compra.produto}'")
     try:
         # criando conexão com a base
