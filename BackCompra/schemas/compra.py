@@ -3,6 +3,15 @@ from typing import Optional, List
 from model.compra import Compra
 
 
+class CompraViewSchema(BaseModel):
+    """Define como um compra será retornado: compra."""
+
+    id: int = 1
+    cpf: str = "000.000.000-00"
+    nome: str = "João"
+    produto: str = "Banana"
+
+
 class CompraSchema(BaseModel):
     """Define como um novo compra a ser inserido deve ser representado"""
 
@@ -11,7 +20,7 @@ class CompraSchema(BaseModel):
     produto: str = "Banana"
 
 
-class CompraBuscaSchema(BaseModel):
+class CompraSchemaId(BaseModel):
     """Define como deve ser a estrutura que representa a busca. Que será
     feita apenas com base no produto do compra.
     """
@@ -19,7 +28,7 @@ class CompraBuscaSchema(BaseModel):
     id: int = 1
 
 
-class CompraBuscaSchemaCpf(BaseModel):
+class CompraSchemaCpf(BaseModel):
     """Define como deve ser a estrutura que representa a busca. Que será
     feita apenas com base no produto do compra.
     """
@@ -27,7 +36,7 @@ class CompraBuscaSchemaCpf(BaseModel):
     cpf: str = "000.000.000-00"
 
 
-class CompraBuscaSchemaNome(BaseModel):
+class CompraSchemaNome(BaseModel):
     """Define como deve ser a estrutura que representa a busca. Que será
     feita apenas com base no produto do compra.
     """
@@ -35,18 +44,12 @@ class CompraBuscaSchemaNome(BaseModel):
     nome: str = "João"
 
 
-class CompraBuscaSchemaProduto(BaseModel):
+class CompraSchemaProduto(BaseModel):
     """Define como deve ser a estrutura que representa a busca. Que será
     feita apenas com base no produto do compra.
     """
 
     produto: str = "Banana"
-
-
-class ListagemComprasSchema(BaseModel):
-    """Define como uma listagem de compras será retornada."""
-
-    compras: List[CompraSchema]
 
 
 def apresenta_compras(compras: List[Compra]):
@@ -66,28 +69,10 @@ def apresenta_compras(compras: List[Compra]):
     return {"compras": result}
 
 
-class CompraViewSchema(BaseModel):
-    """Define como um compra será retornado: compra."""
+class ListagemComprasSchema(BaseModel):
+    """Define como uma listagem de compras será retornada."""
 
-    id: int = 1
-    cpf: str = "000.000.000-00"
-    nome: str = "João"
-    produto: str = "Banana"
-
-
-class CompraDelSchema(BaseModel):
-    """Define como deve ser a estrutura do dado retornado após uma requisição
-    de remoção.
-    """
-
-    mesage: str
-    id: int = 1
-
-
-class CompraUpdateSchema(BaseModel):
-    cpf: str = "000.000.000-00"
-    nome: str = "João"
-    produto: str = "Banana"
+    compras: List[CompraSchema]
 
 
 def apresenta_compra(compra: Compra):

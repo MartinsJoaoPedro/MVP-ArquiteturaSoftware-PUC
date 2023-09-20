@@ -105,7 +105,7 @@ def get_compras():
     tags=[compra_tag],
     responses={"200": ListagemComprasSchema, "404": ErrorSchema},
 )
-def get_compras_produto(query: CompraBuscaSchemaProduto):
+def get_compras_produto(query: CompraSchemaProduto):
     """Faz a busca por todos os compra cadastrados a partir do produto informado
 
     Retorna uma representação da listagem de compras associados ao produto.
@@ -134,7 +134,7 @@ def get_compras_produto(query: CompraBuscaSchemaProduto):
     tags=[compra_tag],
     responses={"200": ListagemComprasSchema, "404": ErrorSchema},
 )
-def get_compras_cpf(query: CompraBuscaSchemaCpf):
+def get_compras_cpf(query: CompraSchemaCpf):
     """Faz a busca por todos os compra cadastrados a partir do CPF informado
 
     Retorna uma representação da listagem de compras associados ao CPF.
@@ -161,7 +161,7 @@ def get_compras_cpf(query: CompraBuscaSchemaCpf):
     tags=[compra_tag],
     responses={"200": CompraViewSchema, "404": ErrorSchema},
 )
-def get_compra_id(query: CompraBuscaSchema):
+def get_compra_id(query: CompraSchemaId):
     """Faz a busca por um Compra a partir do id do compra
 
     Retorna uma representação dos compras associados ao id.
@@ -188,9 +188,9 @@ def get_compra_id(query: CompraBuscaSchema):
 @app.delete(
     "/compra",
     tags=[compra_tag],
-    responses={"200": CompraDelSchema, "404": ErrorSchema},
+    responses={"200": CompraSchemaId, "404": ErrorSchema},
 )
-def del_compra(query: CompraBuscaSchema):
+def del_compra(query: CompraSchemaId):
     """Deleta um compra a partir do id informado
 
     Retorna uma mensagem de confirmação da remoção.
@@ -221,9 +221,9 @@ def del_compra(query: CompraBuscaSchema):
 @app.put(
     "/compra",
     tags=[compra_tag],
-    responses={"200": CompraDelSchema, "404": ErrorSchema},
+    responses={"200": CompraSchemaId, "404": ErrorSchema},
 )
-def update_compra(query: CompraBuscaSchema, form: CompraUpdateSchema):
+def update_compra(query: CompraSchemaId, form: CompraSchema):
     """Edita um compra a partir do id informado
 
     Retorna uma mensagem de confirmação da edição.
@@ -243,10 +243,12 @@ def update_compra(query: CompraBuscaSchema, form: CompraUpdateSchema):
     )
 
     count.cpf = form.cpf
+    count.nome = form.nome
     count.produto = form.produto
 
     print("produto")
     print(count.cpf)
+    print(count.nome)
     print(count.produto)
 
     session.commit()
