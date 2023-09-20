@@ -4,7 +4,7 @@ let id;
 let edicao = true;
 
 //Chamada da função para carregamento inicial dos dados
-if (window.location.href.indexOf("cadastroCompra.html") !== -1) {
+if (window.location.href.indexOf("consultaCompra.html") !== -1) {
   console.log("Carregado");
   getList();
   getListCpf();
