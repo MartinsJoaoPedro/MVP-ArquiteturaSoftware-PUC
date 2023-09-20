@@ -95,7 +95,7 @@ function getList() {
         }
       });
   } catch (error) {
-    console.error("Error:", error);
+    //console.error("TypeError:", error.message);
   }
 }
 
@@ -133,7 +133,7 @@ async function postItem(inputCpf, inputNome, inputProduct) {
         }
       });
   } catch (error) {
-    console.error("Error:", error);
+    //console.error("TypeError:", error.message);
   }
 }
 
@@ -271,7 +271,7 @@ function deletarCompra(produtoCompra) {
         }
       });
   } catch (error) {
-    console.error("Error:", error);
+    //console.error("TypeError:", error.message);
   }
 }
 
@@ -296,7 +296,7 @@ function deletarCompraId(IdCompra) {
         }
       });
   } catch (error) {
-    console.error("Error:", error);
+    //console.error("TypeError:", error.message);
   }
 }
 
@@ -408,7 +408,7 @@ function updateCompra(idCompra, cpfCompra, nomeCompra, produtoCompra) {
         }
       });
   } catch (error) {
-    console.error("Error:", error);
+    //console.error("TypeError:", error.message);
   }
 }
 
@@ -482,7 +482,7 @@ function buscaGet(ParametroUrl, paramentroCompra) {
         }
       });
   } catch (error) {
-    console.error("Error:", error);
+    //console.error("TypeError:", error.message);
   }
 }
 
@@ -525,7 +525,7 @@ function buscaGetmais(ParametroUrl, paramentroCompra) {
         }
       });
   } catch (error) {
-    console.error("Error:", error);
+    //console.error("TypeError:", error.message);
   }
 }
 
@@ -578,7 +578,7 @@ function getListCpf() {
         }
       });
   } catch (error) {
-    console.error("Error:", error);
+    //console.error("TypeError:", error.message);
   }
 }
 
@@ -619,7 +619,7 @@ function getListProduto() {
         }
       });
   } catch (error) {
-    console.error("Error:", error);
+    //console.error("TypeError:", error.message);
   }
 }
 
@@ -654,6 +654,6 @@ function getName(cpf) {
         }
       });
   } catch (error) {
-    console.error("Error:", error);
+    //console.error("TypeError:", error.message);
   }
 }
