@@ -38,9 +38,9 @@ def home():
 @app.post(
     "/produto",
     tags=[produto_tag],
-    responses={"200": ProdutoViewSchema, "409": ErrorSchema, "400": ErrorSchema},
+    responses={"200": ProdutoSchema, "409": ErrorSchema, "400": ErrorSchema},
 )
-def add_produto(form: ProdutoSchema):
+def add_produto(form: ProdutoUpdateSchema):
     """Adiciona um novo Produto à base de dados
 
     Retorna uma representação dos produtos associados.
@@ -105,7 +105,7 @@ def get_produtos():
     tags=[produto_tag],
     responses={"200": ListagemProdutosSchema, "404": ErrorSchema},
 )
-def get_produtos_nome(query: ProdutoBuscaSchemaNome):
+def get_produtos_nome(query: ProdutoSchemaNome):
     """Faz a busca por todos os Produto cadastrados a partir do nome informado
 
     Retorna uma representação da listagem de produtos associados ao nome.
@@ -132,7 +132,7 @@ def get_produtos_nome(query: ProdutoBuscaSchemaNome):
     tags=[produto_tag],
     responses={"200": ListagemProdutosSchema, "404": ErrorSchema},
 )
-def get_produtos_quantidade(query: ProdutoBuscaSchemaQuantidade):
+def get_produtos_quantidade(query: ProdutoSchemaQuantidade):
     """Faz a busca por todos os Produto cadastrados a partir da quantidade informada
 
     Retorna uma representação da listagem de produtos associados a quantidade.
@@ -163,7 +163,7 @@ def get_produtos_quantidade(query: ProdutoBuscaSchemaQuantidade):
     tags=[produto_tag],
     responses={"200": ListagemProdutosSchema, "404": ErrorSchema},
 )
-def get_produtos_valor(query: ProdutoBuscaSchemaValor):
+def get_produtos_valor(query: ProdutoSchemaValor):
     """Faz a busca por todos os Produto cadastrados a partir do valor informado
 
     Retorna uma representação da listagem de produtos associados ao valor.
@@ -190,9 +190,9 @@ def get_produtos_valor(query: ProdutoBuscaSchemaValor):
 @app.get(
     "/produtoid",
     tags=[produto_tag],
-    responses={"200": ProdutoViewSchema, "404": ErrorSchema},
+    responses={"200": ProdutoSchema, "404": ErrorSchema},
 )
-def get_produto_id(query: ProdutoBuscaSchema):
+def get_produto_id(query: ProdutoSchemaId):
     """Faz a busca por um Produto a partir do id do produto
 
     Retorna uma representação dos produtos associados ao id.
@@ -219,9 +219,9 @@ def get_produto_id(query: ProdutoBuscaSchema):
 @app.delete(
     "/produto",
     tags=[produto_tag],
-    responses={"200": ProdutoDelSchema, "404": ErrorSchema},
+    responses={"200": ProdutoSchemaId, "404": ErrorSchema},
 )
-def del_produto(query: ProdutoBuscaSchema):
+def del_produto(query: ProdutoSchemaId):
     """Deleta um Produto a partir do id informado
 
     Retorna uma mensagem de confirmação da remoção.
@@ -250,9 +250,9 @@ def del_produto(query: ProdutoBuscaSchema):
 @app.put(
     "/produto",
     tags=[produto_tag],
-    responses={"200": ProdutoDelSchema, "404": ErrorSchema},
+    responses={"200": ProdutoSchemaId, "404": ErrorSchema},
 )
-def update_produto(query: ProdutoBuscaSchema, form: ProdutoUpdateSchema):
+def update_produto(query: ProdutoSchemaId, form: ProdutoUpdateSchema):
     """Edita um Produto a partir do id informado
 
     Retorna uma mensagem de confirmação da edição.

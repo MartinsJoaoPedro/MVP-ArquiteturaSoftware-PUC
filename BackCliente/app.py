@@ -38,7 +38,7 @@ def home():
 @app.post(
     "/cliente",
     tags=[cliente_tag],
-    responses={"200": ClienteViewSchema, "409": ErrorSchema, "400": ErrorSchema},
+    responses={"200": ClienteSchema, "409": ErrorSchema, "400": ErrorSchema},
 )
 def add_cliente(form: ClienteSchema):
     """Adiciona um novo cliente à base de dados
@@ -105,7 +105,7 @@ def get_clientes():
     tags=[cliente_tag],
     responses={"200": ListagemClientesSchema, "404": ErrorSchema},
 )
-def get_clientes_nome(query: ClienteBuscaSchemaNome):
+def get_clientes_nome(query: ClienteSchemaNome):
     """Faz a busca por todos os cliente cadastrados a partir do nome informado
 
     Retorna uma representação da listagem de clientes associados ao nome.
@@ -132,7 +132,7 @@ def get_clientes_nome(query: ClienteBuscaSchemaNome):
     tags=[cliente_tag],
     responses={"200": ListagemClientesSchema, "404": ErrorSchema},
 )
-def get_clientes_cpf(query: ClienteBuscaSchemaCpf):
+def get_clientes_cpf(query: ClienteSchemaCpf):
     """Faz a busca por todos os cliente cadastrados a partir do CPF informado
 
     Retorna uma representação da listagem de clientes associados ao CPF.
@@ -150,7 +150,7 @@ def get_clientes_cpf(query: ClienteBuscaSchemaCpf):
     else:
         logger.debug(f"%d clientes encontrados" % len(clientes))
         # retorna a representação de cliente
-        return apresenta_clientes(clientes), 200
+        return apresenta_cliente(clientes), 200
 
 
 # Pega todos os clientes pelo cep
@@ -159,7 +159,7 @@ def get_clientes_cpf(query: ClienteBuscaSchemaCpf):
     tags=[cliente_tag],
     responses={"200": ListagemClientesSchema, "404": ErrorSchema},
 )
-def get_clientes_cep(query: ClienteBuscaSchemaCep):
+def get_clientes_cep(query: ClienteSchemaCep):
     """Faz a busca por todos os cliente cadastrados a partir do CEP informado
 
     Retorna uma representação da listagem de clientes associados ao CEP.
@@ -184,9 +184,9 @@ def get_clientes_cep(query: ClienteBuscaSchemaCep):
 @app.delete(
     "/cliente",
     tags=[cliente_tag],
-    responses={"200": ClienteDelSchema, "404": ErrorSchema},
+    responses={"200": ClienteSchemaCpf, "404": ErrorSchema},
 )
-def del_cliente(query: ClienteBuscaSchemaCpf):
+def del_cliente(query: ClienteSchemaCpf):
     """Deleta um cliente a partir do cpf informado
 
     Retorna uma mensagem de confirmação da remoção.
@@ -217,9 +217,9 @@ def del_cliente(query: ClienteBuscaSchemaCpf):
 @app.put(
     "/cliente",
     tags=[cliente_tag],
-    responses={"200": ClienteDelSchema, "404": ErrorSchema},
+    responses={"200": ClienteSchemaCpf, "404": ErrorSchema},
 )
-def update_cliente(query: ClienteBuscaSchemaCpf, form: ClienteUpdateSchema):
+def update_cliente(query: ClienteSchemaCpf, form: ClienteSchema):
     """Edita um cliente a partir do cpf informado
 
     Retorna uma mensagem de confirmação da edição.
