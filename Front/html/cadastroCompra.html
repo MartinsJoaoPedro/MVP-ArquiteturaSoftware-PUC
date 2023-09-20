@@ -8,6 +8,10 @@
 
   <link rel="stylesheet" href="../styles.css" />
 
+  <!-- Inclua as bibliotecas jQuery e jQuery Mask Plugin -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
   <title>IFrutas</title>
 </head>
 
@@ -15,11 +19,13 @@
   <!-- Cabeçalho de informações do sistema -->
   <header>
     <div class="title">
-      <h2 onclick="index()">Cadastro de Compras</h2>
+      <h2 onclick="cadastroCompra()">Cadastro de Compras</h2>
 
       <section class="ajusteAtt">
-        <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
-        <span onclick="buscaProduto()" class="addBtn">Busca de Produtos</span>
+        <span onclick="index()" class="addBtn">Home</span>
+        <span onclick="consultaCompra()" class="addBtn">Consulta de Compras</span>
+        <span onclick="consultaCliente()" class="addBtn">Consulta de Clientes</span>
+        <span onclick="consultaProduto()" class="addBtn">Consulta de Produtos</span>
         <span onclick="cadastroProduto()" class="addBtn">Cadastro de Produto</span>
         <span onclick="cadastroCliente()" class="addBtn">Cadastro de Cliente</span>
       </section>
@@ -57,7 +63,7 @@
 
   <!-- Seu script existente -->
   <script src="../js/botoes.js"></script>
-  <script src="../js/scripts.js"></script>
+  <script src="../js/compra.js"></script>
   <script src="../js/excel.js"></script>
 </body>
 

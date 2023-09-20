@@ -150,7 +150,7 @@ def get_clientes_cpf(query: ClienteSchemaCpf):
     else:
         logger.debug(f"%d clientes encontrados" % len(clientes))
         # retorna a representação de cliente
-        return apresenta_cliente(clientes), 200
+        return apresenta_clientes(clientes), 200
 
 
 # Pega todos os clientes pelo cep

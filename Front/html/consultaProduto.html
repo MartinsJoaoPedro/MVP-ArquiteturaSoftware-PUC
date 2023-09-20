@@ -10,7 +10,7 @@
 
   <!-- Inclua as bibliotecas jQuery e jQuery Mask Plugin -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 
   <title>IFrutas</title>
 </head>
@@ -19,27 +19,28 @@
   <!-- Cabeçalho de informações do sistema -->
   <header>
     <div class="title">
-      <h2 onclick="cadastroCliente()">Cadastro de Cliente</h2>
+      <h2 onclick="consultaProduto()">Consulta de Produtos</h2>
 
       <section class="ajusteAtt">
         <span onclick="index()" class="addBtn">Home</span>
         <span onclick="consultaCompra()" class="addBtn">Consulta de Compras</span>
         <span onclick="consultaCliente()" class="addBtn">Consulta de Clientes</span>
-        <span onclick="consultaProduto()" class="addBtn">Consulta de Produtos</span>
         <span onclick="cadastroCompra()" class="addBtn">Cadastro de Compras</span>
         <span onclick="cadastroProduto()" class="addBtn">Cadastro de Produto</span>
-        <!-- <a href="validade.html" class="botaoPagina btnSacola">validade</a> -->
+        <span onclick="cadastroCliente()" class="addBtn">Cadastro de Cliente</span>
       </section>
     </div>
 
-    <!-- Opções para adicionar um novo item -->
-    <section class="image-background">
+    <!-- Opções para bucar um produto -->
+    <section class="image-background buscarPessoa myTable">
       <div class="ajusteTable">
         <!-- id= referenciar o css placeholder= texto de predefinição -->
-        <input type="text" id="getCpf" placeholder="CPF:" />
+        <input type="text" id="getId" placeholder="Id:" />
         <input type="text" id="getNome" placeholder="Nome:" />
-        <input type="text" id="getCep" placeholder="Cep:" />
-        <span onclick="newItem()" class="addBtn">Adicionar</span>
+        <input type="text" id="getQuantidade" placeholder="Quantidade:" />
+        <input type="text" id="getPreco" placeholder="Valor:" />
+        <span onclick="buscarProduto()" id="buscar" class="addBtn">Buscar</span>
+        <span onclick="buscaProduto()" id="att2" class="addBtn">Limpar Busca</span>
         <button id="sheetjsexport"><b>Exportar para o Excel</b></button>
       </div>
     </section>
@@ -49,11 +50,9 @@
   <section class="items">
     <table id="myTable">
       <tr id="idDaLinha">
-        <td>CPF</td>
         <td>Nome</td>
-        <td>Cep</td>
-        <td><img class="lixo close icone" /></td>
-        <td><img onclick="updateItem()" class="editar icone" /></td>
+        <td>Quantidade</td>
+        <td>Valor</td>
       </tr>
     </table>
   </section>
@@ -66,19 +65,26 @@
     </div>
   </div>
 
+  <!-- Códicos javascript -->
+  <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
   <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF -->
   <script>
     $(document).ready(function () {
-      $("#getCpf").mask("000.000.000-00");
-      $("#getCep").mask("00000-000");
+      $("#getPreco").maskMoney({
+        prefix: "R$ ",
+        allowNegative: true,
+        thousands: ".",
+        decimal: ",",
+        affixesStay: false,
+      });
     });
   </script>
 
   <!-- Seu script existente -->
   <script src="../js/botoes.js"></script>
-  <script src="../js/endereco.js"></script>
-  <script src="../js/genero.js"></script>
-  <script src="../js/cliente.js"></script>
+  <script src="../js/dolar.js"></script>
+  <script src="../js/produto.js"></script>
+  <script src="../js/excel.js"></script>
 </body>
 
 </html>

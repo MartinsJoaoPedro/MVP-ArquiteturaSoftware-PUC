@@ -14,52 +14,36 @@
 <body>
   <!-- Cabeçalho de informações do sistema -->
   <header>
-    <div class="title">
-      <h2 onclick="index()">Cadastro de Compras</h2>
-
-      <section class="ajusteAtt">
-        <span onclick="buscaCliente()" class="addBtn">Busca de Clientes</span>
-        <span onclick="buscaProduto()" class="addBtn">Busca de Produtos</span>
-        <span onclick="cadastroProduto()" class="addBtn">Cadastro de Produto</span>
-        <span onclick="cadastroCliente()" class="addBtn">Cadastro de Cliente</span>
-        <span onclick="buscaCompra()" class="addBtn">Busca de Compras</span>
-      </section>
-    </div>
-
-    <!-- Opções para bucar uma pessoa -->
-    <section class="image-background buscarPessoa myTable">
-      <div class="ajusteTable">
-        <!-- id= referenciar o css placeholder= texto de predefinição -->
-        <select type="text" class="select" id="getCpf" placeholder="CPF:"></select>
-        <select type="text" class="select" id="getProduto" placeholder="Produto:"></select>
-        <span onclick="newItem()" class="addBtn">Comprar</span>
-        <button id="sheetjsexport"><b>Exportar para o Excel</b></button>
+    <section>
+      <div class="title">
+        <h2 onclick="index()">Home</h2>
       </div>
+    </section>
+
+    <!-- Apresentação -->
+    <section>
+      <!-- id= referenciar o css = texto de predefinição -->
+      <h4>
+        <section class="btnHome image-background-index">
+          <div class="row">
+            <span onclick="consultaCompra()" class="addBtn">Consulta de Compras</span>
+            <span onclick="consultaCliente()" class="addBtn">Consulta de Clientes</span>
+            <span onclick="consultaProduto()" class="addBtn">Consulta de Produtos</span>
+          </div>
+          <div class="row">
+            <span onclick="cadastroCompra()" class="addBtn">Cadastro de Compras</span>
+            <span onclick="cadastroProduto()" class="addBtn">Cadastro de Produto</span>
+            <span onclick="cadastroCliente()" class="addBtn">Cadastro de Cliente</span>
+          </div>
+        </section>
+      </h4>
     </section>
   </header>
 
-  <!-- Tabela com items existentes -->
-  <section class="items">
-    <table id="myTable">
-      <tr id="idDaLinha">
-        <td>CPF</td>
-        <td>Nome</td>
-        <td>Produto</td>
-        <td class="colunaBtn"><img class="lixo close icone" /></td>
-        <td class="colunaBtn">
-          <img onclick="updateItem()" class="editar icone" />
-        </td>
-      </tr>
-    </table>
-  </section>
-
-  <!-- Códicos javascript -->
-  <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
 
   <!-- Seu script existente -->
   <script src="../js/botoes.js"></script>
   <script src="../js/scripts.js"></script>
-  <script src="../js/excel.js"></script>
 </body>
 
 </html>

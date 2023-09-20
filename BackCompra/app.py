@@ -38,7 +38,7 @@ def home():
 @app.post(
     "/compra",
     tags=[compra_tag],
-    responses={"200": CompraViewSchema, "409": ErrorSchema, "400": ErrorSchema},
+    responses={"200": CompraSchema, "409": ErrorSchema, "400": ErrorSchema},
 )
 def add_compra(form: CompraSchema):
     """Adiciona um novo compra à base de dados
@@ -184,7 +184,7 @@ def get_compra_id(query: CompraSchemaId):
         return apresenta_compra(compra), 200
 
 
-# Deletar compra específica a partir do cpf
+# Deletar compra específica a partir do id
 @app.delete(
     "/compra",
     tags=[compra_tag],

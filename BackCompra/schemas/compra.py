@@ -60,6 +60,7 @@ def apresenta_compras(compras: List[Compra]):
     for compra in compras:
         result.append(
             {
+                "id": compra.id,
                 "cpf": compra.cpf,
                 "nome": compra.nome,
                 "produto": compra.produto,

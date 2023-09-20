@@ -47,6 +47,11 @@ header {
   /* width: 100vw; */
 }
 
+.image-background-index {
+  background-image: url("https://images.contentstack.io/v3/assets/blt45c082eaf9747747/bltbcca43584b660977/5de0b6aa703bd50385f981ad/Header-5.jpg?width=1200&height=630&fit=crop");
+  background-size: cover;
+}
+
 .ajusteTable {
   display: flex;
   width: 52.7%;
@@ -140,6 +145,7 @@ header {
   transition: 0.3s;
   border-radius: 2px;
   width: 20%;
+  margin: 2px;
 }
 
 .addBtn:hover {
@@ -319,4 +325,17 @@ h3 {
 
 .colunaBtn {
   width: 5%;
+}
+
+.btnHome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 85vh; /* Altura total da viewport */
+}
+
+.row {
+  display: flex;
+  justify-content: center;
 }
