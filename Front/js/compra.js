@@ -74,8 +74,6 @@ function getList() {
         return response.json();
       })
       .then((data) => {
-        console.log("data");
-        console.log(data);
         if (data.produtos !== null) {
           data.compras.forEach((compra) =>
             insertList(compra.cpf, compra.nome, compra.produto),
@@ -88,13 +86,11 @@ function getList() {
       })
       .catch((error) => {
         if (error instanceof TypeError) {
-          // Trate o TypeError aqui
-          console.log(
-            "Ocorreu um erro ao buscar a lista de compras. Por favor, tente novamente mais tarde.",
-          );
-          console.error("TypeError:", error.message);
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
         } else {
-          // Relance o erro se não for um TypeError
+          // Relance o erro se não for um TypeError ou um erro de conexão
           throw error;
         }
       });
@@ -119,15 +115,26 @@ async function postItem(inputCpf, inputNome, inputProduct) {
   let url = "http://127.0.0.1:5003/compra";
   console.log("post");
   console.log(url);
-  fetch(url, {
-    method: "post",
-    body: formData,
-  })
-    //a resposta deve ser convertida em json
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  try {
+    fetch(url, {
+      method: "post",
+      body: formData,
+    })
+      //a resposta deve ser convertida em json
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Função para remover um compra da lista de acordo com o click no botão close
@@ -248,13 +255,24 @@ function deletarCompra(produtoCompra) {
   let url = "http://127.0.0.1:5003/compra?produto=" + produtoCompra;
   console.log("delete");
   console.log(url);
-  fetch(url, {
-    method: "delete",
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  try {
+    fetch(url, {
+      method: "delete",
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Função para deletar um compra da lista utilizando o ID do servidor via requisição DELETE
@@ -262,13 +280,24 @@ function deletarCompraId(IdCompra) {
   let url = "http://127.0.0.1:5003/compra?id=" + IdCompra;
   console.log("delete");
   console.log(url);
-  fetch(url, {
-    method: "delete",
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  try {
+    fetch(url, {
+      method: "delete",
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Função para adicionar um novo compra com produto e cpf
@@ -361,15 +390,26 @@ function updateCompra(idCompra, cpfCompra, nomeCompra, produtoCompra) {
   let url = "http://127.0.0.1:5003/compra?id=" + idCompra;
   console.log("put");
   console.log(url);
-  fetch(url, {
-    method: "put",
-    body: formData,
-  })
-    //a resposta deve ser convertida em json
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  try {
+    fetch(url, {
+      method: "put",
+      body: formData,
+    })
+      //a resposta deve ser convertida em json
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //busca um compra
@@ -417,22 +457,33 @@ function buscaGet(ParametroUrl, paramentroCompra) {
 
   //get do objeto
   console.log("get");
-  console.log(url);
-  fetch(url, {
-    method: "get",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      //Condição pra entrada vazia
-      if (data.id != null) {
-        insertUm(data.cpf, data.nome, data.produto);
-      } else {
-        alert("Compra não encontrada");
-      }
+  try {
+    console.log(url);
+    fetch(url, {
+      method: "get",
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        //Condição pra entrada vazia
+        if (data.id != null) {
+          insertUm(data.cpf, data.nome, data.produto);
+        } else {
+          alert("Compra não encontrada");
+        }
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Consulta para varios
@@ -448,23 +499,34 @@ function buscaGetmais(ParametroUrl, paramentroCompra) {
   //get do objeto
   console.log("get");
   console.log(url);
-  fetch(url, {
-    method: "get",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      //Condição pra entrada vazia
-      if (data.compras != 0) {
-        data.compras.forEach((Compra) =>
-          insertMais(Compra.cpf, Compra.produto),
-        );
-      } else {
-        alert("Prodduto não encontrado");
-      }
+  try {
+    fetch(url, {
+      method: "get",
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        //Condição pra entrada vazia
+        if (data.compras != 0) {
+          data.compras.forEach((Compra) =>
+            insertMais(Compra.cpf, Compra.produto),
+          );
+        } else {
+          alert("Prodduto não encontrado");
+        }
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //lista os os clientes e usa o cpf pra pegar o nome
@@ -473,35 +535,51 @@ function getListCpf() {
   let url = "http://127.0.0.1:5002/clientes";
   console.log("get");
   console.log(url);
-  fetch(url, {
-    method: "get",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      //Condição pra entrada vazia
-      if (data.clientes !== null) {
-        let select = document.getElementById("getCpf");
-        //select.innerHTML = ""; // Limpa o select
-        data.clientes.forEach((item) => {
-          let option = document.createElement("option");
-          option.value = item.cpf;
-          option.text = item.cpf;
-          select.appendChild(option);
-        });
-
-        // Adicione um evento de mudança aqui
-        select.onchange = function () {
-          getName(this.value);
-          console.log("Você selecionou a opção: " + this.value);
-          // Adicione sua lógica aqui
-        };
-      } else {
-        close.log("Clientes não encontrado");
-      }
+  try {
+    fetch(url, {
+      method: "get",
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        //Condição pra entrada vazia
+        if (data.clientes !== null) {
+          let select = document.getElementById("getCpf");
+          //select.innerHTML = ""; // Limpa o select
+          data.clientes.forEach((item) => {
+            let option = document.createElement("option");
+            option.value = item.cpf;
+            option.text = item.cpf;
+            select.appendChild(option);
+          });
+
+          // Adicione um evento de mudança aqui
+          select.onchange = function () {
+            getName(this.value);
+            console.log("Você selecionou a opção: " + this.value);
+            // Adicione sua lógica aqui
+          };
+        } else {
+          close.log("Clientes não encontrado");
+        }
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //lista os produtos
@@ -510,28 +588,39 @@ function getListProduto() {
   let url = "http://127.0.0.1:5001/produtos";
   console.log("get");
   console.log(url);
-  fetch(url, {
-    method: "get",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      //Condição pra entrada vazia
-      if (data.produtos !== null) {
-        let select = document.getElementById("getProduto");
-        //select.innerHTML = ""; // Limpa o select
-        data.produtos.forEach((produto) => {
-          let option = document.createElement("option");
-          option.value = produto.nome;
-          option.text = produto.nome;
-          select.appendChild(option);
-        });
-      } else {
-        console.log("Produtos não econtrado");
-      }
+  try {
+    fetch(url, {
+      method: "get",
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        //Condição pra entrada vazia
+        if (data.produtos !== null) {
+          let select = document.getElementById("getProduto");
+          //select.innerHTML = ""; // Limpa o select
+          data.produtos.forEach((produto) => {
+            let option = document.createElement("option");
+            option.value = produto.nome;
+            option.text = produto.nome;
+            select.appendChild(option);
+          });
+        } else {
+          console.log("Produtos não econtrado");
+        }
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //obter o nome com base em um cpf
@@ -540,21 +629,31 @@ function getName(cpf) {
   let url = "http://127.0.0.1:5002/clientecpf?cpf=" + cpf;
   console.log("get");
   console.log(url);
-  fetch(url, {
-    method: "get",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      //Condição pra entrada vazia
-      if (data.clientes !== null) {
-        data.clientes.forEach((item) =>
-        nomeComprador = (item.nome))
-        console.log(nomeComprador); // Mova esta linha para aqui
-      } else {
-        console.log("Nome não encontrado");
-      }
+  try {
+    fetch(url, {
+      method: "get",
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        //Condição pra entrada vazia
+        if (data.clientes !== null) {
+          data.clientes.forEach((item) => (nomeComprador = item.nome));
+          console.log(nomeComprador); // Mova esta linha para aqui
+        } else {
+          console.log("Nome não encontrado");
+        }
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
