@@ -23,9 +23,9 @@ function buscaCliente() {
 }
 
 //Altera de pagina endereço
-function endereco() {
-  console.log("click endereco");
-  window.location.href = "../html/endereco.html";
+function buscaCompra() {
+  console.log("click index");
+  window.location.href = "../html/buscaCompras.html";
 }
 
 //Altera de pagina endereço
