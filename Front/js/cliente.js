@@ -60,19 +60,30 @@ function getList() {
   let url = "http://127.0.0.1:5002/clientes";
   console.log("get");
   console.log(url);
-  fetch(url, {
-    method: "get",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      data.clientes.forEach((item) =>
-        insertList(item.cpf, item.nome, item.cep)
-      );
-      data.clientes.forEach((item) => pegaListaId(item.cpf));
+  try {
+    fetch(url, {
+      method: "get",
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        data.clientes.forEach((item) =>
+          insertList(item.cpf, item.nome, item.cep),
+        );
+        data.clientes.forEach((item) => pegaListaId(item.cpf));
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Função para colocar um item do produto na lista do servidor via requisição POST
@@ -87,15 +98,26 @@ async function postItem(inputCpf, inputNome, inputCep) {
   let url = "http://127.0.0.1:5002/cliente";
   console.log("post");
   console.log(url);
-  fetch(url, {
-    method: "post",
-    body: formData,
-  })
-    //a resposta deve ser convertida em json
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  try {
+    fetch(url, {
+      method: "post",
+      body: formData,
+    })
+      //a resposta deve ser convertida em json
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Função para remover um item do cliente da lista de acordo com o click no botão close
@@ -211,13 +233,24 @@ function deletarCliente(cpf) {
   let url = "http://127.0.0.1:5002/cliente?cpf=" + cpf;
   console.log("delete");
   console.log(url);
-  fetch(url, {
-    method: "delete",
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  try {
+    fetch(url, {
+      method: "delete",
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Função para deletar um item do cliente da lista utilizando o ID do servidor via requisição DELETE
@@ -347,14 +380,25 @@ function updateCliente(cpf, nome, cep) {
   let url = "http://127.0.0.1:5002/cliente?cpf=" + cpf;
   console.log("put");
   console.log(url);
-  fetch(url, {
-    method: "put",
-    body: formData,
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  try {
+    fetch(url, {
+      method: "put",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //busca um cliente
@@ -403,23 +447,34 @@ function buscaGet(ParametroUrl, paramentroCliente) {
   //get do objeto
   console.log("get");
   console.log(url);
-  fetch(url, {
-    method: "get",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data.clientes);
-      if (data.clientes != null) {
-        data.clientes.forEach((item) =>
-          insertUm(item.cpf, item.nome, item.cep)
-        );
-      } else {
-        alert("Cliente não encontrado");
-      }
+  try {
+    fetch(url, {
+      method: "get",
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.clientes);
+        if (data.clientes != null) {
+          data.clientes.forEach((item) =>
+            insertUm(item.cpf, item.nome, item.cep),
+          );
+        } else {
+          alert("Cliente não encontrado");
+        }
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 //Consulta para varios
@@ -435,21 +490,32 @@ function buscaGetmais(ParametroUrl, paramentroCliente) {
   //get do objeto
   console.log("get");
   console.log(url);
-  fetch(url, {
-    method: "get",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data.clientes);
-      if (data.clientes != null) {
-        data.clientes.forEach((item) =>
-          insertMais(item.cpf, item.nome, item.cep)
-        );
-      } else {
-        alert("Clientes não encontrados");
-      }
+  try {
+    fetch(url, {
+      method: "get",
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.clientes);
+        if (data.clientes != null) {
+          data.clientes.forEach((item) =>
+            insertMais(item.cpf, item.nome, item.cep),
+          );
+        } else {
+          alert("Clientes não encontrados");
+        }
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
