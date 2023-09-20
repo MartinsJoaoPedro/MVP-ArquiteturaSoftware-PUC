@@ -41,25 +41,9 @@
         <span onclick="buscarCompra()" id="buscar" class="addBtn">Buscar</span>
         <span onclick="buscarCompra()" id="att2" class="addBtn">Limpar Busca</span>
         <span onclick="buscarTodos()" id="buscarTodos" class="addBtn">Mostrar Tudo</span>
-        <button id="sheetjsexport"><b>Exportar para o Excel</b></button>
       </div>
     </section>
   </header>
-
-  <section>
-    <div>
-      <button id="sheetjsexport"><b>Exportar para o Excel</b></button>
-    </div>
-  </section>
-
-  <!-- Modal -->
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <div id="resultados"></div>
-      <span id="close" class="addBtn">&times;</span>
-    </div>
-  </div>
-
 
   <!-- Tabela com items existentes -->
   <section class="items">
@@ -75,6 +59,20 @@
       </tr>
     </table>
   </section>
+
+  <section class="items">
+    <div>
+      <button id="sheetjsexport"><b>Exportar para o Excel</b></button>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div id="resultados"></div>
+      <span id="close" class="addBtn">&times;</span>
+    </div>
+  </div>
 
   <!-- Códicos javascript -->
   <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
