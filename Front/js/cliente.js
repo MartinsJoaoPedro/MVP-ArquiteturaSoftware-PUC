@@ -434,6 +434,13 @@ function buscarCliente() {
   }
 }
 
+function buscarCompraTodas() {
+  getList();
+/*
+  let buscar = document.getElementById("buscarTodos");
+  buscar.remove();*/
+}
+
 //Consulta para cpf
 function buscaGet(ParametroUrl, paramentroCliente) {
   let url =

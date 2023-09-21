@@ -39,8 +39,8 @@
         <input type="text" id="getNome" placeholder="Nome:" />
         <input type="text" id="getCep" placeholder="CEP:" />
         <span onclick="buscarCliente()" id="buscar" class="addBtn">Buscar</span>
-        <span onclick="buscaCliente()" id="att2" class="addBtn">Limpar Busca</span>
-        <span onclick="getList()" id="buscarTodos" class="addBtn">Mostrar Tudo</span>
+        <span onclick="consultaCliente()" id="att2" class="addBtn">Limpar Busca</span>
+        <span onclick="buscarCompraTodas()" id="buscarTodos" class="addBtn">Mostrar Tudo</span>
       </div>
     </section>
   </header>
@@ -52,6 +52,10 @@
         <td>CPF</td>
         <td>Nome</td>
         <td>CEP</td>
+        <td class="colunaBtn"><img class="lixo close icone" /></td>
+        <td class="colunaBtn">
+          <img onclick="updateItem()" class="editar icone" />
+        </td>
       </tr>
     </table>
   </section>

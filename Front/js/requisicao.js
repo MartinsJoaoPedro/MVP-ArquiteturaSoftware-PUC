@@ -14,7 +14,7 @@ function TratamentoFetchError() {
 }
 
 //Função base para criação de outras funções com tratamento
-function getList(api) {
+function getListTratamneto(api) {
   limparDados();
   let url = "http://127.0.0.1:5003/" + api;
   console.log("get");

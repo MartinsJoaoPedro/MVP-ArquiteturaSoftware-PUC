@@ -40,8 +40,8 @@
         <input type="text" id="getQuantidade" placeholder="Quantidade:" />
         <input type="text" id="getPreco" placeholder="Valor:" />
         <span onclick="buscarProduto()" id="buscar" class="addBtn">Buscar</span>
-        <span onclick="buscaProduto()" id="att2" class="addBtn">Limpar Busca</span>
-        <span onclick="getList()" id="buscarTodos" class="addBtn">Mostrar Tudo</span>
+        <span onclick="consultaProduto()" id="att2" class="addBtn">Limpar Busca</span>
+        <span onclick="buscarCompraTodas()" id="buscarTodos" class="addBtn">Mostrar Tudo</span>
       </div>
     </section>
   </header>
@@ -53,6 +53,10 @@
         <td>Nome</td>
         <td>Quantidade</td>
         <td>Valor</td>
+        <td class="colunaBtn"><img class="lixo close icone" /></td>
+        <td class="colunaBtn">
+          <img onclick="updateItem()" class="editar icone" />
+        </td>
       </tr>
     </table>
   </section>

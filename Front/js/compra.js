@@ -2,6 +2,7 @@
 let ids = [];
 let id;
 let edicao = true;
+var nomeComprador = "";
 
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("cadastroCompra.html") !== -1) {
@@ -144,13 +145,15 @@ function remover() {
   // var table = document.getElementById('myTable');
   for (let i = 0; i < close.length; i++) {
     close[i].onclick = function () {
-      const id = ids[0];
-      console.log("IdItem:");
-      console.log(id);
+      let div = this.parentElement.parentElement;
+      /*
+      console.log(id);*/
 
       let linha = this.parentNode.parentElement; // Seleciona a linha que contém a célula clicada
       let idLinha = linha.id - 1;
-      //id = ids[idLinha]; //Id do compra referente a linha
+      const id = ids[idLinha]; //Id do compra referente a linha
+      console.log("IdItem:");
+      console.log(id);
 
       if (confirm("Você tem certeza?")) {
         div.remove();
@@ -175,7 +178,9 @@ function editar() {
       }
 
       let linha = this.parentNode.parentElement; // Seleciona a linha que contém a célula clicada
-      let idLinha = linha.id;
+      let idLinha = linha.id; /*
+      console.log("idLinha");
+      console.log(idLinha);*/
 
       let celulasDaLinhaGeral = document.getElementById(idLinha);
       let celulasDaLinha =
@@ -301,7 +306,7 @@ function deletarCompraId(IdCompra) {
 }
 
 //Função para adicionar um novo compra com produto e cpf
-function newItem() {
+async function newItem() {
   console.log("novo item");
   let cpf = document.getElementById("getCpf").value;
   let produto = document.getElementById("getProduto").value;
@@ -311,12 +316,16 @@ function newItem() {
   } else if (cpf === "") {
     alert("Escreva o cpf da compra!");
   } else {
-    //Acrescenta o compra na lista do site
-    insertList(cpf, nomeComprador, produto);
-    //Envia um comando post para api
-    postItem(cpf, nomeComprador, produto);
-    //evita bug apos adicionar uma linha
-    alert("Compra adicionada!");
+    try {
+      let nomeComprador = await getName(cpf);
+      console.log("NEWITEM");
+      console.log(nomeComprador);
+      insertList(cpf, nomeComprador, produto);
+      postItem(cpf, nomeComprador, produto);
+      alert("Compra adicionada!");
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 
@@ -336,6 +345,7 @@ function insertList(cpfCompra, nomeCompra, produtoCompra) {
     cel.textContent = compra[i];
     cel.classList.add("linhaEditavel"); // Adiciona a classe .linhaEditavel à célula
   }
+
   inserirBtnRemover(row.insertCell(-1));
   inserirBtnEditar(row.insertCell(-1));
 
@@ -443,6 +453,13 @@ function buscarCompra() {
       }
     }
   }
+}
+
+function buscarCompraTodas() {
+  getList();
+/*
+  let buscar = document.getElementById("buscarTodos");
+  buscar.remove();*/
 }
 
 //Consulta para id
@@ -556,13 +573,13 @@ function getListCpf() {
             option.text = item.cpf;
             select.appendChild(option);
           });
-
+          /*
           // Adicione um evento de mudança aqui
           select.onchange = function () {
             getName(this.value);
             console.log("Você selecionou a opção: " + this.value);
             // Adicione sua lógica aqui
-          };
+          };*/
         } else {
           close.log("Clientes não encontrado");
         }
@@ -625,35 +642,42 @@ function getListProduto() {
 
 //obter o nome com base em um cpf
 function getName(cpf) {
+  console.log("getName");
   limparDados();
   let url = "http://127.0.0.1:5002/clientecpf?cpf=" + cpf;
   console.log("get");
   console.log(url);
-  try {
-    fetch(url, {
-      method: "get",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        //Condição pra entrada vazia
-        if (data.clientes !== null) {
-          data.clientes.forEach((item) => (nomeComprador = item.nome));
-          console.log(nomeComprador); // Mova esta linha para aqui
-        } else {
-          console.log("Nome não encontrado");
-        }
+  return new Promise((resolve, reject) => {
+    try {
+      fetch(url, {
+        method: "get",
       })
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    //console.error("TypeError:", error.message);
-  }
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.clientes !== null) {
+            data.clientes.forEach((item) => resolve(item.nome));
+          } else {
+            console.log("Nome não encontrado");
+            reject("Nome não encontrado");
+          }
+        })
+        .catch((error) => {
+          if (error instanceof TypeError) {
+            TratamentoTypeError(error);
+          } else if (error.message === "Failed to fetch") {
+            TratamentoFetchError();
+          } else {
+            throw error;
+          }
+        });
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+function setNomeCompra(nome) {
+  nomeComprador = nome;
+  console.log("nome");
+  console.log(nomeComprador);
 }

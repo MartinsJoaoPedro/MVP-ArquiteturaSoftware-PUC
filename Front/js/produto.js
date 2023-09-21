@@ -15,7 +15,7 @@ function inicar() {
   let atulizar = document.createElement("span");
   atulizar.innerHTML = "atulizar";
   atulizar.classList.add("addBtn");
-  atulizar.onclick = buscaProduto();
+  atulizar.onclick = consultaProduto();
 }
 
 // Adiciona 'idn' à lista 'ids'
@@ -472,6 +472,13 @@ function buscarProduto() {
       }
     }
   }
+}
+
+function buscarCompraTodas() {
+  getList();
+/*
+  let buscar = document.getElementById("buscarTodos");
+  buscar.remove();*/
 }
 
 //Consulta para id
