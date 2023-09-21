@@ -77,11 +77,14 @@
   <!-- Códicos javascript -->
   <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
 
-  <!-- Adicione o script para aplicar a máscara ao campo de entrada do CPF e CEP -->
+  <!-- Adicione o script para aplicar a máscara aos campos de entrada -->
   <script>
     $(document).ready(function () {
       $("#getCpf").mask("000.000.000-00");
       $("#getCep").mask("00000-000");
+      $("#getNome").on('input', function () {
+        this.value = this.value.replace(/[^a-zA-Z\s]/g, "");
+      });
     });
   </script>
 

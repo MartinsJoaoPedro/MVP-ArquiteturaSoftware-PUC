@@ -231,7 +231,6 @@ def update_compra(query: CompraSchemaId, form: CompraSchema):
     compra_id = query.id
     Stringpi = str(compra_id)
     logger.debug(f"Editando dados sobre compra #{Stringpi}")
-    logger.debug(f"Editando dados sobre compra #{Stringpi}")
     # criando conexão com a base
     session = Session()
     # fazendo a remoção

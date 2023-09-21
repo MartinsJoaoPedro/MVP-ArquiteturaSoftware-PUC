@@ -12,6 +12,35 @@ if (window.location.href.indexOf("cadastroCompra.html") !== -1) {
   getListProduto();
 }
 
+//Chamada da função para carregamento inicial dos dados
+if (window.location.href.indexOf("consultaCompra.html") !== -1) {
+  console.log("Carregado");
+  //getList();
+  //Preencher os campos de seleção
+  getListCpf();
+  getListProduto();
+  //Pega os elementos
+  let id = document.getElementById("getId");
+  let cpf = document.getElementById("getCpf");
+  let produto = document.getElementById("getProduto");
+
+  // Ao clicar em um campo eu limpo o outro
+  id.onclick = function () {
+    cpf.value = "";
+    produto.value = "";
+  };
+
+  produto.onclick = function () {
+    cpf.value = "";
+    id.value = "";
+  };
+
+  cpf.onclick = function () {
+    produto.value = "";
+    id.value = "";
+  };
+}
+
 //Função para carregamento da estrutura inicial
 function inicar() {
   console.log("inicar");
@@ -356,9 +385,9 @@ function insertList(cpfCompra, nomeCompra, produtoCompra) {
 }
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
-function insertUm(cpfCompra, produtoCompra) {
+function insertUm(cpfCompra, nomeCompra, produtoCompra) {
   console.log("Inserindo compra única");
-  var compra = [cpfCompra, produtoCompra];
+  var compra = [cpfCompra, nomeCompra, produtoCompra];
   var table = document.getElementById("myTable");
   while (table.rows.length > 1) {
     table.deleteRow(1);
@@ -374,9 +403,9 @@ function insertUm(cpfCompra, produtoCompra) {
 }
 
 //Insere uma nova linha
-function insertMais(cpfCompra, produtoCompra) {
+function insertMais(cpfCompra, nomeCompra, produtoCompra) {
   console.log("Inserindo compras");
-  var compra = [cpfCompra, produtoCompra];
+  var compra = [cpfCompra, nomeCompra, produtoCompra];
   var table = document.getElementById("myTable");
   var row = table.insertRow();
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
@@ -437,17 +466,17 @@ function buscarCompra() {
   for (let k = 0; k < inputID.length; k++) {
     Compra = inputID[k].value; // Salva o valor do campo aqui         }
     if (Compra != "") {
-      console.log("id");
+      console.log("Consulta de id");
       buscaGet("id", Compra);
     } else {
       Compra = inputCpf[k].value;
       if (Compra != "") {
-        console.log("cpf");
+        console.log("Consulta de cpf");
         buscaGetmais("cpf", Compra);
       } else {
         Compra = inputProduto[k].value;
         if (Compra != "") {
-          console.log("produto");
+          console.log("Consulta de produto");
           buscaGetmais("produto", Compra);
         }
       }
@@ -457,9 +486,10 @@ function buscarCompra() {
 
 function buscarCompraTodas() {
   getList();
-/*
+
+  //remove o botão impede que sejam adicinadas repetições
   let buscar = document.getElementById("buscarTodos");
-  buscar.remove();*/
+  buscar.remove();
 }
 
 //Consulta para id
@@ -481,6 +511,7 @@ function buscaGet(ParametroUrl, paramentroCompra) {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         //Condição pra entrada vazia
         if (data.id != null) {
           insertUm(data.cpf, data.nome, data.produto);
@@ -525,7 +556,7 @@ function buscaGetmais(ParametroUrl, paramentroCompra) {
         //Condição pra entrada vazia
         if (data.compras != 0) {
           data.compras.forEach((Compra) =>
-            insertMais(Compra.cpf, Compra.produto),
+            insertMais(Compra.cpf, Compra.nome, Compra.produto),
           );
         } else {
           alert("Prodduto não encontrado");
@@ -546,6 +577,7 @@ function buscaGetmais(ParametroUrl, paramentroCompra) {
   }
 }
 
+//Código para gerar os dados de busca
 //lista os os clientes e usa o cpf pra pegar o nome
 function getListCpf() {
   limparDados();
@@ -573,13 +605,6 @@ function getListCpf() {
             option.text = item.cpf;
             select.appendChild(option);
           });
-          /*
-          // Adicione um evento de mudança aqui
-          select.onchange = function () {
-            getName(this.value);
-            console.log("Você selecionou a opção: " + this.value);
-            // Adicione sua lógica aqui
-          };*/
         } else {
           close.log("Clientes não encontrado");
         }
@@ -657,7 +682,7 @@ function getName(cpf) {
           if (data.clientes !== null) {
             data.clientes.forEach((item) => resolve(item.nome));
           } else {
-            console.log("Nome não encontrado");
+            //console.log("Nome não encontrado");
             reject("Nome não encontrado");
           }
         })
@@ -674,10 +699,4 @@ function getName(cpf) {
       reject(error);
     }
   });
-}
-
-function setNomeCompra(nome) {
-  nomeComprador = nome;
-  console.log("nome");
-  console.log(nomeComprador);
 }

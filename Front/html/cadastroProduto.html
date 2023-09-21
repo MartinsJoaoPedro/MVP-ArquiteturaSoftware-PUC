@@ -77,6 +77,12 @@
   <!-- Adicione o script para aplicar a máscara ao campo de entrada de preço -->
   <script>
     $(document).ready(function () {
+      $("#getNome").on('input', function () {
+        this.value = this.value.replace(/[^a-zA-Z\s]/g, "");
+      });
+      $("#getQuantidade").on('input', function () {
+        this.value = this.value.replace(/[^0-9]/g, "");
+      });
       $("#getPreco").maskMoney({
         prefix: "R$ ",
         allowNegative: true,

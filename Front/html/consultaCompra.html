@@ -77,6 +77,14 @@
   <!-- Códicos javascript -->
   <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
 
+  <!-- Adicione o script para aplicar a máscara aos campos de entrada -->
+  <script>
+    $(document).ready(function () {
+      $("#getId").on('input', function () {
+        this.value = this.value.replace(/[^0-9]/g, "");
+      });
+    });
+  </script>
   <!-- Seu script existente -->
   <script src="../js/botoes.js"></script>
   <script src="../js/compra.js"></script>
