@@ -53,7 +53,6 @@ function inicar() {
 // Adiciona 'idn' à lista 'ids'
 function pegaListaId(idn) {
   ids.push(idn);
-  console.log(ids);
 }
 
 //Função para colocar o botão de remover
@@ -125,7 +124,7 @@ function getList() {
         }
       });
   } catch (error) {
-    //console.error("TypeError:", error.message);
+    console.error("TypeError:", error.message);
   }
 }
 
@@ -163,7 +162,7 @@ async function postItem(inputCpf, inputNome, inputProduct) {
         }
       });
   } catch (error) {
-    //console.error("TypeError:", error.message);
+    console.error("TypeError:", error.message);
   }
 }
 
@@ -175,8 +174,6 @@ function remover() {
   for (let i = 0; i < close.length; i++) {
     close[i].onclick = function () {
       let div = this.parentElement.parentElement;
-      /*
-      console.log(id);*/
 
       let linha = this.parentNode.parentElement; // Seleciona a linha que contém a célula clicada
       let idLinha = linha.id - 1;
@@ -207,9 +204,7 @@ function editar() {
       }
 
       let linha = this.parentNode.parentElement; // Seleciona a linha que contém a célula clicada
-      let idLinha = linha.id; /*
-      console.log("idLinha");
-      console.log(idLinha);*/
+      let idLinha = linha.id;
 
       let celulasDaLinhaGeral = document.getElementById(idLinha);
       let celulasDaLinha =
@@ -227,6 +222,18 @@ function editar() {
         if (j == 0) {
           // Aplique a máscara ao novo campo de entrada
           $(input).mask("000.000.000-00");
+        }
+        if (j == 1) {
+          // Aplique a máscara ao novo campo de entrada
+          $(input).on("input", function () {
+            this.value = this.value.replace(/[^a-zA-Z\s]/g, "");
+          });
+        }
+        if (j == 2) {
+          // Aplique a máscara ao novo campo de entrada
+          $(input).on("input", function () {
+            this.value = this.value.replace(/[^a-zA-Z\s]/g, "");
+          });
         }
       }
 
@@ -661,7 +668,7 @@ function getListProduto() {
         }
       });
   } catch (error) {
-    //console.error("TypeError:", error.message);
+    console.error("TypeError:", error.message);
   }
 }
 
@@ -682,7 +689,6 @@ function getName(cpf) {
           if (data.clientes !== null) {
             data.clientes.forEach((item) => resolve(item.nome));
           } else {
-            //console.log("Nome não encontrado");
             reject("Nome não encontrado");
           }
         })

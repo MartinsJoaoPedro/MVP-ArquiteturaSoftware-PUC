@@ -95,10 +95,6 @@ async function postItem(nomeProduto, quantidadeProduto, precoProduto) {
   formData.append("nome", nomeProduto);
   formData.append("quantidade", quantidadeProduto);
   formData.append("valor", preco);
-  // Log dos valores do FormData
-  for (var pair of formData.entries()) {
-    console.log(pair[0] + ", " + pair[1]);
-  }
 
   //post do objeto
   let url = "http://127.0.0.1:5001/produto";
@@ -135,7 +131,6 @@ function remover() {
     close[i].onclick = function () {
       let div = this.parentElement.parentElement;
       const nomeItem = div.getElementsByTagName("td")[0].innerHTML;
-      console.log(nomeItem);
 
       let linha = this.parentNode.parentElement; // Seleciona a linha que contém a célula clicada
       let idLinha = linha.id - 1;
@@ -180,6 +175,18 @@ function editar() {
         celulasDaLinha[j].innerHTML = "";
         celulasDaLinha[j].appendChild(input);
 
+        if (j == 0) {
+          // Aplique a máscara ao novo campo de entrada
+          $(input).on("input", function () {
+            this.value = this.value.replace(/[^a-zA-Z\s]/g, "");
+          });
+        }
+        if (j == 1) {
+          // Aplique a máscara ao novo campo de entrada
+          $(input).on("input", function () {
+            this.value = this.value.replace(/[^0-9]/g, "");
+          });
+        }
         if (j == 2) {
           // Aplique a máscara ao novo campo de entrada
           $(input).maskMoney({
@@ -238,13 +245,6 @@ function editar() {
         idLinhaUpdate = idLinha - 1;
         let id = ids[idLinhaUpdate];
 
-        console.log("produto");
-        console.log(id);
-        console.log(nome);
-        console.log(quantidade);
-        console.log(preco);
-        console.log("============");
-        //updateItem(nome, quantidade, preco);
         updateProduto(id, nome, quantidade, preco);
       };
     };
@@ -308,7 +308,6 @@ function newItem() {
   let quantidade = document.getElementById("getQuantidade").value;
   let preco = document.getElementById("getPreco").value;
   preco = preco.replace("R$ ", "").replace(/\./g, "").replace(/,/g, ".");
-  console.log(preco);
 
   if (nome === "") {
     alert("Escreva o nome do produto!");
@@ -347,7 +346,6 @@ function insertList(nomeProduto, quantidadeProduto, precoProduto) {
       // Supondo que o preco seja o terceiro item na lista
       cel.classList.add("preco"); // Adiciona a classe .preco à célula do preco
       cel.onclick = function () {
-        console.log(this);
         setPreco(this);
       };
     }
@@ -450,22 +448,18 @@ function buscarProduto() {
   for (let k = 0; k < inputID.length; k++) {
     Produto = inputID[k].value; // Salva o valor do campo aqui         }
     if (Produto != "") {
-      console.log("id");
       buscaGet("id", Produto);
     } else {
       Produto = inputNome[k].value;
       if (Produto != "") {
-        console.log("nome");
         buscaGetmais("nome", Produto);
       } else {
         Produto = inputQuantidade[k].value;
         if (Produto != "") {
-          console.log("quantidade");
           buscaGetmais("quantidade", Produto);
         } else {
           Produto = inputValor[k].value;
           if (Produto != "") {
-            console.log("valor");
             buscaGetmais("valor", Produto);
           }
         }
@@ -476,9 +470,10 @@ function buscarProduto() {
 
 function buscarCompraTodas() {
   getList();
-/*
+
+  //remove o botão impede que sejam adicinadas repetições
   let buscar = document.getElementById("buscarTodos");
-  buscar.remove();*/
+  buscar.remove();
 }
 
 //Consulta para id
@@ -500,7 +495,6 @@ function buscaGet(ParametroUrl, paramentroProduto) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.id != null) {
           insertUm(data.nome, data.quantidade, data.valor);
         } else {
@@ -541,7 +535,6 @@ function buscaGetmais(ParametroUrl, paramentroProduto) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.produtos);
         if (data.produtos != 0) {
           data.produtos.forEach((Produto) =>
             insertMais(Produto.nome, Produto.quantidade, Produto.valor),

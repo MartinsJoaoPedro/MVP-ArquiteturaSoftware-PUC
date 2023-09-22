@@ -129,7 +129,6 @@ function remover() {
     close[i].onclick = function () {
       let div = this.parentElement.parentElement;
       const cpf = div.getElementsByTagName("td")[0].innerHTML;
-      console.log(cpf);
 
       let linha = this.parentNode.parentElement; // Seleciona a linha que contém a célula clicada
       let idLinha = linha.id - 1;
@@ -174,7 +173,13 @@ function editar() {
         celulasDaLinha[j].innerHTML = "";
         celulasDaLinha[j].appendChild(input);
 
-        if (j == 2) {
+        if (j == 0) {
+          // Aplique a máscara ao novo campo de entrada
+          $(input).on("input", function () {
+            this.value = this.value.replace(/[^a-zA-Z\s]/g, "");
+          });
+        }
+        if (j == 1) {
           $(input).mask("00000-000");
         }
       }
@@ -213,13 +218,6 @@ function editar() {
         idLinhaUpdate = idLinha - 1;
         let id = ids[idLinhaUpdate];
 
-        console.log("cliente");
-        console.log("id " + id);
-        console.log("cpf " + cpf);
-        console.log("nome " + nome);
-        console.log("cep " + cep);
-        console.log("============");
-
         updateCliente(cpf, nome, cep);
       };
     };
@@ -228,8 +226,6 @@ function editar() {
 
 //Função para deletar um item do cliente da lista utilizando o cpf do servidor via requisição DELETE
 function deletarCliente(cpf) {
-  console.log("CPF do cliente");
-  console.log(cpf);
   let url = "http://127.0.0.1:5002/cliente?cpf=" + cpf;
   console.log("delete");
   console.log(url);
@@ -255,8 +251,6 @@ function deletarCliente(cpf) {
 
 //Função para deletar um item do cliente da lista utilizando o ID do servidor via requisição DELETE
 function deletarClienteId(IdItem) {
-  console.log("ID do item");
-  console.log(IdItem);
   let url = "http://127.0.0.1:5002/cliente?cpf=" + IdItem;
   console.log("delete");
   console.log(url);
@@ -315,7 +309,6 @@ function insertList(cpf, nome, cep) {
       // Supondo que o nome seja o segundo item na lista
       cel.classList.add("nome"); // Adiciona a classe .nome à célula do nome
       cel.onclick = function () {
-        console.log(this);
         setNome(this);
       };
     }
@@ -324,7 +317,6 @@ function insertList(cpf, nome, cep) {
       // Supondo que o CEP seja o terceiro item na lista
       cel.classList.add("cep"); // Adiciona a classe .cep à célula do CEP
       cel.onclick = function () {
-        console.log(this);
         setCep(this);
       };
     }
@@ -416,17 +408,14 @@ function buscarCliente() {
   for (let k = 0; k < inputCPF.length; k++) {
     Cliente = inputCPF[k].value;
     if (Cliente != "") {
-      console.log("cpf");
       buscaGet("cpf", Cliente);
     } else {
       Cliente = inputNome[k].value;
       if (Cliente != "") {
-        console.log("nome");
         buscaGetmais("nome", Cliente);
       } else {
         Cliente = inputCEP[k].value;
         if (Cliente != "") {
-          console.log("cep");
           buscaGetmais("cep", Cliente);
         }
       }
@@ -436,9 +425,10 @@ function buscarCliente() {
 
 function buscarCompraTodas() {
   getList();
-/*
+
+  //remove o botão impede que sejam adicinadas repetições
   let buscar = document.getElementById("buscarTodos");
-  buscar.remove();*/
+  buscar.remove();
 }
 
 //Consulta para cpf
@@ -460,7 +450,6 @@ function buscaGet(ParametroUrl, paramentroCliente) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.clientes);
         if (data.clientes != null) {
           data.clientes.forEach((item) =>
             insertUm(item.cpf, item.nome, item.cep),
@@ -503,7 +492,6 @@ function buscaGetmais(ParametroUrl, paramentroCliente) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.clientes);
         if (data.clientes != null) {
           data.clientes.forEach((item) =>
             insertMais(item.cpf, item.nome, item.cep),
