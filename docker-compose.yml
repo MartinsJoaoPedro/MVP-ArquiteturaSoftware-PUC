@@ -1,28 +1,28 @@
-version: '3'
+version: "3"
 services:
   backcliente:
-    build: 
+    build:
       context: ./BackCliente
       dockerfile: Dockerfile
     ports:
       - 5002:5002
 
   backproduto:
-    build: 
+    build:
       context: ./BackProduto
       dockerfile: Dockerfile
     ports:
       - 5001:5001
 
   backcompra:
-    build: 
+    build:
       context: ./BackCompra
       dockerfile: Dockerfile
     ports:
       - 5003:5003
 
   front:
-    build: 
+    build:
       context: ./Front
       dockerfile: Dockerfile
     ports:
