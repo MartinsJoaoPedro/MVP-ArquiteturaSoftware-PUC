@@ -1,9 +1,6 @@
 # Meu Front
 
 Este pequeno projeto é o mvp do **Sprint Arquitetura de Software**
-O projeto conta com o cadastro de clientes produtos e a compra de produtos pelo cliente, ambas as telas contam com exportação da tabela excel e foram utilizadas mascaras nos campos. É possível verificar os detalhes dos ceps cadastrados, o gênero do cliente e a cotação em dolar do valor dos produtos. O código está bem documentado e foi feito conceito de callback para deixar o código mais limpo.
-
-O objetivo entregar um projeto nos confromes.
 
 ## Como executar
 
@@ -15,17 +12,11 @@ docker build --pull --rm -f "Front\Dockerfile" -t front
 
 ## API externa
 
-Essa api faz uso das apis externas:
-https://docs.sheetjs.com/
-https://viacep.com.br/
-https://genderize.io/
-https://docs.awesomeapi.com.br/
+Essa api faz uso das apis externas: https://docs.sheetjs.com/ https://viacep.com.br/ https://genderize.io/ https://docs.awesomeapi.com.br/
 
 ## Biblioteca
 
-Essa api faz uso de duas bibliotecas https:
-https://cdnjs.cloudflare.com/
-https://developers.google.com/speed/libraries?hl=pt-br
+Essa api faz uso de duas bibliotecas https: https://cdnjs.cloudflare.com/ https://developers.google.com/speed/libraries?hl=pt-br
 
 # Meu Back
 
@@ -33,8 +24,7 @@ Este pequeno projeto é o mvp do **Sprint Arquitetura de Software**
 
 ## Como executar
 
-Será necessário ter todas as libs python listadas no `requirements.txt` instaladas.
-Após clonar o repositório, é necessário ir ao diretório raiz, pelo terminal, para poder executar os comandos descritos abaixo.
+Será necessário ter todas as libs python listadas no `requirements.txt` instaladas. Após clonar o repositório, é necessário ir ao diretório raiz, pelo terminal, para poder executar os comandos descritos abaixo.
 
 > É fortemente indicado o uso de ambientes virtuais do tipo [virtualenv](https://virtualenpython -m venv .v.pypa.io/en/latest/).
 
@@ -48,9 +38,9 @@ python -m venv env
 
 ## Para api
 
-1 pip3 install
-2 python.exe -m pip install --upgrade pip
-3 pip install -r requirements.txt
+1. pip3 install
+2. python.exe -m pip install --upgrade pip
+3. pip install -r requirements.txt
 
 ## Para api produto
 
@@ -87,13 +77,25 @@ Os conteiner deve ser criados apartir do software desktop do docker
 ## API externa
 
 Essa api faz uso das apis externas:
-https://docs.sheetjs.com/
-https://viacep.com.br/
-https://genderize.io/
-https://docs.awesomeapi.com.br/
+
+1. https://docs.sheetjs.com/
+2. https://viacep.com.br/
+3. https://genderize.io/
+4. https://docs.awesomeapi.com.br/
 
 ## Biblioteca
 
 Essa api faz uso de duas bibliotecas https:
-https://cdnjs.cloudflare.com/
-https://developers.google.com/speed/libraries?hl=pt-br
+
+1. https://cdnjs.cloudflare.com/
+2. https://developers.google.com/speed/libraries?hl=pt-br
+
+## Roteiro geral
+
+O projeto conta com o cadastro de clientes produtos e a compra de produtos pelo cliente, ambas as telas contam com exportação da tabela excel e foram utilizadas mascaras nos campos. É possível verificar os detalhes dos ceps cadastrados, o gênero do cliente e a cotação em dolar do valor dos produtos. O código está bem documentado e foi feito conceito de callback para deixar o código mais limpo.
+
+## Sobre a entrega do MVP
+
+Tendo em vista que devem ser entregues cada componente em um repositório diferente, para o funcionamento correto do softwar é necessário a estrutura correta da pasta contendo todos os arquvios que vou deixar dipsonível junto do arquivo compose do dcoker neste também está o docker-compose.yml que pode ser baixado individualmente
+
+Pasta raiz(backCliente,backProduto,backCompra,Front,docker-compose).

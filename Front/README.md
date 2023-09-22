@@ -1,7 +1,6 @@
 # Meu Front
 
 Este pequeno projeto é o mvp do **Sprint Arquitetura de Software**
-O projeto conta com o cadastro de clientes produtos e a compra de produtos pelo cliente, ambas as telas contam com exportação da tabela excel e foram utilizadas mascaras nos campos. É possível verificar os detalhes dos ceps cadastrados, o gênero do cliente e a cotação em dolar do valor dos produtos. O código está bem documentado e foi feito conceito de callback para deixar o código mais limpo.
 
 ## Como executar
 
@@ -18,13 +17,29 @@ O conteiner deve ser criado apartir do software desktop do docker
 ## API externa
 
 Essa api faz uso das apis externas:
-https://docs.sheetjs.com/
-https://viacep.com.br/
-https://genderize.io/
-https://docs.awesomeapi.com.br/
+
+1. https://docs.sheetjs.com/
+2. https://viacep.com.br/
+3. https://genderize.io/
+4. https://docs.awesomeapi.com.br/
 
 ## Biblioteca
 
 Essa api faz uso de duas bibliotecas https:
-https://cdnjs.cloudflare.com/
-https://developers.google.com/speed/libraries?hl=pt-br
+
+1. https://cdnjs.cloudflare.com/
+2. https://developers.google.com/speed/libraries?hl=pt-br
+
+## Roteiro geral
+
+O projeto conta com o cadastro de clientes produtos e a compra de produtos pelo cliente, ambas as telas contam com exportação da tabela excel e foram utilizadas mascaras nos campos. É possível verificar os detalhes dos ceps cadastrados, o gênero do cliente e a cotação em dolar do valor dos produtos. O código está bem documentado e foi feito conceito de callback para deixar o código mais limpo.
+
+## Informações do código
+
+O código js contem uma forma de obtenção de id, fazer requisições e consumir apis personalizada facilitando o entendimento
+
+## Sobre a entrega do MVP
+
+Tendo em vista que devem ser entregues cada componente em um repositório diferente, para o funcionamento correto do softwar é necessário a estrutura correta da pasta contendo todos os arquvios que vou deixar dipsonível junto do arquivo compose do dcoker neste também está o docker-compose.yml que pode ser baixado individualmente
+
+Pasta raiz(backCliente,backProduto,backCompra,Front,docker-compose).
