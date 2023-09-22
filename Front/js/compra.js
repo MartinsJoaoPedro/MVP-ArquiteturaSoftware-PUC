@@ -15,10 +15,11 @@ if (window.location.href.indexOf("cadastroCompra.html") !== -1) {
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("consultaCompra.html") !== -1) {
   console.log("Carregado");
-  //getList();
+  
   //Preencher os campos de seleção
   getListCpf();
   getListProduto();
+
   //Pega os elementos
   let id = document.getElementById("getId");
   let cpf = document.getElementById("getCpf");
@@ -39,15 +40,6 @@ if (window.location.href.indexOf("consultaCompra.html") !== -1) {
     produto.value = "";
     id.value = "";
   };
-}
-
-//Função para carregamento da estrutura inicial
-function inicar() {
-  console.log("inicar");
-  let atulizar = document.createElement("span");
-  atulizar.innerHTML = "atulizar";
-  atulizar.classList.add("addBtn");
-  atulizar.onclick = buscaCompra();
 }
 
 // Adiciona 'idn' à lista 'ids'
