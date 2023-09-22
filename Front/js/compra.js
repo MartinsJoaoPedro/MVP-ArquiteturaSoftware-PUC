@@ -1,3 +1,5 @@
+//Esse código js é um dos 3 códigos principais ele contrala os htmls de compra
+
 //Váriaveis globais
 let ids = [];
 let id;
@@ -7,15 +9,16 @@ var nomeComprador = "";
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("cadastroCompra.html") !== -1) {
   console.log("Carregado");
-  getList();
+  getListCompra();
   getListCpf();
   getListProduto();
+  console.log("Carregamento");
 }
 
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("consultaCompra.html") !== -1) {
   console.log("Carregado");
-  
+
   //Preencher os campos de seleção
   getListCpf();
   getListProduto();
@@ -25,7 +28,7 @@ if (window.location.href.indexOf("consultaCompra.html") !== -1) {
   let cpf = document.getElementById("getCpf");
   let produto = document.getElementById("getProduto");
 
-  // Ao clicar em um campo eu limpo o outro
+  //Ao clicar em um campo eu limpo o outro
   id.onclick = function () {
     cpf.value = "";
     produto.value = "";
@@ -42,13 +45,14 @@ if (window.location.href.indexOf("consultaCompra.html") !== -1) {
   };
 }
 
-// Adiciona 'idn' à lista 'ids'
+//Essa função serve para controlar a lista de ids da página
 function pegaListaId(idn) {
+  //Adiciona 'idn' à lista 'ids'
   ids.push(idn);
 }
 
 //Função para colocar o botão de remover
-function inserirBtnRemover(Compra) {
+function inserirBtnRemover(compra) {
   console.log("botão de remoção");
   let span = document.createElement("span");
   //u00D7 == x
@@ -57,105 +61,51 @@ function inserirBtnRemover(Compra) {
   //x está no span
   span.appendChild(txt);
   //span está no paramentro parent
-  Compra.appendChild(span);
+  compra.appendChild(span);
 }
 
 //Função para colocar o botão de editar
 function inserirBtnEditar(compra) {
   console.log("botão de edição");
   let span = document.createElement("span");
+  //“PENCIL” emoji
   let txt = document.createTextNode("\u270F");
   span.className = "edit";
+  //“PENCIL” está no span
   span.appendChild(txt);
+  //span está no paramentro parent
   compra.appendChild(span);
 }
 
 //Função para limpar os valores da tabela
 function limparDados() {
   console.log("limpar");
+  //Impede a edição
   edicao = false;
   document.getElementById("getCpf").value = "";
   document.getElementById("getProduto").value = "";
 }
 
 //Função para obter a lista existente do servidor via requisição GET
-function getList() {
+function getListCompra() {
   limparDados();
-  let url = "http://127.0.0.1:5003/compras";
-  console.log("get");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "get",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data.produtos !== null) {
-          data.compras.forEach((compra) =>
-            insertList(compra.cpf, compra.nome, compra.produto),
-          );
-
-          data.compras.forEach((compra) => pegaListaId(compra.id));
-        } else {
-          console.log("Não encontrado");
-        }
-      })
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("TypeError:", error.message);
+  getList("5003", "compras", handleCompras);
+  function handleCompras(compras) {
+    compras.forEach((compra) => {
+      insertList(compra.cpf, compra.nome, compra.produto);
+      pegaListaId(compra.id);
+    });
   }
 }
 
 //Função para colocar um compra na lista do servidor via requisição POST
-async function postItem(inputCpf, inputNome, inputProduct) {
+async function postCompra(inputCpf, inputNome, inputProduct) {
   //Criação do objeto
   const formData = new FormData();
   formData.append("cpf", inputCpf);
   formData.append("nome", inputNome);
   formData.append("produto", inputProduct);
-  // Log dos valores do FormData
-  for (var pair of formData.entries()) {
-    console.log(pair[0] + ", " + pair[1]);
-  }
-
-  //post do objeto
-  let url = "http://127.0.0.1:5003/compra";
-  console.log("post");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "post",
-      body: formData,
-    })
-      //a resposta deve ser convertida em json
-      .then((response) => response.json())
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("TypeError:", error.message);
-  }
+  post("5003", "compra", formData);
 }
 
 //Função para remover um compra da lista de acordo com o click no botão close
@@ -189,6 +139,7 @@ function editar() {
 
   for (let i = 0; i < celulasBtnEditar.length; i++) {
     celulasBtnEditar[i].onclick = function () {
+      //Libera a edição
       edicao = true;
       // Esconde o botão de edição
       for (let i = 0; i < celulasBtnEditar.length; i++) {
@@ -238,6 +189,7 @@ function editar() {
 
       // Adiciona um evento de clique ao botão de salvar
       salvar.onclick = function () {
+        //Impede a edição
         edicao = false;
         // Obtém os valores dos inputs e salva os campos
         let inputs = linha.getElementsByTagName("input");
@@ -310,27 +262,7 @@ function deletarCompra(produtoCompra) {
 
 //Função para deletar um compra da lista utilizando o ID do servidor via requisição DELETE
 function deletarCompraId(IdCompra) {
-  let url = "http://127.0.0.1:5003/compra?id=" + IdCompra;
-  console.log("delete");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "delete",
-    })
-      .then((response) => response.json())
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    //console.error("TypeError:", error.message);
-  }
+  deletarId("5003", "compra", IdCompra);
 }
 
 //Função para adicionar um novo compra com produto e cpf
@@ -349,7 +281,7 @@ async function newItem() {
       console.log("NEWITEM");
       console.log(nomeComprador);
       insertList(cpf, nomeComprador, produto);
-      postItem(cpf, nomeComprador, produto);
+      postCompra(cpf, nomeComprador, produto);
       alert("Compra adicionada!");
     } catch (error) {
       console.error(error);
@@ -425,29 +357,7 @@ function updateCompra(idCompra, cpfCompra, nomeCompra, produtoCompra) {
   formData.append("produto", produtoCompra);
 
   //put do objeto
-  let url = "http://127.0.0.1:5003/compra?id=" + idCompra;
-  console.log("put");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "put",
-      body: formData,
-    })
-      //a resposta deve ser convertida em json
-      .then((response) => response.json())
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    //console.error("TypeError:", error.message);
-  }
+  update("5003", "compra", idCompra, formData);
 }
 
 //busca um compra
@@ -466,17 +376,17 @@ function buscarCompra() {
     Compra = inputID[k].value; // Salva o valor do campo aqui         }
     if (Compra != "") {
       console.log("Consulta de id");
-      buscaGet("id", Compra);
+      buscaGetCompra("id", Compra);
     } else {
       Compra = inputCpf[k].value;
       if (Compra != "") {
         console.log("Consulta de cpf");
-        buscaGetmais("cpf", Compra);
+        buscaGetmaisCompra("cpf", Compra);
       } else {
         Compra = inputProduto[k].value;
         if (Compra != "") {
           console.log("Consulta de produto");
-          buscaGetmais("produto", Compra);
+          buscaGetmaisCompra("produto", Compra);
         }
       }
     }
@@ -489,91 +399,6 @@ function buscarCompraTodas() {
   //remove o botão impede que sejam adicinadas repetições
   let buscar = document.getElementById("buscarTodos");
   buscar.remove();
-}
-
-//Consulta para id
-function buscaGet(ParametroUrl, paramentroCompra) {
-  let url =
-    "http://127.0.0.1:5003/compra" +
-    ParametroUrl +
-    "?" +
-    ParametroUrl +
-    "=" +
-    paramentroCompra;
-
-  //get do objeto
-  console.log("get");
-  try {
-    console.log(url);
-    fetch(url, {
-      method: "get",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        //Condição pra entrada vazia
-        if (data.id != null) {
-          insertUm(data.cpf, data.nome, data.produto);
-        } else {
-          alert("Compra não encontrada");
-        }
-      })
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    //console.error("TypeError:", error.message);
-  }
-}
-
-//Consulta para varios
-function buscaGetmais(ParametroUrl, paramentroCompra) {
-  let url =
-    "http://127.0.0.1:5003/compras" +
-    ParametroUrl +
-    "?" +
-    ParametroUrl +
-    "=" +
-    paramentroCompra;
-
-  //get do objeto
-  console.log("get");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "get",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        //Condição pra entrada vazia
-        if (data.compras != 0) {
-          data.compras.forEach((Compra) =>
-            insertMais(Compra.cpf, Compra.nome, Compra.produto),
-          );
-        } else {
-          alert("Prodduto não encontrado");
-        }
-      })
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    //console.error("TypeError:", error.message);
-  }
 }
 
 //Código para gerar os dados de busca
@@ -697,4 +522,26 @@ function getName(cpf) {
       reject(error);
     }
   });
+}
+
+//Consulta para id
+function buscaGetCompra(ParametroUrl, paramentroCompra) {
+  console.log("buscaGet");
+  getList("5003", "compras", handleCompras, ParametroUrl, paramentroCompra);
+  function handleCompras(compra) {
+    compra.forEach((item) => {
+      insertUm(item.cpf, item.nome, item.produto);
+    });
+  }
+}
+
+//Consulta para varios
+function buscaGetmaisCompra(ParametroUrl, paramentroCompra) {
+  console.log("buscaGetMais");
+  getList("5003", "compras", handleCompras, ParametroUrl, paramentroCompra);
+  function handleCompras(compras) {
+    compras.forEach((item) => {
+      insertMais(item.cpf, item.nome, item.produto);
+    });
+  }
 }

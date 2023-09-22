@@ -1,3 +1,5 @@
+//Esse código js é um dos 3 códigos principais ele contrala os htmls de produto
+
 //Váriaveis globais
 let ids = [];
 let id;
@@ -6,7 +8,12 @@ let edicao = true;
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("cadastroProduto.html") !== -1) {
   console.log("Carregamento");
-  getList();
+  getListProduto();
+}
+
+//Chamada da função para carregamento inicial dos dados
+if (window.location.href.indexOf("consultaProduto.html") !== -1) {
+  console.log("Carregamento");
 }
 
 // Adiciona 'idn' à lista 'ids'
@@ -15,7 +22,7 @@ function pegaListaId(idn) {
 }
 
 //Função para colocar o botão de remover
-function inserirBtnRemover(Produto) {
+function inserirBtnRemover(produto) {
   console.log("botão de remoção");
   let span = document.createElement("span");
   //u00D7 == x
@@ -24,22 +31,26 @@ function inserirBtnRemover(Produto) {
   //x está no span
   span.appendChild(txt);
   //span está no paramentro parent
-  Produto.appendChild(span);
+  produto.appendChild(span);
 }
 
 //Função para colocar o botão de editar
 function inserirBtnEditar(produto) {
   console.log("botão de edição");
   let span = document.createElement("span");
+  //“PENCIL” emoji
   let txt = document.createTextNode("\u270F");
   span.className = "edit";
+  //“PENCIL” está no span
   span.appendChild(txt);
+  //span está no paramentro parent
   produto.appendChild(span);
 }
 
 //Função para limpar os valores da tabela
 function limparDados() {
   console.log("limpar");
+  //Impede a edição
   edicao = false;
   document.getElementById("getNome").value = "";
   document.getElementById("getQuantidade").value = "";
@@ -47,70 +58,25 @@ function limparDados() {
 }
 
 //Função para obter a lista existente do servidor via requisição GET
-function getList() {
+function getListProduto() {
   limparDados();
-  let url = "http://127.0.0.1:5001/produtos";
-  console.log("get");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "get",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        data.produtos.forEach((produto) =>
-          insertList(produto.nome, produto.quantidade, produto.valor),
-        );
-        data.produtos.forEach((produto) => pegaListaId(produto.id));
-      })
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("Error:", error);
+  getList("5001", "produtos", handleProdutos);
+  function handleProdutos(produtos) {
+    produtos.forEach((produto) =>
+      insertList(produto.nome, produto.quantidade, produto.valor),
+    );
+    produtos.forEach((produto) => pegaListaId(produto.id));
   }
 }
 
 //Função para colocar um produto na lista do servidor via requisição POST
-async function postItem(nomeProduto, quantidadeProduto, precoProduto) {
+async function postProduto(nomeProduto, quantidadeProduto, precoProduto) {
   preco = precoProduto.replace("R$ ", "").replace(/\./g, "").replace(/,/g, ".");
-  //Criação do objeto
   const formData = new FormData();
   formData.append("nome", nomeProduto);
   formData.append("quantidade", quantidadeProduto);
-  formData.append("valor", preco);
-
-  //post do objeto
-  let url = "http://127.0.0.1:5001/produto";
-  console.log("post");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "post",
-      body: formData,
-    })
-      //a resposta deve ser convertida em json
-      .then((response) => response.json())
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("Error:", error);
-  }
+  formData.append("preco", preco);
+  post("5001", "produto", formData);
 }
 
 //Função para remover um produto da lista de acordo com o click no botão close
@@ -143,6 +109,7 @@ function editar() {
 
   for (let i = 0; i < celulasBtnEditar.length; i++) {
     celulasBtnEditar[i].onclick = function () {
+      //Libera a edição
       edicao = true;
       // Esconde o botão de edição
       for (let i = 0; i < celulasBtnEditar.length; i++) {
@@ -199,6 +166,7 @@ function editar() {
 
       // Adiciona um evento de clique ao botão de salvar
       salvar.onclick = function () {
+        //Impede a edição
         edicao = false;
         // Obtém os valores dos inputs e salva os campos
         let inputs = linha.getElementsByTagName("input");
@@ -269,27 +237,7 @@ function deletarProduto(nomeProduto) {
 
 //Função para deletar um produto da lista utilizando o ID do servidor via requisição DELETE
 function deletarProdutoId(IdProduto) {
-  let url = "http://127.0.0.1:5001/produto?id=" + IdProduto;
-  console.log("delete");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "delete",
-    })
-      .then((response) => response.json())
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("Error:", error);
-  }
+  deletarId("5001", "produto", IdProduto);
 }
 
 //Função para adicionar um novo produto com nome, quantidade e valor
@@ -310,7 +258,7 @@ function newItem() {
     //Acrescenta o produto na lista do site
     insertList(nome, quantidade, preco);
     //Envia um comando post para api
-    postItem(nome, quantidade, preco);
+    postProduto(nome, quantidade, preco);
     //evita bug apos adicionar uma linha
     alert("Produto adicionado!");
   }
@@ -398,29 +346,7 @@ function updateProduto(
   formData.append("valor", preco);
 
   //put do objeto
-  let url = "http://127.0.0.1:5001/produto?id=" + idProduto;
-  console.log("put");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "put",
-      body: formData,
-    })
-      //a resposta deve ser convertida em json
-      .then((response) => response.json())
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("Error:", error);
-  }
+  update("5001", "produto", idProduto, formData);
 }
 
 //busca um produto
@@ -439,19 +365,19 @@ function buscarProduto() {
   for (let k = 0; k < inputID.length; k++) {
     Produto = inputID[k].value; // Salva o valor do campo aqui         }
     if (Produto != "") {
-      buscaGet("id", Produto);
+      buscaGetProduto("id", Produto);
     } else {
       Produto = inputNome[k].value;
       if (Produto != "") {
-        buscaGetmais("nome", Produto);
+        buscaGetmaisProduto("nome", Produto);
       } else {
         Produto = inputQuantidade[k].value;
         if (Produto != "") {
-          buscaGetmais("quantidade", Produto);
+          buscaGetmaisProduto("quantidade", Produto);
         } else {
           Produto = inputValor[k].value;
           if (Produto != "") {
-            buscaGetmais("valor", Produto);
+            buscaGetmaisProduto("valor", Produto);
           }
         }
       }
@@ -468,83 +394,25 @@ function buscarCompraTodas() {
 }
 
 //Consulta para id
-function buscaGet(ParametroUrl, paramentroProduto) {
-  let url =
-    "http://127.0.0.1:5001/produto" +
-    ParametroUrl +
-    "?" +
-    ParametroUrl +
-    "=" +
-    paramentroProduto;
-
-  //get do objeto
-  console.log("get");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "get",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.id != null) {
-          insertUm(data.nome, data.quantidade, data.valor);
-        } else {
-          alert("Produto não encontrado");
-        }
-      })
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("Error:", error);
+function buscaGetProduto(ParametroUrl, paramentroProduto) {
+  console.log("buscaGet");
+  getList("5001", "produto", handleProdutos, ParametroUrl, paramentroProduto);
+  function handleProdutos(produto) {
+    // Código para lidar com produtos
+    produto.forEach((item) => {
+      insertUm(item.nome, item.quantidade, item.valor);
+    });
   }
 }
 
 //Consulta para varios
-function buscaGetmais(ParametroUrl, paramentroProduto) {
-  let url =
-    "http://127.0.0.1:5001/produtos" +
-    ParametroUrl +
-    "?" +
-    ParametroUrl +
-    "=" +
-    paramentroProduto;
-
-  //get do objeto
-  console.log("get");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "get",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.produtos != 0) {
-          data.produtos.forEach((Produto) =>
-            insertMais(Produto.nome, Produto.quantidade, Produto.valor),
-          );
-        } else {
-          alert("Prodduto não encontrado");
-        }
-      })
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("Error:", error);
+function buscaGetmaisProduto(ParametroUrl, paramentroProduto) {
+  console.log("buscaGetMais");
+  getList("5001", "produtos", handleProdutos, ParametroUrl, paramentroProduto);
+  function handleProdutos(produtos) {
+    // Código para lidar com produtos
+    produtos.forEach((item) => {
+      insertMais(item.nome, item.quantidade, item.valor);
+    });
   }
 }

@@ -1,3 +1,5 @@
+//Esse código js é um dos 3 códigos principais ele contrala os htmls de cliente
+
 //Váriaveis globais
 let ids = [];
 let id;
@@ -5,7 +7,13 @@ let edicao = true;
 
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("cadastroCliente.html") !== -1) {
-  getList();
+  console.log("Carregamento");
+  getListCliente();
+}
+
+//Chamada da função para carregamento inicial dos dados
+if (window.location.href.indexOf("consultaCliente.html") !== -1) {
+  console.log("Carregamento");
 }
 
 // Adiciona 'idn' à lista 'ids'
@@ -14,7 +22,7 @@ function pegaListaId(idn) {
 }
 
 //Função para colocar o botão de remover
-function inserirBtnRemover(item) {
+function inserirBtnRemover(cliente) {
   console.log("botão de remoção");
   let span = document.createElement("span");
   //u00D7 == x
@@ -23,22 +31,26 @@ function inserirBtnRemover(item) {
   //x está no span
   span.appendChild(txt);
   //span está no paramentro parent
-  item.appendChild(span);
+  cliente.appendChild(span);
 }
 
 //Função para colocar o botão de editar
-function inserirBtnEditar(item) {
+function inserirBtnEditar(cliente) {
   console.log("botão de edição");
   let span = document.createElement("span");
+  //“PENCIL” emoji
   let txt = document.createTextNode("\u270F");
   span.className = "edit";
+  //“PENCIL” está no span
   span.appendChild(txt);
-  item.appendChild(span);
+  //span está no paramentro parent
+  cliente.appendChild(span);
 }
 
 //Função para limpar os valores da tabela
 function limparDados() {
   console.log("limpar");
+  //Impede a edição
   edicao = false;
   document.getElementById("getNome").value = "";
   document.getElementById("getCpf").value = "";
@@ -46,69 +58,22 @@ function limparDados() {
 }
 
 //Função para obter a lista existente do servidor via requisição GET
-function getList() {
+function getListCliente() {
   limparDados();
-  let url = "http://127.0.0.1:5002/clientes";
-  console.log("get");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "get",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        data.clientes.forEach((item) =>
-          insertList(item.cpf, item.nome, item.cep),
-        );
-        data.clientes.forEach((item) => pegaListaId(item.cpf));
-      })
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("Error:", error);
+  getList("5002", "clientes", handleClientes);
+  function handleClientes(clientes) {
+    clientes.forEach((item) => insertList(item.cpf, item.nome, item.cep));
+    clientes.forEach((item) => pegaListaId(item.cpf));
   }
 }
 
 //Função para colocar um item do produto na lista do servidor via requisição POST
-async function postItem(inputCpf, inputNome, inputCep) {
-  //Criação do objeto
+async function postCliente(inputCpf, inputNome, inputCep) {
   const formData = new FormData();
   formData.append("cpf", inputCpf);
   formData.append("nome", inputNome);
   formData.append("cep", inputCep);
-
-  //post do objeto
-  let url = "http://127.0.0.1:5002/cliente";
-  console.log("post");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "post",
-      body: formData,
-    })
-      //a resposta deve ser convertida em json
-      .then((response) => response.json())
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("Error:", error);
-  }
+  post("5002", "cliente", formData);
 }
 
 //Função para remover um item do cliente da lista de acordo com o click no botão close
@@ -125,6 +90,7 @@ function remover() {
       let idLinha = linha.id - 1;
       id = ids[idLinha]; //Id do cliente referente a linha
 
+      console.log(id);
       if (confirm("Você tem certeza?")) {
         div.remove();
         deletarClienteId(id);
@@ -140,6 +106,7 @@ function editar() {
 
   for (let i = 0; i < celulasBtnEditar.length; i++) {
     celulasBtnEditar[i].onclick = function () {
+      //Libera a edição
       edicao = true;
       for (let i = 0; i < celulasBtnEditar.length; i++) {
         celulasBtnEditar[i].style.display = "none";
@@ -182,6 +149,7 @@ function editar() {
       celulaEditar.appendChild(salvar);
 
       salvar.onclick = function () {
+        //Impede a edição
         edicao = false;
 
         // Obtém os valores dos inputs
@@ -241,17 +209,8 @@ function deletarCliente(cpf) {
 }
 
 //Função para deletar um item do cliente da lista utilizando o ID do servidor via requisição DELETE
-function deletarClienteId(IdItem) {
-  let url = "http://127.0.0.1:5002/cliente?cpf=" + IdItem;
-  console.log("delete");
-  console.log(url);
-  fetch(url, {
-    method: "delete",
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+function deletarClienteId(cpfCliente) {
+  deletarId("5002", "cliente", cpfCliente);
 }
 
 //Função para adicionar um novo item do cliente com cpf, nome e cep
@@ -271,7 +230,7 @@ function newItem() {
     //Acrescenta o item do cliente na lista do site
     insertList(cpf, nome, cep);
     //Envia um comando post para api
-    postItem(cpf, nome, cep);
+    postCliente(cpf, nome, cep);
     //evita bug apos adicionar uma linha
     alert("Cliente adicionado!");
   }
@@ -360,28 +319,7 @@ function updateCliente(cpf, nome, cep) {
   formData.append("cep", cep);
 
   //put do objeto
-  let url = "http://127.0.0.1:5002/cliente?cpf=" + cpf;
-  console.log("put");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "put",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("Error:", error);
-  }
+  update("5002", "cliente", cpf, formData);
 }
 
 //busca um cliente
@@ -399,15 +337,15 @@ function buscarCliente() {
   for (let k = 0; k < inputCPF.length; k++) {
     Cliente = inputCPF[k].value;
     if (Cliente != "") {
-      buscaGet("cpf", Cliente);
+      buscaGetCliente("cpf", Cliente);
     } else {
       Cliente = inputNome[k].value;
       if (Cliente != "") {
-        buscaGetmais("nome", Cliente);
+        buscaGetmaisCliente("nome", Cliente);
       } else {
         Cliente = inputCEP[k].value;
         if (Cliente != "") {
-          buscaGetmais("cep", Cliente);
+          buscaGetmaisCliente("cep", Cliente);
         }
       }
     }
@@ -423,85 +361,24 @@ function buscarCompraTodas() {
 }
 
 //Consulta para cpf
-function buscaGet(ParametroUrl, paramentroCliente) {
-  let url =
-    "http://127.0.0.1:5002/cliente" +
-    ParametroUrl +
-    "?" +
-    ParametroUrl +
-    "=" +
-    paramentroCliente;
-
-  //get do objeto
-  console.log("get");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "get",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.clientes != null) {
-          data.clientes.forEach((item) =>
-            insertUm(item.cpf, item.nome, item.cep),
-          );
-        } else {
-          alert("Cliente não encontrado");
-        }
-      })
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("Error:", error);
+function buscaGetCliente(ParametroUrl, paramentroCliente) {
+  console.log("buscaGet");
+  getList("5002", "cliente", handleClientes, ParametroUrl, paramentroCliente);
+  function handleClientes(cliente) {
+    // Código para lidar com clientes
+    cliente.forEach((item) => {
+      insertUm(item.cpf, item.nome, item.cep);
+    });
   }
 }
 
 //Consulta para varios
-function buscaGetmais(ParametroUrl, paramentroCliente) {
-  let url =
-    "http://127.0.0.1:5002/clientes" +
-    ParametroUrl +
-    "?" +
-    ParametroUrl +
-    "=" +
-    paramentroCliente;
-
-  //get do objeto
-  console.log("get");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "get",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.clientes != null) {
-          data.clientes.forEach((item) =>
-            insertMais(item.cpf, item.nome, item.cep),
-          );
-        } else {
-          alert("Clientes não encontrados");
-        }
-      })
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("Error:", error);
+function buscaGetmaisCliente(ParametroUrl, paramentroCliente) {
+  console.log("buscaGetMais");
+  getList("5002", "clientes", handleClientes, ParametroUrl, paramentroCliente);
+  function handleClientes(clientes) {
+    clientes.forEach((item) => {
+      insertMais(item.cpf, item.nome, item.cep);
+    });
   }
 }

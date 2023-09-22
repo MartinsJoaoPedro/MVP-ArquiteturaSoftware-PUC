@@ -1,9 +1,8 @@
 //Função com tratamento TyperError
-function TratamentoTypeError(error) {
+function TratamentoTypeError() {
   console.log(
     "Ocorreu um erro ao buscar a lista de compras. Por favor, tente novamente mais tarde.",
   );
-  console.error("TypeError:", error.message);
 }
 
 //Função com tratamento Fetch
@@ -13,10 +12,9 @@ function TratamentoFetchError() {
   );
 }
 
-//Função base para criação de outras funções com tratamento
-function getListTratamneto(api) {
+function getList(porta, back, handleData) {
   limparDados();
-  let url = "http://127.0.0.1:5003/" + api;
+  let url = "http://127.0.0.1:" + porta + "/" + back;
   console.log("get");
   console.log(url);
   try {
@@ -30,7 +28,11 @@ function getListTratamneto(api) {
         return response.json();
       })
       .then((data) => {
-        // manipulação de dados
+        if (data[back] !== null) {
+          handleData(data[back]);
+        } else {
+          console.log("Não encontrado");
+        }
       })
       .catch((error) => {
         if (error instanceof TypeError) {
@@ -43,6 +45,191 @@ function getListTratamneto(api) {
         }
       });
   } catch (error) {
-    console.error("Error:", error);
+    console.error("TypeError:", error.message);
+  }
+}
+
+//Função para colocar um item do produto na lista do servidor via requisição POST
+async function post(porta, back, formData) {
+  //post do objeto
+  let url = "http://127.0.0.1:" + porta + "/" + back;
+  console.log("post");
+  console.log(url);
+  try {
+    fetch(url, {
+      method: "post",
+      body: formData,
+    })
+      //a resposta deve ser convertida em json
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("TypeError:", error.message);
+  }
+}
+
+function deletarId(porta, back, id) {
+  if (back == "cliente") {
+    nomeId = "cpf";
+  } else {
+    nomeId = "id";
+  }
+  let url = "http://127.0.0.1:" + porta + "/" + back + "?" + nomeId + "=" + id;
+  console.log("delete");
+  console.log(url);
+  try {
+    fetch(url, {
+      method: "delete",
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    console.error("TypeError:", error.message);
+  }
+}
+
+//Função para alterar um compra
+function update(porta, back, id, formData) {
+  if (back == "cliente") {
+    nomeId = "cpf";
+  } else {
+    nomeId = "id";
+  }
+  //put do objeto
+  let url = "http://127.0.0.1:" + porta + "/" + back + "?" + nomeId + "=" + id;
+  console.log("put");
+  console.log(url);
+  try {
+    fetch(url, {
+      method: "put",
+      body: formData,
+    })
+      //a resposta deve ser convertida em json
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    //console.error("TypeError:", error.message);
+  }
+}
+
+//Consulta para id
+function buscaGet(porta, back, handleData, ParametroUrl, paramentroCompra) {
+  /*
+  if (back == "cliente") {
+    nomeId = "cpf";
+  } else {
+    nomeId = "id";
+  }*/
+  let url =
+    "http://127.0.0.1:" +
+    porta +
+    "/" +
+    back +
+    ParametroUrl +
+    "?" +
+    ParametroUrl +
+    "=" +
+    paramentroCompra;
+
+  //get do objeto
+  console.log("get");
+  try {
+    console.log(url);
+    fetch(url, {
+      method: "get",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        //Condição pra entrada vazia
+        if (data[back] !== null) {
+          handleData(data[back]);
+        } else {
+          console.log("Não encontrado");
+        }
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    //console.error("TypeError:", error.message);
+  }
+}
+
+//Consulta para varios
+function buscaGetmais(porta, back, handleData, ParametroUrl, paramentroCompra) {
+  let url =
+    "http://127.0.0.1:" +
+    porta +
+    "/" +
+    back +
+    ParametroUrl +
+    "?" +
+    ParametroUrl +
+    "=" +
+    paramentroCompra;
+
+  //get do objeto
+  console.log("get");
+  console.log(url);
+  try {
+    fetch(url, {
+      method: "get",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        //Condição pra entrada vazia
+        if (data[back] !== null) {
+          handleData(data[back]);
+        } else {
+          console.log("Não encontrado");
+        }
+      })
+      .catch((error) => {
+        if (error instanceof TypeError) {
+          TratamentoTypeError(error);
+        } else if (error.message === "Failed to fetch") {
+          TratamentoFetchError();
+        } else {
+          // Relance o erro se não for um TypeError ou um erro de conexão
+          throw error;
+        }
+      });
+  } catch (error) {
+    //console.error("TypeError:", error.message);
   }
 }

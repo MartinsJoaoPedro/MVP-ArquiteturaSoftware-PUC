@@ -78,17 +78,20 @@
   <script>
     $(document).ready(function () {
       $("#getCpf").mask("000.000.000-00");
+      $("#getNome").on('input', function () {
+        this.value = this.value.replace(/[^a-zA-Z\s]/g, "");
+      });
       $("#getCep").mask("00000-000");
     });
   </script>
 
   <!-- Seu script existente -->
+  <script src="../js/requisicao.js"></script>
   <script src="../js/botoes.js"></script>
   <script src="../js/endereco.js"></script>
   <script src="../js/genero.js"></script>
   <script src="../js/cliente.js"></script>
   <script src="../js/excel.js"></script>
-  <script src="../js/requisicao.js"></script>
 </body>
 
 </html>
