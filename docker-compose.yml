@@ -1,19 +1,29 @@
-version: '2'
+version: '3'
 services:
-  web:
-    build: .
+  backCliente:
+    build: 
+      context: ./BackCliente
+      dockerfile: Dockerfile
     ports:
-      - "5000:5000"
-    env_file: .env
-    depends_on:
-      - db
-    volumes:
-      - ./webapp:/opt/webapp
-  db:
-    image: postgres:latest
+      - 5002:5002
+
+  backProduto:
+    build: 
+      context: ./BackProduto
+      dockerfile: Dockerfile
     ports:
-      - "5432:5432"
-  redis:
-    image: redis:alpine
+      - 5001:5001
+
+  backCompra:
+    build: 
+      context: ./BackCompra
+      dockerfile: Dockerfile
     ports:
-      - "6379:6379"
+      - 5003:5003
+
+  front:
+    build: 
+      context: ./Front
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
