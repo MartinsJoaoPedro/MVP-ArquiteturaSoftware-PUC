@@ -134,7 +134,7 @@ function editar() {
         if (j == 0) {
           // Aplique a máscara ao novo campo de entrada
           $(input).on("input", function () {
-            this.value = this.value.replace(/[^a-zA-Z\s]/g, "");
+            this.value = this.value.replace(/[^a-zA-Z\u00C0-\u00FF\s]/g, "");
           });
         }
         if (j == 1) {

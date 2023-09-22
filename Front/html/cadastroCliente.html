@@ -79,7 +79,7 @@
     $(document).ready(function () {
       $("#getCpf").mask("000.000.000-00");
       $("#getNome").on('input', function () {
-        this.value = this.value.replace(/[^a-zA-Z\s]/g, "");
+        this.value = this.value.replace(/[^a-zA-Z\u00C0-\u00FF\s]/g, "");
       });
       $("#getCep").mask("00000-000");
     });
