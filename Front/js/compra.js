@@ -4,14 +4,13 @@
 let ids = [];
 let id;
 let edicao = true;
-var nomeComprador = "";
 
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("cadastroCompra.html") !== -1) {
   console.log("Carregado");
   getListCompra();
-  getListCpf();
-  getListProduto();
+  getListCpfCompra();
+  getListProdutoCompra();
   console.log("Carregamento");
 }
 
@@ -20,8 +19,8 @@ if (window.location.href.indexOf("consultaCompra.html") !== -1) {
   console.log("Carregado");
 
   //Preencher os campos de seleção
-  getListCpf();
-  getListProduto();
+  getListCpfCompra();
+  getListProdutoCompra();
 
   //Pega os elementos
   let id = document.getElementById("getId");
@@ -394,7 +393,7 @@ function buscarCompra() {
 }
 
 function buscarCompraTodas() {
-  getList();
+  getListCompra();
 
   //remove o botão impede que sejam adicinadas repetições
   let buscar = document.getElementById("buscarTodos");
@@ -403,7 +402,7 @@ function buscarCompraTodas() {
 
 //Código para gerar os dados de busca
 //lista os os clientes e usa o cpf pra pegar o nome
-function getListCpf() {
+function getListCpfCompra() {
   limparDados();
   let url = "http://127.0.0.1:5002/clientes";
   console.log("get");
@@ -449,7 +448,7 @@ function getListCpf() {
 }
 
 //lista os produtos
-function getListProduto() {
+function getListProdutoCompra() {
   limparDados();
   let url = "http://127.0.0.1:5001/produtos";
   console.log("get");

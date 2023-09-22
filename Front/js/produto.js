@@ -146,6 +146,11 @@ function editar() {
           });
         }
         if (j == 2) {
+          //Formata o código para edição
+          let precinho = input.value;
+          precinho = precinho.replace("R$&nbsp;", "").replace(/\./g, "");
+          console.log(precinho);
+          input.value = precinho;
           // Aplique a máscara ao novo campo de entrada
           $(input).maskMoney({
             prefix: "R$ ",
@@ -191,15 +196,22 @@ function editar() {
         let nome = inputs[0].value;
         let quantidade = inputs[1].value;
         let preco = inputs[2].value;
-        let precoFormatado = preco
-          .replace("R$ ", "")
-          .replace(/\./g, "")
-          .replace(/,/g, ".");
+
+        //Código para permitir a edição do preço
+        let precoFormatado = preco.replace(/\./g, "").replace(",", ".");
+        precoFormatado = precoFormatado.replace("R$ ", "");
+        precoFormatado = parseFloat(precoFormatado);
+        precoFormatado = precoFormatado.toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+        });
+        // Verifica se a string já contém "R$"
+        if (!precoFormatado.includes("R$")) {
+          precoFormatado = "R$ " + precoFormatado;
+        }
 
         celulasDaLinha[0].innerHTML = nome;
         celulasDaLinha[1].innerHTML = quantidade;
         celulasDaLinha[2].innerHTML = precoFormatado;
-
         //Pega o id referente a coluna clicada
         idLinhaUpdate = idLinha - 1;
         let id = ids[idLinhaUpdate];
@@ -207,31 +219,6 @@ function editar() {
         updateProduto(id, nome, quantidade, preco);
       };
     };
-  }
-}
-
-//Função para deletar um produto da lista utilizando o nome do servidor via requisição DELETE
-function deletarProduto(nomeProduto) {
-  let url = "http://127.0.0.1:5001/produto?nome=" + nomeProduto;
-  console.log("delete");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "delete",
-    })
-      .then((response) => response.json())
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    console.error("Error:", error);
   }
 }
 
@@ -268,6 +255,13 @@ function newItem() {
 let rowId = 1;
 function insertList(nomeProduto, quantidadeProduto, precoProduto) {
   console.log("Inserindo produtos");
+
+  // Formatar o preço
+  precoProduto = parseFloat(precoProduto).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+
   //alert("insertList");
   var produto = [nomeProduto, quantidadeProduto, precoProduto];
   var table = document.getElementById("myTable");
@@ -281,6 +275,7 @@ function insertList(nomeProduto, quantidadeProduto, precoProduto) {
     cel.classList.add("linhaEditavel"); // Adiciona a classe .linhaEditavel à célula
 
     // Adiciona um evento de clique à célula do preco
+
     if (i == 2) {
       // Supondo que o preco seja o terceiro item na lista
       cel.classList.add("preco"); // Adiciona a classe .preco à célula do preco
@@ -386,7 +381,7 @@ function buscarProduto() {
 }
 
 function buscarCompraTodas() {
-  getList();
+  getListProduto();
 
   //remove o botão impede que sejam adicinadas repetições
   let buscar = document.getElementById("buscarTodos");

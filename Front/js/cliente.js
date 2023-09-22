@@ -353,7 +353,7 @@ function buscarCliente() {
 }
 
 function buscarCompraTodas() {
-  getList();
+  getListCliente();
 
   //remove o botão impede que sejam adicinadas repetições
   let buscar = document.getElementById("buscarTodos");
