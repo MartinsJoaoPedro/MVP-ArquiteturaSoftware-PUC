@@ -93,6 +93,10 @@ Essa api faz uso de duas bibliotecas https:
 
 O projeto conta com o cadastro de clientes produtos e a compra de produtos pelo cliente, ambas as telas contam com exportação da tabela excel e foram utilizadas mascaras nos campos. É possível verificar os detalhes dos ceps cadastrados, o gênero do cliente e a cotação em dolar do valor dos produtos. O código está bem documentado e foi feito conceito de callback para deixar o código mais limpo.
 
+## Informações do código
+
+O código js contem uma forma de obtenção de id, fazer requisições e consumir apis personalizada facilitando o entendimento
+
 ## Sobre a entrega do MVP
 
 Tendo em vista que devem ser entregues cada componente em um repositório diferente, para o funcionamento correto do softwar é necessário a estrutura correta da pasta contendo todos os arquvios que vou deixar dipsonível junto do arquivo compose do dcoker neste também está o docker-compose.yml que pode ser baixado individualmente
