@@ -1,5 +1,8 @@
 //Carrega página cliente
 function cadastroCliente() {
+  setTimeout(function () {
+    isClicked = false;
+  }, 5000); // Atraso de 5 segundo
   console.log("click cliente");
   window.location.href = "../html/cadastroCliente.html";
 }

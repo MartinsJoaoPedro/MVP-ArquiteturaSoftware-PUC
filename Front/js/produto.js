@@ -294,7 +294,7 @@ function insertList(nomeProduto, quantidadeProduto, precoProduto) {
 }
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
-function insertUm(nomeProduto, quantidadeProduto, precoProduto) {
+function insertUmProduto(nomeProduto, quantidadeProduto, precoProduto) {
   console.log("Inserindo produto único");
   var produto = [nomeProduto, quantidadeProduto, precoProduto];
   var table = document.getElementById("myTable");
@@ -309,10 +309,12 @@ function insertUm(nomeProduto, quantidadeProduto, precoProduto) {
     var cel = row.insertCell(i);
     cel.textContent = produto[i];
   }
+  inserirBtnRemover(row.insertCell(-1));
+  inserirBtnEditar(row.insertCell(-1));
 }
 
 //Insere uma nova linha
-function insertMais(nomeProduto, quantidadeProduto, precoProduto) {
+function insertMaisProduto(nomeProduto, quantidadeProduto, precoProduto) {
   console.log("Inserindo produtos");
   var produto = [nomeProduto, quantidadeProduto, precoProduto];
   var table = document.getElementById("myTable");
@@ -324,6 +326,8 @@ function insertMais(nomeProduto, quantidadeProduto, precoProduto) {
     var cel = row.insertCell(i);
     cel.textContent = produto[i];
   }
+  inserirBtnRemover(row.insertCell(-1));
+  inserirBtnEditar(row.insertCell(-1));
 }
 
 //Função para alterar um produto
@@ -351,7 +355,7 @@ function buscarProduto() {
   let inputID = document.querySelectorAll("#getId");
   let inputNome = document.querySelectorAll("#getNome");
   let inputQuantidade = document.querySelectorAll("#getQuantidade");
-  let inputValor = document.querySelectorAll("#getPreco");
+  let inputPreco = document.querySelectorAll("#getPreco");
   let Produto;
 
   let buscar = document.getElementById("buscar");
@@ -360,20 +364,23 @@ function buscarProduto() {
   for (let k = 0; k < inputID.length; k++) {
     Produto = inputID[k].value; // Salva o valor do campo aqui         }
     if (Produto != "") {
-      buscaGetProduto("id", Produto);
+      getProduto("id", Produto);
     } else {
       Produto = inputNome[k].value;
       if (Produto != "") {
-        buscaGetmaisProduto("nome", Produto);
+        getMaisProdutos("nome", Produto);
       } else {
         Produto = inputQuantidade[k].value;
         if (Produto != "") {
-          buscaGetmaisProduto("quantidade", Produto);
+          getMaisProdutos("quantidade", Produto);
         } else {
-          Produto = inputValor[k].value;
+          Produto = inputPreco[k].value;
           if (Produto != "") {
-            buscaGetmaisProduto("valor", Produto);
+            //Código para alteração do formato do preço para possibilitar a busca
+            precoFormatado = Produto.replace(/\./g, "").replace(/,/g, ".");
+            getMaisProdutos("valor", precoFormatado);
           }
+          d;
         }
       }
     }
@@ -388,26 +395,30 @@ function buscarCompraTodas() {
   buscar.remove();
 }
 
-//Consulta para id
-function buscaGetProduto(ParametroUrl, paramentroProduto) {
+//Consulta um produto com determinado id
+function getProduto(ParametroUrl, paramentroProduto) {
+  //limparDados();
   console.log("buscaGet");
-  getList("5001", "produto", handleProdutos, ParametroUrl, paramentroProduto);
-  function handleProdutos(produto) {
-    // Código para lidar com produtos
-    produto.forEach((item) => {
-      insertUm(item.nome, item.quantidade, item.valor);
-    });
+  get("5001", "produto", formProduto, ParametroUrl, paramentroProduto);
+  function formProduto(produto) {
+    // Código para lidar com um único produto
+    console.log(produto.nome);
+    insertUmProduto(produto.nome, produto.quantidade, produto.valor);
   }
 }
 
-//Consulta para varios
-function buscaGetmaisProduto(ParametroUrl, paramentroProduto) {
-  console.log("buscaGetMais");
-  getList("5001", "produtos", handleProdutos, ParametroUrl, paramentroProduto);
-  function handleProdutos(produtos) {
+//Consulta varios produtos
+function getMaisProdutos(ParametroUrl, paramentroProduto) {
+  console.log("buscaGet");
+  get("5001", "produtos", formProduto, ParametroUrl, paramentroProduto);
+
+  function formProduto(produto) {
+    let produtos = produto.produtos;
     // Código para lidar com produtos
     produtos.forEach((item) => {
-      insertMais(item.nome, item.quantidade, item.valor);
+      console.log(item.nome);
+      console.log("iterando..");
+      insertMaisProduto(item.nome, item.quantidade, item.valor);
     });
   }
 }

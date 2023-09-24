@@ -315,7 +315,7 @@ function insertList(cpfCompra, nomeCompra, produtoCompra) {
 }
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
-function insertUm(cpfCompra, nomeCompra, produtoCompra) {
+function insertUmCompra(cpfCompra, nomeCompra, produtoCompra) {
   console.log("Inserindo compra única");
   var compra = [cpfCompra, nomeCompra, produtoCompra];
   var table = document.getElementById("myTable");
@@ -330,10 +330,12 @@ function insertUm(cpfCompra, nomeCompra, produtoCompra) {
     var cel = row.insertCell(i);
     cel.textContent = compra[i];
   }
+  inserirBtnRemover(row.insertCell(-1));
+  inserirBtnEditar(row.insertCell(-1));
 }
 
 //Insere uma nova linha
-function insertMais(cpfCompra, nomeCompra, produtoCompra) {
+function insertMaisCompra(cpfCompra, nomeCompra, produtoCompra) {
   console.log("Inserindo compras");
   var compra = [cpfCompra, nomeCompra, produtoCompra];
   var table = document.getElementById("myTable");
@@ -345,6 +347,8 @@ function insertMais(cpfCompra, nomeCompra, produtoCompra) {
     var cel = row.insertCell(i);
     cel.textContent = compra[i];
   }
+  inserirBtnRemover(row.insertCell(-1));
+  inserirBtnEditar(row.insertCell(-1));
 }
 
 //Função para alterar um compra
@@ -375,17 +379,17 @@ function buscarCompra() {
     Compra = inputID[k].value; // Salva o valor do campo aqui         }
     if (Compra != "") {
       console.log("Consulta de id");
-      buscaGetCompra("id", Compra);
+      getCompra("id", Compra);
     } else {
       Compra = inputCpf[k].value;
       if (Compra != "") {
         console.log("Consulta de cpf");
-        buscaGetmaisCompra("cpf", Compra);
+        getMaisCompras("cpf", Compra);
       } else {
         Compra = inputProduto[k].value;
         if (Compra != "") {
           console.log("Consulta de produto");
-          buscaGetmaisCompra("produto", Compra);
+          getMaisCompras("produto", Compra);
         }
       }
     }
@@ -524,23 +528,23 @@ function getName(cpf) {
 }
 
 //Consulta para id
-function buscaGetCompra(ParametroUrl, paramentroCompra) {
+function getCompra(ParametroUrl, paramentroCompra) {
   console.log("buscaGet");
-  getList("5003", "compras", handleCompras, ParametroUrl, paramentroCompra);
-  function handleCompras(compra) {
-    compra.forEach((item) => {
-      insertUm(item.cpf, item.nome, item.produto);
-    });
+  get("5003", "compra", formCompras, ParametroUrl, paramentroCompra);
+  function formCompras(compra) {
+    insertUmCompra(compra.cpf, compra.nome, compra.produto);
   }
 }
 
 //Consulta para varios
-function buscaGetmaisCompra(ParametroUrl, paramentroCompra) {
+function getMaisCompras(ParametroUrl, paramentroCompra) {
   console.log("buscaGetMais");
-  getList("5003", "compras", handleCompras, ParametroUrl, paramentroCompra);
-  function handleCompras(compras) {
+  get("5003", "compras", formCompras, ParametroUrl, paramentroCompra);
+  function formCompras(compra) {
+    let compras = compra.compras;
     compras.forEach((item) => {
-      insertMais(item.cpf, item.nome, item.produto);
+      console.log("iterando..");
+      insertMaisCompra(item.cpf, item.nome, item.produto);
     });
   }
 }

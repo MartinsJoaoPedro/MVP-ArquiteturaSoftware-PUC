@@ -139,14 +139,8 @@ function update(porta, back, id, formData) {
   }
 }
 
-//Consulta para id
-function buscaGet(porta, back, handleData, ParametroUrl, paramentroCompra) {
-  /*
-  if (back == "cliente") {
-    nomeId = "cpf";
-  } else {
-    nomeId = "id";
-  }*/
+//Método chave para diversa funções de get
+function get(porta, back, formData, ParametroUrl, paramentroCompra) {
   let url =
     "http://127.0.0.1:" +
     porta +
@@ -169,52 +163,9 @@ function buscaGet(porta, back, handleData, ParametroUrl, paramentroCompra) {
       .then((data) => {
         console.log(data);
         //Condição pra entrada vazia
-        if (data[back] !== null) {
-          handleData(data[back]);
-        } else {
-          console.log("Não encontrado");
-        }
-      })
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          TratamentoTypeError(error);
-        } else if (error.message === "Failed to fetch") {
-          TratamentoFetchError();
-        } else {
-          // Relance o erro se não for um TypeError ou um erro de conexão
-          throw error;
-        }
-      });
-  } catch (error) {
-    //console.error("TypeError:", error.message);
-  }
-}
-
-//Consulta para varios
-function buscaGetmais(porta, back, handleData, ParametroUrl, paramentroCompra) {
-  let url =
-    "http://127.0.0.1:" +
-    porta +
-    "/" +
-    back +
-    ParametroUrl +
-    "?" +
-    ParametroUrl +
-    "=" +
-    paramentroCompra;
-
-  //get do objeto
-  console.log("get");
-  console.log(url);
-  try {
-    fetch(url, {
-      method: "get",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        //Condição pra entrada vazia
-        if (data[back] !== null) {
-          handleData(data[back]);
+        if (data !== null) {
+          console.log("data");
+          formData(data);
         } else {
           console.log("Não encontrado");
         }

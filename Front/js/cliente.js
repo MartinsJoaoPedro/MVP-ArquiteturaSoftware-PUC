@@ -275,12 +275,13 @@ function insertList(cpf, nome, cep) {
   inserirBtnEditar(row.insertCell(-1));
 
   limparDados();
+  //Habilita as funções dos botões
   remover();
   editar();
 }
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
-function insertUm(cpf, nome, cep) {
+function insertUmCliente(cpf, nome, cep) {
   console.log("Inserindo cliente único");
   var item = [cpf, nome, cep];
   var table = document.getElementById("myTable");
@@ -295,10 +296,12 @@ function insertUm(cpf, nome, cep) {
     var cel = row.insertCell(i);
     cel.textContent = item[i];
   }
+  inserirBtnRemover(row.insertCell(-1));
+  inserirBtnEditar(row.insertCell(-1));
 }
 
 //Insere uma nova linha
-function insertMais(cpf, nome, cep) {
+function insertMaisCliente(cpf, nome, cep) {
   console.log("Inserindo clientes");
   var item = [cpf, nome, cep];
   var table = document.getElementById("myTable");
@@ -309,6 +312,8 @@ function insertMais(cpf, nome, cep) {
     var cel = row.insertCell(i);
     cel.textContent = item[i];
   }
+  inserirBtnRemover(row.insertCell(-1));
+  inserirBtnEditar(row.insertCell(-1));
 }
 
 //Função para alterar um cliente
@@ -337,15 +342,15 @@ function buscarCliente() {
   for (let k = 0; k < inputCPF.length; k++) {
     Cliente = inputCPF[k].value;
     if (Cliente != "") {
-      buscaGetCliente("cpf", Cliente);
+      getCliente("cpf", Cliente);
     } else {
       Cliente = inputNome[k].value;
       if (Cliente != "") {
-        buscaGetmaisCliente("nome", Cliente);
+        getMaisClientes("nome", Cliente);
       } else {
         Cliente = inputCEP[k].value;
         if (Cliente != "") {
-          buscaGetmaisCliente("cep", Cliente);
+          getMaisClientes("cep", Cliente);
         }
       }
     }
@@ -361,24 +366,24 @@ function buscarCompraTodas() {
 }
 
 //Consulta para cpf
-function buscaGetCliente(ParametroUrl, paramentroCliente) {
+function getCliente(ParametroUrl, paramentroCliente) {
   console.log("buscaGet");
-  getList("5002", "cliente", handleClientes, ParametroUrl, paramentroCliente);
-  function handleClientes(cliente) {
+  get("5002", "cliente", formClientes, ParametroUrl, paramentroCliente);
+  function formClientes(cliente) {
     // Código para lidar com clientes
-    cliente.forEach((item) => {
-      insertUm(item.cpf, item.nome, item.cep);
-    });
+    insertUmCliente(cliente.cpf, cliente.nome, cliente.cep);
   }
 }
 
 //Consulta para varios
-function buscaGetmaisCliente(ParametroUrl, paramentroCliente) {
+function getMaisClientes(ParametroUrl, paramentroCliente) {
   console.log("buscaGetMais");
-  getList("5002", "clientes", handleClientes, ParametroUrl, paramentroCliente);
-  function handleClientes(clientes) {
-    clientes.forEach((item) => {
-      insertMais(item.cpf, item.nome, item.cep);
+  get("5002", "clientes", formClientes, ParametroUrl, paramentroCliente);
+  function formClientes(clientes) {
+    let cliente = clientes.cliente;
+    cliente.forEach((item) => {
+      console.log("iterando..");
+      insertMaisCliente(item.cpf, item.nome, item.cep);
     });
   }
 }

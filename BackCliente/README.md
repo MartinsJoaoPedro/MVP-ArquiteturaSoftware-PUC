@@ -18,10 +18,9 @@ python -m venv env
 
 ## Para api
 
-1. pip3 install
+1. pip install -r requirements.txt
 2. python.exe -m pip install --upgrade pip
-3. pip install -r requirements.txt
-4. flask run --host 0.0.0.0 --port 5002 --reload
+3. flask run --host 0.0.0.0 --port 5002 --reload
 
 ## Para desativar o env
 
@@ -42,6 +41,10 @@ Abra o [http://localhost:5002/#/] no navegador para verificar o status da API em
 ## Roteiro geral
 
 O projeto conta com o cadastro de clientes produtos e a compra de produtos pelo cliente, ambas as telas contam com exportação da tabela excel e foram utilizadas mascaras nos campos. É possível verificar os detalhes dos ceps cadastrados, o gênero do cliente e a cotação em dolar do valor dos produtos. O código está bem documentado e foi feito conceito de callback para deixar o código mais limpo.
+
+## Informações do código
+
+O código js contem uma forma de obtenção de id, fazer requisições e consumir apis personalizada facilitando o entendimento
 
 ## Sobre a entrega do MVP
 

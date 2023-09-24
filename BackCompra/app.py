@@ -130,7 +130,7 @@ def get_compras_produto(query: CompraSchemaProduto):
 
 # Pega todas as compras pelo cpf
 @app.get(
-    "/compracpf",
+    "/comprascpf",
     tags=[compra_tag],
     responses={"200": ListagemComprasSchema, "404": ErrorSchema},
 )

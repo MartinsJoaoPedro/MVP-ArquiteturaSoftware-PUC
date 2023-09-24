@@ -38,9 +38,8 @@ python -m venv env
 
 ## Para api
 
-1. pip3 install
+1. pip install -r requirements.txt
 2. python.exe -m pip install --upgrade pip
-3. pip install -r requirements.txt
 
 ## Para api produto
 
