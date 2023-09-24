@@ -7,20 +7,20 @@ let edicao = true;
 
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("cadastroCompra.html") !== -1) {
-  console.log("Carregado");
   getListCompra();
-  getListCpfCompra();
-  getListProdutoCompra();
-  console.log("Carregamento");
-}
-
-//Chamada da função para carregamento inicial dos dados
-if (window.location.href.indexOf("consultaCompra.html") !== -1) {
-  console.log("Carregado");
 
   //Preencher os campos de seleção
   getListCpfCompra();
   getListProdutoCompra();
+  console.log("Carregado");
+}
+
+//Chamada da função para carregamento inicial dos dados
+if (window.location.href.indexOf("consultaCompra.html") !== -1) {
+  //Preencher os campos de seleção
+  getListCpfCompra();
+  getListProdutoCompra();
+  console.log("Carregado");
 
   //Pega os elementos
   let id = document.getElementById("getId");
@@ -89,6 +89,7 @@ function limparDados() {
 function getListCompra() {
   limparDados();
   getList("5003", "compras", formCompras);
+  //Lista a ser processada
   function formCompras(compras) {
     compras.forEach((compra) => {
       insertList(compra.cpf, compra.nome, compra.produto);
@@ -542,8 +543,8 @@ function getMaisCompras(ParametroUrl, paramentroCompra) {
   get("5003", "compras", formCompras, ParametroUrl, paramentroCompra);
   function formCompras(compra) {
     let compras = compra.compras;
+    //Lista a ser processada
     compras.forEach((item) => {
-      console.log("iterando..");
       insertMaisCompra(item.cpf, item.nome, item.produto);
     });
   }

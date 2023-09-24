@@ -414,10 +414,8 @@ function getMaisProdutos(ParametroUrl, paramentroProduto) {
 
   function formProduto(produto) {
     let produtos = produto.produtos;
-    // Código para lidar com produtos
+    //Lista a ser processada
     produtos.forEach((item) => {
-      console.log(item.nome);
-      console.log("iterando..");
       insertMaisProduto(item.nome, item.quantidade, item.valor);
     });
   }

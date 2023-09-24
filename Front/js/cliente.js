@@ -381,8 +381,8 @@ function getMaisClientes(ParametroUrl, paramentroCliente) {
   get("5002", "clientes", formClientes, ParametroUrl, paramentroCliente);
   function formClientes(clientes) {
     let cliente = clientes.cliente;
+    //Lista a ser processada
     cliente.forEach((item) => {
-      console.log("iterando..");
       insertMaisCliente(item.cpf, item.nome, item.cep);
     });
   }
