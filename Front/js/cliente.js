@@ -7,44 +7,18 @@ let edicao = true;
 
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("cadastroCliente.html") !== -1) {
-  console.log("Carregamento");
   getListCliente();
+  console.log("Carregado");
 }
 
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("consultaCliente.html") !== -1) {
-  console.log("Carregamento");
+  console.log("Carregado");
 }
 
 // Adiciona 'idn' à lista 'ids'
 function pegaListaId(idn) {
   ids.push(idn);
-}
-
-//Função para colocar o botão de remover
-function inserirBtnRemover(cliente) {
-  console.log("botão de remoção");
-  let span = document.createElement("span");
-  //u00D7 == x
-  let txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  //x está no span
-  span.appendChild(txt);
-  //span está no paramentro parent
-  cliente.appendChild(span);
-}
-
-//Função para colocar o botão de editar
-function inserirBtnEditar(cliente) {
-  console.log("botão de edição");
-  let span = document.createElement("span");
-  //“PENCIL” emoji
-  let txt = document.createTextNode("\u270F");
-  span.className = "edit";
-  //“PENCIL” está no span
-  span.appendChild(txt);
-  //span está no paramentro parent
-  cliente.appendChild(span);
 }
 
 //Função para limpar os valores da tabela
@@ -100,6 +74,7 @@ function remover() {
   }
 }
 
+// Adicionando evento de clique ao botão
 function editar() {
   console.log("Editar");
   let celulasBtnEditar = document.querySelectorAll(".edit");
@@ -108,9 +83,7 @@ function editar() {
     celulasBtnEditar[i].onclick = function () {
       //Libera a edição
       edicao = true;
-      for (let i = 0; i < celulasBtnEditar.length; i++) {
-        celulasBtnEditar[i].style.display = "none";
-      }
+      celulasBtnEditar[i].style.display = "none";
 
       let linha = this.parentNode.parentElement;
       let idLinha = linha.id;
@@ -131,8 +104,8 @@ function editar() {
         celulasDaLinha[j].innerHTML = "";
         celulasDaLinha[j].appendChild(input);
 
+        // Aplique a máscara ao novo campo de entrada
         if (j == 0) {
-          // Aplique a máscara ao novo campo de entrada
           $(input).on("input", function () {
             this.value = this.value.replace(/[^a-zA-Z\u00C0-\u00FF\s]/g, "");
           });
@@ -142,12 +115,14 @@ function editar() {
         }
       }
 
+      // Adiciona um botão de salvar à linha
       let celulaEditar = this.parentNode;
       let salvar = document.createElement("span");
       salvar.innerHTML = "Salvar";
       salvar.classList.add("addBtn");
       celulaEditar.appendChild(salvar);
 
+      // Adiciona um evento de clique ao botão de salvar
       salvar.onclick = function () {
         //Impede a edição
         edicao = false;

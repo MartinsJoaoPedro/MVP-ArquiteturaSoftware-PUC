@@ -7,44 +7,18 @@ let edicao = true;
 
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("cadastroProduto.html") !== -1) {
-  console.log("Carregamento");
   getListProduto();
+  console.log("Carregado");
 }
 
 //Chamada da função para carregamento inicial dos dados
 if (window.location.href.indexOf("consultaProduto.html") !== -1) {
-  console.log("Carregamento");
+  console.log("Carregado");
 }
 
 // Adiciona 'idn' à lista 'ids'
 function pegaListaId(idn) {
   ids.push(idn);
-}
-
-//Função para colocar o botão de remover
-function inserirBtnRemover(produto) {
-  console.log("botão de remoção");
-  let span = document.createElement("span");
-  //u00D7 == x
-  let txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  //x está no span
-  span.appendChild(txt);
-  //span está no paramentro parent
-  produto.appendChild(span);
-}
-
-//Função para colocar o botão de editar
-function inserirBtnEditar(produto) {
-  console.log("botão de edição");
-  let span = document.createElement("span");
-  //“PENCIL” emoji
-  let txt = document.createTextNode("\u270F");
-  span.className = "edit";
-  //“PENCIL” está no span
-  span.appendChild(txt);
-  //span está no paramentro parent
-  produto.appendChild(span);
 }
 
 //Função para limpar os valores da tabela
@@ -112,9 +86,7 @@ function editar() {
       //Libera a edição
       edicao = true;
       // Esconde o botão de edição
-      for (let i = 0; i < celulasBtnEditar.length; i++) {
-        celulasBtnEditar[i].style.display = "none";
-      }
+      celulasBtnEditar[i].style.display = "none"; 
 
       let linha = this.parentNode.parentElement; // Seleciona a linha que contém a célula clicada
       let idLinha = linha.id;
@@ -133,24 +105,25 @@ function editar() {
         celulasDaLinha[j].innerHTML = "";
         celulasDaLinha[j].appendChild(input);
 
+        // Aplique a máscara ao novo campo de entrada
         if (j == 0) {
-          // Aplique a máscara ao novo campo de entrada
           $(input).on("input", function () {
             this.value = this.value.replace(/[^a-zA-Z\u00C0-\u00FF\s]/g, "");
           });
         }
         if (j == 1) {
-          // Aplique a máscara ao novo campo de entrada
           $(input).on("input", function () {
             this.value = this.value.replace(/[^0-9]/g, "");
           });
         }
         if (j == 2) {
           //Formata o código para edição
-          let precinho = input.value;
-          precinho = precinho.replace("R$&nbsp;", "").replace(/\./g, "");
-          console.log(precinho);
-          input.value = precinho;
+          let precoFormatado = input.value;
+          precoFormatado = precoFormatado
+            .replace("R$&nbsp;", "")
+            .replace(/\./g, "");
+          console.log(precoFormatado);
+          input.value = precoFormatado;
           // Aplique a máscara ao novo campo de entrada
           $(input).maskMoney({
             prefix: "R$ ",
@@ -175,10 +148,6 @@ function editar() {
         edicao = false;
         // Obtém os valores dos inputs e salva os campos
         let inputs = linha.getElementsByTagName("input");
-        for (let k = 0; k < inputs.length; k++) {
-          let valor = inputs[k].value;
-          // Salva o valor do campo aqui
-        }
 
         idLinha--;
 
@@ -191,8 +160,6 @@ function editar() {
         }
 
         // Transforma os elementos de input de volta em text
-        let tamanho = inputs.length;
-
         let nome = inputs[0].value;
         let quantidade = inputs[1].value;
         let preco = inputs[2].value;

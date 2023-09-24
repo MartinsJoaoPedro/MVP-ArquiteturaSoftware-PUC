@@ -1,4 +1,4 @@
-//Script do código dos botões de carregamentodas páginas
+//Script do código dos botões
 //Carrega página cadastro de cliente
 function cadastroCliente() {
   setTimeout(function () {
@@ -42,4 +42,31 @@ function consultaCompra() {
 function index() {
   console.log("click index");
   window.location.href = "../html/index.html";
+}
+
+
+//Função para colocar o botão de remover
+function inserirBtnRemover(back) {
+  console.log("botão de remoção");
+  let span = document.createElement("span");
+  //u00D7 == x
+  let txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  //x está no span
+  span.appendChild(txt);
+  //span está no paramentro parent
+  back.appendChild(span);
+}
+
+//Função para colocar o botão de editar
+function inserirBtnEditar(back) {
+  console.log("botão de edição");
+  let span = document.createElement("span");
+  //“PENCIL” emoji
+  let txt = document.createTextNode("\u270F");
+  span.className = "edit";
+  //“PENCIL” está no span
+  span.appendChild(txt);
+  //span está no paramentro parent
+  back.appendChild(span);
 }

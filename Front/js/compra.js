@@ -50,32 +50,6 @@ function pegaListaId(idn) {
   ids.push(idn);
 }
 
-//Função para colocar o botão de remover
-function inserirBtnRemover(compra) {
-  console.log("botão de remoção");
-  let span = document.createElement("span");
-  //u00D7 == x
-  let txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  //x está no span
-  span.appendChild(txt);
-  //span está no paramentro parent
-  compra.appendChild(span);
-}
-
-//Função para colocar o botão de editar
-function inserirBtnEditar(compra) {
-  console.log("botão de edição");
-  let span = document.createElement("span");
-  //“PENCIL” emoji
-  let txt = document.createTextNode("\u270F");
-  span.className = "edit";
-  //“PENCIL” está no span
-  span.appendChild(txt);
-  //span está no paramentro parent
-  compra.appendChild(span);
-}
-
 //Função para limpar os valores da tabela
 function limparDados() {
   console.log("limpar");
@@ -142,9 +116,7 @@ function editar() {
       //Libera a edição
       edicao = true;
       // Esconde o botão de edição
-      for (let i = 0; i < celulasBtnEditar.length; i++) {
-        celulasBtnEditar[i].style.display = "none";
-      }
+      celulasBtnEditar[i].style.display = "none";
 
       let linha = this.parentNode.parentElement; // Seleciona a linha que contém a célula clicada
       let idLinha = linha.id;
@@ -162,18 +134,16 @@ function editar() {
         input.value = celulasDaLinha[j].innerHTML;
         celulasDaLinha[j].innerHTML = "";
         celulasDaLinha[j].appendChild(input);
+        // Aplique a máscara ao novo campo de entrada
         if (j == 0) {
-          // Aplique a máscara ao novo campo de entrada
           $(input).mask("000.000.000-00");
         }
         if (j == 1) {
-          // Aplique a máscara ao novo campo de entrada
           $(input).on("input", function () {
             this.value = this.value.replace(/[^a-zA-Z\u00C0-\u00FF\s]/g, "");
           });
         }
         if (j == 2) {
-          // Aplique a máscara ao novo campo de entrada
           $(input).on("input", function () {
             this.value = this.value.replace(/[^a-zA-Z\u00C0-\u00FF\s]/g, "");
           });
