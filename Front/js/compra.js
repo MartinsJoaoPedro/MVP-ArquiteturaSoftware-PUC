@@ -287,6 +287,7 @@ function insertList(cpfCompra, nomeCompra, produtoCompra) {
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
 function insertUmCompra(cpfCompra, nomeCompra, produtoCompra) {
+  console.log(cpfCompra, nomeCompra, produtoCompra);
   console.log("Inserindo compra única");
   var compra = [cpfCompra, nomeCompra, produtoCompra];
   var table = document.getElementById("myTable");
@@ -347,7 +348,7 @@ function buscarCompra() {
   buscar.remove();
 
   for (let k = 0; k < inputID.length; k++) {
-    Compra = inputID[k].value; // Salva o valor do campo aqui         }
+    Compra = inputID[k].value; // Salva o valor do campo aqui
     if (Compra != "") {
       console.log("Consulta de id");
       getCompra("id", Compra);
@@ -503,6 +504,7 @@ function getCompra(ParametroUrl, paramentroCompra) {
   console.log("buscaGet");
   get("5003", "compra", formCompras, ParametroUrl, paramentroCompra);
   function formCompras(compra) {
+    // Código para lidar com uma única compra
     insertUmCompra(compra.cpf, compra.nome, compra.produto);
   }
 }
@@ -513,7 +515,7 @@ function getMaisCompras(ParametroUrl, paramentroCompra) {
   get("5003", "compras", formCompras, ParametroUrl, paramentroCompra);
   function formCompras(compra) {
     let compras = compra.compras;
-    //Lista a ser processada
+    // Código para lidar com compras
     compras.forEach((item) => {
       insertMaisCompra(item.cpf, item.nome, item.produto);
     });

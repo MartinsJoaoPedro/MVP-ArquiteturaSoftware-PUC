@@ -162,10 +162,10 @@ function get(porta, back, formData, ParametroUrl, paramentroCompra) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         //Condição pra entrada vazia
         if (data !== null) {
           console.log("data");
+          console.log(data);
           formData(data);
         } else {
           console.log("Não encontrado");

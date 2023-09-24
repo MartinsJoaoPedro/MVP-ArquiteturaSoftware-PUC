@@ -256,9 +256,10 @@ function insertList(cpf, nome, cep) {
 }
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
-function insertUmCliente(cpf, nome, cep) {
+function insertUmCliente(cpfCliente, nomeCliente, cepCliente) {
+  console.log(cpfCliente, nomeCliente, cepCliente);
   console.log("Inserindo cliente único");
-  var item = [cpf, nome, cep];
+  var cliente = [cpfCliente, nomeCliente, cepCliente];
   var table = document.getElementById("myTable");
   while (table.rows.length > 1) {
     table.deleteRow(1);
@@ -267,9 +268,9 @@ function insertUmCliente(cpf, nome, cep) {
   row.id = `${rowId++}`; // atribui um id à linha e incrementa o contador
 
   // repita onde(inteiro "i" = 0 e menor que o numero de itens, some 1)
-  for (var i = 0; i < item.length; i++) {
+  for (var i = 0; i < cliente.length; i++) {
     var cel = row.insertCell(i);
-    cel.textContent = item[i];
+    cel.textContent = cliente[i];
   }
   inserirBtnRemover(row.insertCell(-1));
   inserirBtnEditar(row.insertCell(-1));
@@ -315,16 +316,19 @@ function buscarCliente() {
   buscar.remove();
 
   for (let k = 0; k < inputCPF.length; k++) {
-    Cliente = inputCPF[k].value;
+    Cliente = inputCPF[k].value; // Salva o valor do campo aqui
     if (Cliente != "") {
+      console.log("Consulta de cpf");
       getCliente("cpf", Cliente);
     } else {
       Cliente = inputNome[k].value;
       if (Cliente != "") {
+        console.log("Consulta de nome");
         getMaisClientes("nome", Cliente);
       } else {
         Cliente = inputCEP[k].value;
         if (Cliente != "") {
+          console.log("Consulta de cep");
           getMaisClientes("cep", Cliente);
         }
       }
@@ -343,9 +347,11 @@ function buscarCompraTodas() {
 //Consulta para cpf
 function getCliente(ParametroUrl, paramentroCliente) {
   console.log("buscaGet");
-  get("5002", "cliente", formClientes, ParametroUrl, paramentroCliente);
-  function formClientes(cliente) {
-    // Código para lidar com clientes
+  get("5002", "cliente", formCliente, ParametroUrl, paramentroCliente);
+  console.log("teste1");
+  function formCliente(cliente) {
+    console.log("teste2");
+    // Código para lidar com um único cliente
     insertUmCliente(cliente.cpf, cliente.nome, cliente.cep);
   }
 }
@@ -356,8 +362,10 @@ function getMaisClientes(ParametroUrl, paramentroCliente) {
   get("5002", "clientes", formClientes, ParametroUrl, paramentroCliente);
   function formClientes(clientes) {
     let cliente = clientes.cliente;
-    //Lista a ser processada
+    // Código para lidar com clientes
+    console.log("teste3");
     cliente.forEach((item) => {
+      console.log("teste4");
       insertMaisCliente(item.cpf, item.nome, item.cep);
     });
   }

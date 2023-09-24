@@ -262,6 +262,7 @@ function insertList(nomeProduto, quantidadeProduto, precoProduto) {
 
 //primeiro remove todas as linhas da tabela (exceto a primeira linha, que geralmente é o cabeçalho da tabela) e então insere uma nova linha
 function insertUmProduto(nomeProduto, quantidadeProduto, precoProduto) {
+  console.log(nomeProduto, quantidadeProduto, precoProduto);
   console.log("Inserindo produto único");
   var produto = [nomeProduto, quantidadeProduto, precoProduto];
   var table = document.getElementById("myTable");
@@ -329,20 +330,24 @@ function buscarProduto() {
   buscar.remove();
 
   for (let k = 0; k < inputID.length; k++) {
-    Produto = inputID[k].value; // Salva o valor do campo aqui         }
+    Produto = inputID[k].value; // Salva o valor do campo aqui
     if (Produto != "") {
+      console.log("Consulta de id");
       getProduto("id", Produto);
     } else {
       Produto = inputNome[k].value;
       if (Produto != "") {
+        console.log("Consulta de nome");
         getMaisProdutos("nome", Produto);
       } else {
         Produto = inputQuantidade[k].value;
         if (Produto != "") {
+          console.log("Consulta de quantidade");
           getMaisProdutos("quantidade", Produto);
         } else {
           Produto = inputPreco[k].value;
           if (Produto != "") {
+            console.log("Consulta de valor");
             //Código para alteração do formato do preço para possibilitar a busca
             precoFormatado = Produto.replace(/\./g, "").replace(/,/g, ".");
             getMaisProdutos("valor", precoFormatado);
@@ -364,7 +369,6 @@ function buscarCompraTodas() {
 
 //Consulta um produto com determinado id
 function getProduto(ParametroUrl, paramentroProduto) {
-  //limparDados();
   console.log("buscaGet");
   get("5001", "produto", formProduto, ParametroUrl, paramentroProduto);
   function formProduto(produto) {
@@ -381,7 +385,7 @@ function getMaisProdutos(ParametroUrl, paramentroProduto) {
 
   function formProduto(produto) {
     let produtos = produto.produtos;
-    //Lista a ser processada
+    // Código para lidar com produtos
     produtos.forEach((item) => {
       insertMaisProduto(item.nome, item.quantidade, item.valor);
     });

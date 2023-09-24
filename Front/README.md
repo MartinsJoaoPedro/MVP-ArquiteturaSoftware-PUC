@@ -18,17 +18,17 @@ O conteiner deve ser criado apartir do software desktop do docker
 
 Essa api faz uso das apis externas:
 
-1. https://docs.sheetjs.com/
-2. https://viacep.com.br/
-3. https://genderize.io/
-4. https://docs.awesomeapi.com.br/
+1. https://viacep.com.br/
+2. https://genderize.io/
+3. https://docs.awesomeapi.com.br/
 
 ## Biblioteca
 
 Essa api faz uso de duas bibliotecas https:
 
-1. https://cdnjs.cloudflare.com/
-2. https://developers.google.com/speed/libraries?hl=pt-br
+1. https://docs.sheetjs.com/
+2. https://cdnjs.cloudflare.com/
+3. https://developers.google.com/speed/libraries?hl=pt-br
 
 ## Roteiro geral
 

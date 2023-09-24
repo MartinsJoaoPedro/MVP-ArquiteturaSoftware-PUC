@@ -22,9 +22,6 @@ home_tag = Tag(
 produto_tag = Tag(
     name="Produto", description="Adição, visualização e remoção de produtos à base"
 )
-cliente_tag = Tag(
-    name="Cliente", description="Adição, visualização e remoção de clientes à base"
-)
 
 
 # Documentação

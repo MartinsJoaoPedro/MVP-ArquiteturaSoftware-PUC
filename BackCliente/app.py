@@ -19,9 +19,6 @@ home_tag = Tag(
     name="Documentação",
     description="Seleção de documentação: Swagger, Redoc ou RapiDoc",
 )
-produto_tag = Tag(
-    name="Produto", description="Adição, visualização e remoção de produtos à base"
-)
 cliente_tag = Tag(
     name="Cliente", description="Adição, visualização e remoção de clientes à base"
 )
@@ -142,7 +139,7 @@ def get_clientes_cpf(query: ClienteSchemaCpf):
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    clientes = session.query(Cliente).filter(Cliente.cpf.contains(cliente_cpf)).all()
+    clientes = session.query(Cliente).filter(Cliente.cpf.contains(cliente_cpf)).first()
 
     if not clientes:
         # se não há clientes cadastrados
