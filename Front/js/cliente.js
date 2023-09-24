@@ -344,28 +344,24 @@ function buscarCompraTodas() {
   buscar.remove();
 }
 
-//Consulta para cpf
+//Consulta única
 function getCliente(ParametroUrl, paramentroCliente) {
   console.log("buscaGet");
   get("5002", "cliente", formCliente, ParametroUrl, paramentroCliente);
-  console.log("teste1");
   function formCliente(cliente) {
-    console.log("teste2");
     // Código para lidar com um único cliente
     insertUmCliente(cliente.cpf, cliente.nome, cliente.cep);
   }
 }
 
-//Consulta para varios
+//Consulta varios clientes
 function getMaisClientes(ParametroUrl, paramentroCliente) {
   console.log("buscaGetMais");
   get("5002", "clientes", formClientes, ParametroUrl, paramentroCliente);
-  function formClientes(clientes) {
-    let cliente = clientes.cliente;
+  function formClientes(cliente) {
+    let clientes = cliente.clientes;
     // Código para lidar com clientes
-    console.log("teste3");
-    cliente.forEach((item) => {
-      console.log("teste4");
+    clientes.forEach((item) => {
       insertMaisCliente(item.cpf, item.nome, item.cep);
     });
   }

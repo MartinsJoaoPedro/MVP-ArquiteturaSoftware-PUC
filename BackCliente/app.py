@@ -123,7 +123,7 @@ def get_clientes_nome(query: ClienteSchemaNome):
         return apresenta_clientes(clientes), 200
 
 
-# Pega todos os clientes pelo cpf
+# Pega um cliente pelo cpf
 @app.get(
     "/clientecpf",
     tags=[cliente_tag],
@@ -139,15 +139,16 @@ def get_clientes_cpf(query: ClienteSchemaCpf):
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    clientes = session.query(Cliente).filter(Cliente.cpf.contains(cliente_cpf)).first()
+    cliente = session.query(Cliente).filter(Cliente.cpf.contains(cliente_cpf)).first()
 
-    if not clientes:
+    if not cliente:
         # se não há clientes cadastrados
         return {"clientes": []}, 200
     else:
-        logger.debug(f"%d clientes encontrados" % len(clientes))
+        logger.debug(f"Cliente encontrado: {cliente.cpf}")
+
         # retorna a representação de cliente
-        return apresenta_clientes(clientes), 200
+        return apresenta_cliente(cliente), 200
 
 
 # Pega todos os clientes pelo cep

@@ -499,7 +499,7 @@ function getName(cpf) {
   });
 }
 
-//Consulta para id
+//Consulta única
 function getCompra(ParametroUrl, paramentroCompra) {
   console.log("buscaGet");
   get("5003", "compra", formCompras, ParametroUrl, paramentroCompra);

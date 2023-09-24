@@ -86,7 +86,7 @@ function editar() {
       //Libera a edição
       edicao = true;
       // Esconde o botão de edição
-      celulasBtnEditar[i].style.display = "none"; 
+      celulasBtnEditar[i].style.display = "none";
 
       let linha = this.parentNode.parentElement; // Seleciona a linha que contém a célula clicada
       let idLinha = linha.id;
@@ -367,7 +367,7 @@ function buscarCompraTodas() {
   buscar.remove();
 }
 
-//Consulta um produto com determinado id
+//Consulta única
 function getProduto(ParametroUrl, paramentroProduto) {
   console.log("buscaGet");
   get("5001", "produto", formProduto, ParametroUrl, paramentroProduto);
@@ -378,11 +378,10 @@ function getProduto(ParametroUrl, paramentroProduto) {
   }
 }
 
-//Consulta varios produtos
+//Consulta para varios
 function getMaisProdutos(ParametroUrl, paramentroProduto) {
-  console.log("buscaGet");
+  console.log("buscaGetMais");
   get("5001", "produtos", formProduto, ParametroUrl, paramentroProduto);
-
   function formProduto(produto) {
     let produtos = produto.produtos;
     // Código para lidar com produtos
