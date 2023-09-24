@@ -1,3 +1,4 @@
+//Script do código da api para exportação da tabela
 //Possibilita a exportação da tabela
 document.getElementById("sheetjsexport").addEventListener('click', function () {
     /* Create worksheet from HTML DOM TABLE */

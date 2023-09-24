@@ -1,3 +1,4 @@
+//Script do código de requisição rest
 //Função com tratamento TyperError
 function TratamentoTypeError() {
   console.log(

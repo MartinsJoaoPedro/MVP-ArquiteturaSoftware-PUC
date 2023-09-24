@@ -1,3 +1,4 @@
+//Script do código da api para exibição dos detalhes de um cep
 function setCep(celula) {
   if (edicao == false) {
     var cep = celula.innerHTML;

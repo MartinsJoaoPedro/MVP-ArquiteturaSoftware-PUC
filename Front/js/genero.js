@@ -1,3 +1,4 @@
+//Script do código da api para exibição do genero baseado no nome de um cliente
 function setNome(celula) {
   if (edicao == false) {
     var nome = celula.innerHTML;

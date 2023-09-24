@@ -1,3 +1,4 @@
+//Script do código da api para exibição do valor em dolar
 function setPreco(celula) {
     if (edicao == false) {
       var valor = celula.innerHTML;
