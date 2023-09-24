@@ -60,8 +60,8 @@ function limparDados() {
 //Função para obter a lista existente do servidor via requisição GET
 function getListProduto() {
   limparDados();
-  getList("5001", "produtos", handleProdutos);
-  function handleProdutos(produtos) {
+  getList("5001", "produtos", formProdutos);
+  function formProdutos(produtos) {
     produtos.forEach((produto) =>
       insertList(produto.nome, produto.quantidade, produto.valor),
     );

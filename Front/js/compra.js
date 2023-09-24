@@ -88,8 +88,8 @@ function limparDados() {
 //Função para obter a lista existente do servidor via requisição GET
 function getListCompra() {
   limparDados();
-  getList("5003", "compras", handleCompras);
-  function handleCompras(compras) {
+  getList("5003", "compras", formCompras);
+  function formCompras(compras) {
     compras.forEach((compra) => {
       insertList(compra.cpf, compra.nome, compra.produto);
       pegaListaId(compra.id);

@@ -60,8 +60,8 @@ function limparDados() {
 //Função para obter a lista existente do servidor via requisição GET
 function getListCliente() {
   limparDados();
-  getList("5002", "clientes", handleClientes);
-  function handleClientes(clientes) {
+  getList("5002", "clientes", formClientes);
+  function formClientes(clientes) {
     clientes.forEach((item) => insertList(item.cpf, item.nome, item.cep));
     clientes.forEach((item) => pegaListaId(item.cpf));
   }
