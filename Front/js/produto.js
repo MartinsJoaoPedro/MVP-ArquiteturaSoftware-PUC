@@ -124,7 +124,7 @@ function editar() {
             .replace(/\./g, "");
           console.log(precoFormatado);
           input.value = precoFormatado;
-          // Aplique a máscara ao novo campo de entrada
+          //Aplique a máscara ao novo campo de entrada
           $(input).maskMoney({
             prefix: "R$ ",
             allowNegative: true,
@@ -135,56 +135,59 @@ function editar() {
         }
       }
 
-      // Adiciona um botão de salvar à linha
+      //Adiciona um botão de salvar à linha
       let celulaEditar = this.parentNode;
-      let salvar = document.createElement("span");
-      salvar.innerHTML = "Salvar";
-      salvar.classList.add("addBtn");
-      celulaEditar.appendChild(salvar);
+      inserirBtnSalvar(celulaEditar);
 
-      // Adiciona um evento de clique ao botão de salvar
-      salvar.onclick = function () {
-        //Impede a edição
-        edicao = false;
-        // Obtém os valores dos inputs e salva os campos
-        let inputs = linha.getElementsByTagName("input");
+      //Adiciona um evento de clique ao botão de salvar/*
+      let salvar = document.getElementsByClassName("salvar");
+      //Iterar sobre conjunto
+      for (let i = 0; i < salvar.length; i++) {
+        console.log(salvar[i]);
+        salvar[i].onclick = function () {
+          console.log("func");
+          //Impede a edição
+          edicao = false;
+          //Obtém os valores dos inputs e salva os campos
+          let inputs = linha.getElementsByTagName("input");
 
-        idLinha--;
+          idLinha--;
 
-        // Remove o botão de salvar
-        salvar.remove();
+          //Remove o botão de salvar
+          salvar[i].remove();
 
-        // Mostra o botão de edição novamente
-        for (let i = 0; i < celulasBtnEditar.length; i++) {
-          celulasBtnEditar[i].style.display = "";
-        }
+          //Mostra o botão de edição novamente
+          for (let i = 0; i < celulasBtnEditar.length; i++) {
+            celulasBtnEditar[i].style.display = "";
+          }
 
-        // Transforma os elementos de input de volta em text
-        let nome = inputs[0].value;
-        let quantidade = inputs[1].value;
-        let preco = inputs[2].value;
+          //Transforma os elementos de input de volta em text
+          let nome = inputs[0].value;
+          let quantidade = inputs[1].value;
+          let preco = inputs[2].value;
 
-        //Código para permitir a edição do preço
-        let precoFormatado = preco.replace(/\./g, "").replace(",", ".");
-        precoFormatado = precoFormatado.replace("R$ ", "");
-        precoFormatado = parseFloat(precoFormatado);
-        precoFormatado = precoFormatado.toLocaleString("pt-BR", {
-          minimumFractionDigits: 2,
-        });
-        // Verifica se a string já contém "R$"
-        if (!precoFormatado.includes("R$")) {
-          precoFormatado = "R$ " + precoFormatado;
-        }
+          //Código para permitir a edição do preço
+          let precoFormatado = preco.replace(/\./g, "").replace(",", ".");
+          precoFormatado = precoFormatado.replace("R$ ", "");
+          precoFormatado = parseFloat(precoFormatado);
+          precoFormatado = precoFormatado.toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+          });
+          // Verifica se a string já contém "R$"
+          if (!precoFormatado.includes("R$")) {
+            precoFormatado = "R$ " + precoFormatado;
+          }
 
-        celulasDaLinha[0].innerHTML = nome;
-        celulasDaLinha[1].innerHTML = quantidade;
-        celulasDaLinha[2].innerHTML = precoFormatado;
-        //Pega o id referente a coluna clicada
-        idLinhaUpdate = idLinha - 1;
-        let id = ids[idLinhaUpdate];
+          celulasDaLinha[0].innerHTML = nome;
+          celulasDaLinha[1].innerHTML = quantidade;
+          celulasDaLinha[2].innerHTML = precoFormatado;
+          //Pega o id referente a coluna clicada
+          idLinhaUpdate = idLinha - 1;
+          let id = ids[idLinhaUpdate];
 
-        updateProduto(id, nome, quantidade, preco);
-      };
+          updateProduto(id, nome, quantidade, preco);
+        };
+      }
     };
   }
 }

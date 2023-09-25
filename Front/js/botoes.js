@@ -44,7 +44,6 @@ function index() {
   window.location.href = "../html/index.html";
 }
 
-
 //Função para colocar o botão de remover
 function inserirBtnRemover(back) {
   console.log("botão de remoção");
@@ -67,6 +66,21 @@ function inserirBtnEditar(back) {
   span.className = "edit";
   //“PENCIL” está no span
   span.appendChild(txt);
+  //span está no paramentro parent
+  back.appendChild(span);
+}
+
+//Função para colocar o botão de salvar
+function inserirBtnSalvar(back) {
+  console.log("botão de salvar");
+  let span = document.createElement("span");
+  //“PENCIL” emoji
+  let txt = document.createTextNode("\u270F");
+  span.className = "addBtn";
+  span.classList.add("salvar");
+  span.innerHTML = "Salvar";
+  //“PENCIL” está no span
+  //span.appendChild(txt);
   //span está no paramentro parent
   back.appendChild(span);
 }
