@@ -247,9 +247,12 @@ async function newItem() {
     alert("Escreva o cpf da compra!");
   } else {
     try {
-      let nomeComprador = await getName(cpf);
       console.log("NEWITEM");
+      let nomeComprador = await getName(cpf);
+      //console.log(nomeComprador);
+      console.log("NEWITEM2");
       console.log(nomeComprador);
+      console.log("NEWITEM3");
       insertList(cpf, nomeComprador, produto);
       postCompra(cpf, nomeComprador, produto);
       alert("Compra adicionada!");
@@ -469,6 +472,7 @@ function getName(cpf) {
   console.log("getName");
   limparDados();
   let url = "http://127.0.0.1:5002/clientecpf?cpf=" + cpf;
+  //erro
   console.log("get");
   console.log(url);
   return new Promise((resolve, reject) => {
@@ -479,7 +483,7 @@ function getName(cpf) {
         .then((response) => response.json())
         .then((data) => {
           if (data.clientes !== null) {
-            data.clientes.forEach((item) => resolve(item.nome));
+            resolve(data.nome);
           } else {
             reject("Nome não encontrado");
           }

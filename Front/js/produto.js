@@ -376,7 +376,6 @@ function getProduto(ParametroUrl, paramentroProduto) {
   get("5001", "produto", formProduto, ParametroUrl, paramentroProduto);
   function formProduto(produto) {
     // Código para lidar com um único produto
-    console.log(produto.nome);
     insertUmProduto(produto.nome, produto.quantidade, produto.valor);
   }
 }
