@@ -16,14 +16,15 @@ function getGender(nome) {
     .then((response) => response.json())
     .then((data) => {
       const resultadosDiv = document.getElementById("resultados");
-      for (const [key, value] of Object.entries(data)) {
+      if (data.gender) {
         const dataDiv = document.createElement("div");
         const keySpan = document.createElement("span");
-        keySpan.textContent = `${key}: `;
+        keySpan.textContent = "Gênero: ";
         keySpan.style.fontWeight = "bold";
         dataDiv.appendChild(keySpan);
         const valueSpan = document.createElement("span");
-        valueSpan.textContent = value;
+        // Substitui 'female' por 'Mulher' e 'male' por 'Homem'
+        valueSpan.textContent = data.gender === 'female' ? 'Mulher' : data.gender === 'male' ? 'Homem' : data.gender;
         dataDiv.appendChild(valueSpan);
         resultadosDiv.appendChild(dataDiv);
       }
@@ -32,6 +33,7 @@ function getGender(nome) {
       modal.style.display = "block";
     });
 }
+
 
 // Obtém o elemento que fecha o modal
 var span = document.getElementById("close");
